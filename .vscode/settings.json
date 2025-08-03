@@ -1,0 +1,27 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.enable": true,
+  "eslint.validate": ["typescript", "javascript", "tsx", "jsx"],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/bun.lockb": true
+  },
+  "files.autoSave": "onFocusChange",
+  "git.autofetch": true,
+  "vitest.enable": true,
+  "playwright.configFile": "playwright.config.ts",
+  "keploy.autoRecord": true,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.editor.tabSizing": "fixed",
+  "workbench.editor.closeOnFileDelete": true,
+  "window.density.editorTabHeight": "compact",
+  "workbench.sideBar.location": "left",
+  "workbench.startupEditor": "none",
+  "githubPullRequests.codingAgent.uiIntegration": true
+}
