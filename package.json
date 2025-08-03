@@ -1,0 +1,11 @@
+{
+  "name": "deepwebai",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "libs/*",
+    "apps/*"
+  ],
+  "devDependencies": {},
+  "dependencies": {}
+}
