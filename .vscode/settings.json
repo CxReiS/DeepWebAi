@@ -11,10 +11,10 @@
   },
   "files.autoSave": "onFocusChange",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "vetur.useWorkspaceDependencies": true,
-  "markdown.preview.autorefresh": true,
-  "previewMarkdown.include": ["**/*.md", "**/*.mdx"],
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.iconTheme": "vscode-icons",
+  "vitest.enable": true,
+  "playwright.configFile": "playwright.config.ts",
+  "keploy.autoRecord": true,
   "window.zoomLevel": 0
 }

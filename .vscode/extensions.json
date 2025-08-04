@@ -6,6 +6,10 @@
     "ms-azuretools.vscode-docker",
     "GitHub.vscode-pull-request-github",
     "xabikos.ReactSnippets",
-    "vscode-icons-team.vscode-icons"
+    "vscode-icons-team.vscode-icons",
+    "ms-playwright.playwright",
+    "vitest.explorer",
+    "keploy.keploy",
+    "github.copilot"
   ]
 }
