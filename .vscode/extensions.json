@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bierner.markdown-preview",
+    "ms-azuretools.vscode-docker",
+    "GitHub.vscode-pull-request-github",
+    "xabikos.ReactSnippets",
+    "vscode-icons-team.vscode-icons"
+  ]
+}

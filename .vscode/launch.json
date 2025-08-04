@@ -2,10 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
-      "name": "Bun Backend Debug",
-      "program": "${workspaceFolder}/packages/bun-backend/src/server.ts"
+      "name": "Debug Backend",
+      "program": "${workspaceFolder}/packages/bun-backend/src/server.ts",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run"],
+      "envFile": "${workspaceFolder}/.env"
     },
     {
       "type": "pwa-chrome",
