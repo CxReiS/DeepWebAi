@@ -1,0 +1,19 @@
+{
+  "models": [
+    {
+      "title": "DeepSeek Coder v2 (16B)",
+      "provider": "ollama",
+      "model": "deepseek-coder-v2:16b"
+    },
+    {
+      "title": "DeepSeek Coder 6.7B",
+      "provider": "ollama",
+      "model": "deepseek-coder:6.7b"
+    }
+  ],
+  "provider": {
+    "ollama": {
+      "baseUrl": "http://localhost:11434"
+    }
+  }
+}
