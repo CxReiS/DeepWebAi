@@ -154,7 +154,7 @@
 │ │ ├── ⚖️ load-balancer.ts → API key rotasyonu ve yük dağıtım mantığı
 │ │ └── 📈self-improvement.ts → Modelin kendini geliştirme mekanizması
 │ │ │
-│ └── ⚙️ bun-backend/ → Bun + Elysia 1.3.2
+│ └── ⚙️ backend/ → pnpm + Elysia 1.3.2
 │ │ ├── 🛢️ database/ → Neon DB bağlantısı ve sorgular
 │ │ │ ├── 📁 operations/ → SQL sorguları
 │ │ │ │ ├── 🤖ai.queries.ts  
@@ -413,7 +413,7 @@
 │ │ └── 🤖ai-core/
 │ │ │ └── 😊 huggingface-wrapper.test.ts
 │ │ │
-│ │ └── ⚙️ bun-backend/ → Backend Testleri
+│ │ └── ⚙️ backend/ → Backend Testleri
 │ │ │ ├── 🔐 ai.test.ts
 │ │ │ └── 🗃️ auth.test.ts
 │ │ │
@@ -432,7 +432,7 @@
 │ │ │ └── hooks.test.tsx
 │ │ │
 │ ├── ⚡ performance/ → Yeni: Yük testleri
-│ │ ├── ⚡ bun-bench/
+│ │ ├── ⚡ backend-bench/
 │ │ └── 🐜 locust/ → Python tabanlı yük testleri
 │ │ │
 │ └── 🛡️ security/ → Güvenlik testleri. OWASP ZAP taramaları, SAST
@@ -449,7 +449,6 @@
 │
 ├── ⚙️ .env → Ortam değişkenleri
 ├── 🙈 .gitignore → Git ignore ayarları
-├── 📄 bunfig.toml → Bun global konfigürasyonu
 ├── 🛠️ Makefile
 ├── 🏗️ nx.json → Nx build sistemi (opsiyonel)
 ├── 📦 package.json → WORKSPACE TANIMLARI
@@ -457,3 +456,43 @@
 ├── 📜 README.md → Kurulum, tanıtım, özellikler. Proje dokümantasyonu.
 ├── 🚨 sentry.config.ts → Hata izleme konfigürasyonu
 └── 🔄 turbo.json → TURBOREPO KONFİGÜRASYONU (Build pipeline)
+
+# "name": "deepweb-ai-production-stack",
+
+# "dependencies": {
+
+# "react": "19.1.1",
+
+# "react-dom": "19.1.1",
+
+# "@ark-ui/react": "3.0.4",
+
+# "jotai": "4.2.0",
+
+# "elysia": "2.3.0",
+
+# "@neondatabase/serverless": "1.0.1",
+
+# "lucia-auth": "3.2.2",
+
+# "ably": "2.11.0"
+
+# },
+
+# "devDependencies": {
+
+# "vite": "7.1.0",
+
+# "bun": "",
+
+# "typescript": "5.5.2"
+
+# },
+
+# "scripts": {
+
+# "start": "bun run --hot packages/backend & vite dev packages/#frontend --port 3000",
+
+# "test": "bun test --coverage",
+
+# "build": "turbo run build"

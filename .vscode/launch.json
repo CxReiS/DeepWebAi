@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Backend",
-      "program": "${workspaceFolder}/packages/bun-backend/src/server.ts",
+      "program": "${workspaceFolder}/packages/backend/src/server.ts",
       "runtimeExecutable": "bun",
       "runtimeArgs": ["run"],
       "envFile": "${workspaceFolder}/.env"
