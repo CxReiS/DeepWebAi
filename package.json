@@ -1,16 +1,19 @@
 {
   "name": "modernite-monorepo",
   "private": true,
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.14.0",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "dotenv -- turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
     "start": "turbo run start"
   },
   "devDependencies": {
+    "dotenv-cli": "^10.0.0",
     "turbo": "2.2.1"
   }
 }

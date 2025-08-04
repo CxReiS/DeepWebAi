@@ -1,14 +1,18 @@
-// server.ts
 import { Elysia } from "elysia";
 import cors from "@elysiajs/cors";
-import { createAuth } from "@elysiajs/lucia-auth";
-import { sql } from "./db/neon-client";
+import { createServer } from "http";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const port = process.env.PORT || 3000;
 
 const app = new Elysia()
   .use(cors())
-  .use(createAuth({ 
-    adapter: new LuciaAdapter(sql), 
-    secret: process.env.LUCIA_SECRET!
-  }))
-  .get("/", () => "Hello from Bun + Elysia (benzetildi 2025)")
-  .listen(3000);
+  .get("/", () => "DeepWebAi Backend hazır (Neon + Elysia + CORS)");
+
+// The error "WebStandard does not support listen" suggests Elysia is not detecting the Node.js environment correctly.
+// Using Node's native http server with Elysia's fetch handler is a reliable alternative.
+createServer(app.fetch as any).listen(port, () =>
+  console.log(`Backend başlatıldı: http://localhost:${port}/`)
+);

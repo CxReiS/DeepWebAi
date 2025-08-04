@@ -1,11 +1,22 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "globalEnv": ["DATABASE_URL"],
+  "globalDependencies": [".env"],
+  "envMode": "strict",
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "node_modules/.prisma/client/**"]
     },
     "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": ["DATABASE_URL"]
+    },
+    "test": {
+      "outputs": []
+    },
+    "start": {
       "cache": false
     }
   }

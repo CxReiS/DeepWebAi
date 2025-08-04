@@ -22,8 +22,7 @@
 │ │ └── 👥users_seed.sql → Kullanıcı örnek verileri
 │ ├── 🔮orm/ → ORM katmanı (SQLAlchemy) - DB session yönetimi
 │ │ └── 💽session.ts → Veritabanı oturum yönetimi
-│ ├── 🏗️init.sql → İlk tablo oluşturma scriptleri
-│ └── 🐘neon-clients.ts → Neon DB bağlantı yardımcısı
+│ └── 🏗️init.sql → İlk tablo oluşturma scriptleri
 │ │
 ├── 🚀deployment/ → Dağıtım & DevOps Ayarları
 │ ├── 🌍environments/ → Ortam değişkenleri
@@ -76,7 +75,6 @@
 │ │
 ├── 📚 libs → Paylaşılan kütüphaneler
 │ └── 📁error-tracking/ → Merkezi hata kütüphanesi (Sentry entegrasyonu, özel logger)
-│ ├── ⚡ neon-client.ts → Neon DB yardımcısı
 │ ├── 🚨 sentry-integration.ts → Sentry entegrasyonu
 │ └── 📝 custom-logger.ts → Özelleştirilmiş logger
 │
