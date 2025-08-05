@@ -1,0 +1,79 @@
+/* Light theme CSS variables */
+:root {
+  /* Core colors */
+  --background: 0 0% 100%;
+  --foreground: 222 84% 5%;
+  
+  /* Card colors */
+  --card: 0 0% 100%;
+  --card-foreground: 222 84% 5%;
+  
+  /* Popover colors */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 84% 5%;
+  
+  /* Primary colors */
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+  
+  /* Secondary colors */
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 84% 5%;
+  
+  /* Muted colors */
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  
+  /* Accent colors */
+  --accent: 210 40% 96%;
+  --accent-foreground: 222 84% 5%;
+  
+  /* Destructive colors */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  
+  /* Border and input */
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 221 83% 53%;
+  
+  /* Custom colors for DeepWebAI */
+  --sidebar-bg: 0 0% 98%;
+  --sidebar-border: 214 32% 88%;
+  --chat-bg: 0 0% 100%;
+  --message-bg: 210 40% 96%;
+  --code-bg: 220 13% 96%;
+  --accent-orange: 20 91% 58%;
+}
+
+/* Light theme specific adjustments */
+:root {
+  color-scheme: light;
+}
+
+/* Enhanced shadows for light theme */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Light theme borders */
+.border-border {
+  border-color: hsl(var(--border));
+}
+
+/* Light theme focus rings */
+.ring-ring {
+  --tw-ring-color: hsl(var(--ring));
+}

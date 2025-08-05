@@ -14,6 +14,21 @@ CREATE TABLE IF NOT EXISTS conversations (
     is_archived BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+
+      -- Metadata
+    total_tokens INTEGER DEFAULT 0,
+    total_cost DECIMAL(10,4) DEFAULT 0, -- maliyet takibi
+    is_archived BOOLEAN DEFAULT FALSE,
+    is_starred BOOLEAN DEFAULT FALSE,
+
+      -- Settings
+    temperature DECIMAL(2,1) DEFAULT 0.7,
+    max_tokens INTEGER DEFAULT 2000,
+    system_prompt TEXT,
+  
+      -- Indexler
+    INDEX idx_user_created (user_id, created_at DESC),
+    INDEX idx_user_starred (user_id, is_starred, created_at DESC)
 );
 
 -- Messages table
@@ -23,8 +38,24 @@ CREATE TABLE IF NOT EXISTS messages (
     role VARCHAR(20) NOT NULL CHECK (role IN ('user', 'assistant', 'system')),
     content TEXT NOT NULL,
     metadata JSONB DEFAULT '{}',
-    token_count INTEGER,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+
+    -- Token bilgileri
+    token_count INTEGER,
+  
+    -- Metadata
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    edited_at TIMESTAMPTZ,
+    is_deleted BOOLEAN DEFAULT FALSE,
+  
+    -- Attachments (file, image vb.)
+    attachments JSONB DEFAULT '[]'::JSONB,
+  
+    -- Function calling için
+    function_name TEXT,
+    function_args JSONB,
+  
+    INDEX idx_conversation_created (conversation_id, created_at)
 );
 
 -- Create indexes
@@ -55,3 +86,14 @@ SELECT
 FROM conversations c
 LEFT JOIN messages m ON c.id = m.conversation_id
 GROUP BY c.id, c.title, c.user_id, c.created_at;
+
+-- Shared conversations (paylaşılan sohbetler)
+CREATE TABLE shared_conversations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID REFERENCES conversations(id) ON DELETE CASCADE,
+    share_token VARCHAR(32) UNIQUE NOT NULL,
+    created_by UUID REFERENCES users(id),
+    expires_at TIMESTAMPTZ,
+    view_count INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);

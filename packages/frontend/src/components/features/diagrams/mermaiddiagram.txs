@@ -1,0 +1,18 @@
+import { useEffect, useRef } from "react";
+import mermaid from "mermaid";
+
+export function MermaidDiagram({ content }: { content: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      mermaid.init(undefined, ref.current);
+    }
+  }, [content]);
+
+  return (
+    <div ref={ref} className="mermaid">
+      {content}
+    </div>
+  );
+}
