@@ -10,13 +10,15 @@
 ## ✨ Features
 
 ### 🤖 **Multi-Provider AI Integration**
+
 - **OpenAI GPT-4**: Advanced reasoning and analysis
-- **Anthropic Claude**: Excellent for writing and summarization  
+- **Anthropic Claude**: Excellent for writing and summarization
 - **Google Gemini**: Fast responses and creative tasks
 - **DeepSeek**: Cost-effective alternative
 - **Intelligent Routing**: Automatic provider fallback and load balancing
 
 ### 📄 **Advanced Document Processing**
+
 - **OCR Technology**: Extract text from images and scanned PDFs
 - **Multi-format Support**: PDF, DOC, DOCX, images, spreadsheets
 - **Text Cleaning**: Remove formatting and normalize content
@@ -24,6 +26,7 @@
 - **Real-time Processing**: Monitor progress with live updates
 
 ### 🔐 **Enterprise-Grade Security**
+
 - **Multi-Factor Authentication**: TOTP, SMS, backup codes
 - **OAuth Integration**: GitHub, Discord, Google sign-in
 - **Session Management**: Secure session handling with Lucia Auth
@@ -31,24 +34,28 @@
 - **Security Headers**: CSRF, XSS, and injection protection
 
 ### 🚀 **Real-time Collaboration**
+
 - **WebSocket Chat**: Instant messaging and notifications
 - **Live Document Sharing**: Collaborate on analysis in real-time
 - **Ably Integration**: Scalable real-time infrastructure
 - **Presence Indicators**: See who's online and active
 
 ### 🎛️ **Feature Flag Management**
+
 - **Dynamic Control**: Enable/disable features without deployment
 - **A/B Testing**: Test new features with specific user groups
 - **User Targeting**: Customize experience based on user attributes
 - **Analytics Integration**: Track feature usage and performance
 
 ### 📊 **Analytics & Monitoring**
+
 - **Usage Tracking**: Monitor API calls, file processing, chat interactions
 - **Performance Metrics**: Response times, error rates, system health
 - **Sentry Integration**: Error tracking and performance monitoring
 - **Custom Dashboards**: View analytics and insights
 
 ### 🔄 **High-Performance Caching**
+
 - **Redis Integration**: Fast data access and session storage
 - **Multi-level Caching**: Memory and distributed caching strategies
 - **Cache Warming**: Preload frequently accessed data
@@ -74,7 +81,8 @@ packages/
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Node.js** 18+ 
+
+- **Node.js** 18+
 - **pnpm** 8+
 - **PostgreSQL** 14+ (or Neon serverless)
 - **Redis** 6+ (optional, for caching)
@@ -111,18 +119,21 @@ pnpm dev
 ## 📖 Documentation
 
 ### For Users
+
 - **[Getting Started Guide](./docs/user-guide/getting-started.md)** - Complete user onboarding
 - **[Authentication Setup](./docs/user-guide/authentication.md)** - MFA and OAuth setup
 - **[File Processing Guide](./docs/user-guide/file-processing.md)** - Document upload and analysis
 - **[AI Chat Features](./docs/user-guide/ai-chat.md)** - Using AI assistants effectively
 
-### For Administrators  
+### For Administrators
+
 - **[Installation Guide](./docs/admin-guide/installation.md)** - Complete deployment setup
 - **[Configuration Management](./docs/admin-guide/configuration.md)** - Environment and security setup
 - **[Feature Flag Management](./docs/admin-guide/feature-flags.md)** - Managing user experiences
 - **[Monitoring & Analytics](./docs/admin-guide/monitoring.md)** - System health and usage
 
 ### For Developers
+
 - **[Development Setup](./docs/developer_guide/environment_setup.md)** - Local development environment
 - **[API Documentation](./docs/api/)** - Complete API reference
 - **[Contributing Guide](./docs/CONTRIBUTING.md)** - How to contribute to the project
@@ -144,7 +155,7 @@ pnpm build:frontend   # Frontend only
 
 # Testing
 pnpm test             # Run all tests
-pnpm test:unit        # Unit tests only  
+pnpm test:unit        # Unit tests only
 pnpm test:integration # Integration tests
 pnpm test:e2e         # End-to-end tests
 
@@ -172,7 +183,7 @@ node tests/e2e/e2e-test-runner.mjs
 
 # Specific test types
 pnpm test:auth        # Authentication flow tests
-pnpm test:files       # File processing tests  
+pnpm test:files       # File processing tests
 pnpm test:ai          # AI gateway tests
 pnpm test:realtime    # Real-time feature tests
 ```
@@ -191,7 +202,7 @@ LUCIA_SECRET="your-lucia-secret-256-bit"
 
 # AI Providers (at least one required)
 OPENAI_API_KEY="sk-..."
-ANTHROPIC_API_KEY="sk-ant-..."  
+ANTHROPIC_API_KEY="sk-ant-..."
 GEMINI_API_KEY="..."
 DEEPSEEK_API_KEY="..."
 
@@ -213,7 +224,7 @@ SENTRY_DSN="https://..."
 CORS_ORIGIN="https://yourdomain.com"
 CORS_CREDENTIALS=true
 
-# Rate Limiting  
+# Rate Limiting
 RATE_LIMIT_WINDOW_MS=900000      # 15 minutes
 RATE_LIMIT_MAX_REQUESTS=100       # per window
 
@@ -260,7 +271,7 @@ cd packages/frontend && pnpm preview
 # Database backup (Windows)
 .\scripts\backup\database-backup.ps1
 
-# Database backup (Unix/Linux)  
+# Database backup (Unix/Linux)
 ./scripts/backup/database-backup.sh
 
 # Restore from backup
@@ -268,6 +279,7 @@ cd packages/frontend && pnpm preview
 ```
 
 ### Backup Features
+
 - **Automated scheduling** with retention policies
 - **Compression** and integrity verification
 - **Cloud upload** to S3/compatible storage
@@ -294,23 +306,27 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - **[Elysia.js](https://elysiajs.com/)** - High-performance TypeScript web framework
 - **[Lucia Auth](https://lucia-auth.com/)** - Secure authentication library
 - **[Neon](https://neon.tech/)** - Serverless PostgreSQL
 - **[Redis](https://redis.io/)** - In-memory caching and sessions
 
-### Frontend  
+### Frontend
+
 - **[React 18](https://react.dev/)** - Modern React with hooks
 - **[Vite](https://vitejs.dev/)** - Fast build tool and dev server
 - **[Jotai](https://jotai.org/)** - Primitive and flexible state management
 - **[TailwindCSS](https://tailwindcss.com/)** - Utility-first CSS framework
 
 ### AI & Processing
+
 - **Multiple AI Providers** - OpenAI, Anthropic, Google, DeepSeek
 - **[Tesseract.js](https://tesseract.projectnaptha.com/)** - OCR processing
 - **[pdf-parse](https://www.npmjs.com/package/pdf-parse)** - PDF text extraction
 
 ### Infrastructure
+
 - **[Turbo](https://turbo.build/)** - Monorepo build system
 - **[pnpm](https://pnpm.io/)** - Fast, disk space efficient package manager
 - **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
@@ -318,7 +334,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 
 ## 🆘 Support
 
-- **📧 Email**: support@deepwebai.com
+- **📧 Email**: support@deepweb.ai
 - **💬 Discord**: [Join our community](https://discord.gg/deepwebai)
 - **🐛 Issues**: [GitHub Issues](https://github.com/CxReiS/DeepWebAi/issues)
 - **📚 Docs**: [Documentation Site](https://docs.deepwebai.com)
