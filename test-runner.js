@@ -3,9 +3,9 @@
 // Cross-platform test runner for Windows/Unix
 // This replaces the shell script for Windows compatibility
 
-const { spawn, exec } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+import { spawn, exec } from 'child_process';
+import path from 'path';
+import fs from 'fs';
 
 // Colors for console output
 const colors = {
