@@ -122,6 +122,26 @@ class FeatureFlagService {
     return this.isFeatureEnabled(FEATURE_FLAGS.REALTIME_COLLABORATION, userId, userAttributes);
   }
 
+  // Specific method for DeepWebAI flag
+  async isDeepWebAIFlagEnabled(userId: string, userAttributes?: any): Promise<boolean> {
+    try {
+      const isEnabled = await this.isFeatureEnabled('DeepWebAi-Flag', userId, userAttributes);
+      
+      if (isEnabled) {
+        // Track usage of the flag
+        await this.trackFeatureEvent('deepwebai-flag-accessed', userId, {
+          timestamp: new Date().toISOString(),
+          userAttributes: userAttributes || {}
+        });
+      }
+      
+      return isEnabled;
+    } catch (error) {
+      console.error('Error checking DeepWebAI flag:', error);
+      return false; // Default to disabled on error
+    }
+  }
+
   async destroy(): Promise<void> {
     if (this.manager) {
       await this.manager.destroy();

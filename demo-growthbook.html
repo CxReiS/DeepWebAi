@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepWebAI Flag Demo</title>
+    <script src="https://unpkg.com/@growthbook/growthbook@1.6.0/dist/bundles/index.web.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .flag-status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .flag-enabled {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .flag-disabled {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .premium-features {
+            background-color: #e7f3ff;
+            border: 1px solid #b8daff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .feature-enabled {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .log {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 DeepWebAI Feature Flag Demo</h1>
+        <p>Bu demo GrowthBook'taki <strong>"DeepWebAi-Flag"</strong> feature flag'ini gerçek zamanlı olarak test eder.</p>
+        
+        <div id="flagStatus" class="flag-status">
+            🔄 Loading flag status...
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🤖 Advanced AI Models</h3>
+                <p id="aiModels">Checking...</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Premium Analytics</h3>
+                <p id="analytics">Checking...</p>
+            </div>
+            <div class="feature-card">
+                <h3>🚀 Real-time Collaboration</h3>
+                <p id="collaboration">Checking...</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎨 Custom Branding</h3>
+                <p id="branding">Checking...</p>
+            </div>
+        </div>
+
+        <div id="premiumFeatures" style="display: none;" class="premium-features">
+            <h2>🎉 Premium Features Available!</h2>
+            <p>DeepWebAI Flag is enabled! You have access to:</p>
+            <ul>
+                <li>🤖 GPT-4, Claude-3 Opus, Gemini Ultra models</li>
+                <li>📊 Advanced analytics and reporting</li>
+                <li>🚀 Real-time collaboration tools</li>
+                <li>🎨 Custom branding options</li>
+                <li>⚡ Priority support</li>
+            </ul>
+            
+            <button onclick="simulatePremiumChat()">🤖 Test Premium AI Chat</button>
+            <button onclick="loadPremiumAnalytics()">📊 Load Premium Analytics</button>
+            <button onclick="accessCollaboration()">🚀 Access Collaboration</button>
+        </div>
+
+        <div id="standardFeatures" style="display: none;">
+            <h2>📱 Standard Features</h2>
+            <p>DeepWebAI Flag is disabled. Available features:</p>
+            <ul>
+                <li>💬 Basic AI chat</li>
+                <li>📄 File upload and processing</li>
+                <li>📈 Basic analytics</li>
+            </ul>
+            
+            <button onclick="simulateBasicChat()">💬 Basic AI Chat</button>
+            <button onclick="basicFileUpload()">📄 File Upload</button>
+        </div>
+
+        <h3>🔧 Test Controls</h3>
+        <button onclick="refreshFlag()">🔄 Refresh Flag Status</button>
+        <button onclick="simulateUserChange()">👤 Change User Type</button>
+        <button onclick="clearLog()">🗑️ Clear Log</button>
+
+        <h3>📝 Real-time Log</h3>
+        <div id="log" class="log"></div>
+
+        <h3>💻 Code Example</h3>
+        <div class="code-block">
+<pre>// JavaScript code for checking the flag
+if (growthbook.isOn("DeepWebAi-Flag")) {
+    console.log("Feature is enabled!")
+    // Enable premium features
+    enablePremiumFeatures();
+} else {
+    // Show standard features only
+    showStandardFeatures();
+}</pre>
+        </div>
+    </div>
+
+    <script>
+        // Initialize GrowthBook
+        const growthbook = new window.GrowthBook.GrowthBook({
+            apiHost: 'https://cdn.growthbook.io',
+            clientKey: 'sdk-CijMaMxaByGXrUoN',
+            enableDevMode: true,
+            subscribeToChanges: true,
+            trackingCallback: (experiment, result) => {
+                addLog(`📊 Experiment: ${experiment.key} = ${result.value}`);
+            }
+        });
+
+        let currentUser = {
+            id: 'demo-user-' + Math.random().toString(36).substr(2, 9),
+            email: 'demo@deepwebai.com',
+            role: 'user',
+            plan: 'free'
+        };
+
+        // Initialize
+        async function init() {
+            try {
+                addLog('🚀 Initializing GrowthBook...');
+                await growthbook.loadFeatures();
+                addLog('✅ Features loaded successfully');
+                
+                updateUserAttributes();
+                checkFlag();
+            } catch (error) {
+                addLog(`❌ Error initializing: ${error.message}`);
+            }
+        }
+
+        function updateUserAttributes() {
+            growthbook.setAttributes(currentUser);
+            addLog(`👤 User set: ${currentUser.id} (${currentUser.role})`);
+        }
+
+        function checkFlag() {
+            const isEnabled = growthbook.isOn('DeepWebAi-Flag');
+            const flagValue = growthbook.getFeatureValue('DeepWebAi-Flag', false);
+            
+            addLog(`🎯 DeepWebAi-Flag: ${isEnabled} (value: ${flagValue})`);
+            
+            const statusEl = document.getElementById('flagStatus');
+            if (isEnabled) {
+                console.log("Feature is enabled!");
+                statusEl.className = 'flag-status flag-enabled';
+                statusEl.innerHTML = '✅ DeepWebAI Flag is ENABLED - Premium features available!';
+                document.getElementById('premiumFeatures').style.display = 'block';
+                document.getElementById('standardFeatures').style.display = 'none';
+                updateFeatureCards(true);
+            } else {
+                statusEl.className = 'flag-status flag-disabled';
+                statusEl.innerHTML = '⚫ DeepWebAI Flag is DISABLED - Standard features only';
+                document.getElementById('premiumFeatures').style.display = 'none';
+                document.getElementById('standardFeatures').style.display = 'block';
+                updateFeatureCards(false);
+            }
+        }
+
+        function updateFeatureCards(enabled) {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach(card => {
+                if (enabled) {
+                    card.classList.add('feature-enabled');
+                } else {
+                    card.classList.remove('feature-enabled');
+                }
+            });
+
+            document.getElementById('aiModels').textContent = enabled ? 'GPT-4, Claude-3, Gemini' : 'Basic models only';
+            document.getElementById('analytics').textContent = enabled ? 'Advanced reporting' : 'Basic stats';
+            document.getElementById('collaboration').textContent = enabled ? 'Real-time enabled' : 'Not available';
+            document.getElementById('branding').textContent = enabled ? 'Custom themes' : 'Standard theme';
+        }
+
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEl = document.getElementById('log');
+            logEl.innerHTML += `[${timestamp}] ${message}\n`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function refreshFlag() {
+            addLog('🔄 Refreshing flag status...');
+            checkFlag();
+        }
+
+        function simulateUserChange() {
+            const userTypes = [
+                { role: 'user', plan: 'free' },
+                { role: 'premium', plan: 'premium' },
+                { role: 'admin', plan: 'enterprise' },
+                { role: 'beta-tester', plan: 'beta' }
+            ];
+            
+            const newType = userTypes[Math.floor(Math.random() * userTypes.length)];
+            currentUser = {
+                ...currentUser,
+                id: 'user-' + Math.random().toString(36).substr(2, 9),
+                ...newType
+            };
+            
+            updateUserAttributes();
+            checkFlag();
+        }
+
+        function simulatePremiumChat() {
+            addLog('🤖 Initiating premium AI chat...');
+            addLog('✅ Connected to GPT-4 Turbo');
+            addLog('💬 Response: "Hello! I\'m your premium AI assistant with advanced capabilities."');
+        }
+
+        function loadPremiumAnalytics() {
+            addLog('📊 Loading premium analytics...');
+            addLog('✅ Advanced reports generated');
+            addLog('📈 Cost savings: $127.50 this month');
+        }
+
+        function accessCollaboration() {
+            addLog('🚀 Accessing collaboration features...');
+            addLog('✅ Real-time workspace activated');
+            addLog('👥 2 team members online');
+        }
+
+        function simulateBasicChat() {
+            addLog('💬 Basic chat initiated...');
+            addLog('✅ Connected to basic AI model');
+        }
+
+        function basicFileUpload() {
+            addLog('📄 File upload started...');
+            addLog('✅ File processed with basic features');
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        // Initialize when page loads
+        init();
+        
+        // Add some demo logs
+        setTimeout(() => {
+            addLog('🎯 Demo ready! Try the controls above.');
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -13,6 +13,7 @@ import {
 import { authRouter } from "./modules/auth/auth.router.js";
 import { ablyAuthRouter } from "./modules/auth/ably-auth.js";
 import { featureFlagsRouter } from "./modules/feature-flags/feature-flags.router.js";
+import { deepWebAIFeaturesRouter } from "./modules/deepwebai-features/deepwebai-features.router.js";
 import { featureFlagService } from "./modules/feature-flags/feature-flags.service.js";
 import { analyticsRouter } from "./modules/analytics/analytics.router.js";
 import { analyticsMiddleware } from "./middleware/analytics.middleware.js";
@@ -114,6 +115,7 @@ addSwaggerDocs(app);
 app.use(authRouter);
 app.use(ablyAuthRouter);
 app.use(featureFlagsRouter);
+app.use(deepWebAIFeaturesRouter);
 app.use(analyticsRouter);
 app.use(fileProcessingRoutes);
 app.use(websocketPlugin);

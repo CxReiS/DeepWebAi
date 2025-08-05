@@ -24,22 +24,25 @@
     "clean": "turbo run clean",
     "db:migrate": "node scripts/migrate.js",
     "db:seed": "node scripts/seed.js",
-    "db:reset": "node scripts/reset-db.js"
+    "db:reset": "node scripts/reset-db.js",
+    "test:deepwebai-flag": "node scripts/test-deepwebai-flag.js",
+    "test:growthbook-flag": "node scripts/test-growthbook-flag.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
     "@types/node": "^22.14.0",
     "turbo": "^2.1.0",
-    "vitest": "^2.1.0",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.2",
+    "vitest": "^2.1.0"
   },
   "dependencies": {
-    "speakeasy": "^2.0.0",
-    "qrcode": "^1.5.3",
-    "@types/speakeasy": "^2.0.10",
+    "@growthbook/growthbook": "^1.6.0",
     "@types/qrcode": "^1.5.5",
+    "@types/speakeasy": "^2.0.10",
+    "dotenv": "^16.3.1",
     "pg": "^8.11.3",
-    "dotenv": "^16.3.1"
+    "qrcode": "^1.5.3",
+    "speakeasy": "^2.0.0"
   },
   "workspaces": [
     "packages/*",
