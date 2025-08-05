@@ -18,8 +18,10 @@ import { config } from 'dotenv';
 config();
 
 const DATABASE_URL = process.env.DATABASE_URL || process.env.NEON_DATABASE_URL;
+const SKIP_DB = process.env.SKIP_DB_CONNECTION === 'true';
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-if (!DATABASE_URL) {
+if (!DATABASE_URL && !SKIP_DB) {
   console.error('❌ DATABASE_URL or NEON_DATABASE_URL environment variable is required');
   process.exit(1);
 }
@@ -40,6 +42,12 @@ const colors = {
 
 function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
+}
+
+if (SKIP_DB || NODE_ENV === 'development') {
+  log('⚠️  Skipping database operations (development mode)', 'yellow');
+  log('✅ Migration script completed (skipped)', 'green');
+  process.exit(0);
 }
 
 // Database client
