@@ -1,6 +1,6 @@
 import { Lucia, TimeSpan } from "lucia";
 import { NeonHTTPAdapter } from "@lucia-auth/adapter-postgresql";
-import { sql } from "../../lib/neon-client.js";
+import { sql } from "../lib/neon-client.js";
 import { z } from "zod";
 import { Elysia } from "elysia";
 import bcrypt from "bcrypt";

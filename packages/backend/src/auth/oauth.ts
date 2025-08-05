@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { sql } from "../../lib/neon-client.js";
+import { sql } from "../lib/neon-client.js";
 import { AuthService } from "./index.js";
 import crypto from "crypto";
 

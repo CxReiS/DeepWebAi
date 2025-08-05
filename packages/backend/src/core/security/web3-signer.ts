@@ -1,9 +1,8 @@
-import { env } from "../env";
-import { ethers } from "ethers/lib/ethers";
+import { ethers } from "ethers";
 
 export const verifySignature = (message: string, signature: string) => {
-  const signerAddress = ethers.utils.verifyMessage(message, signature);
-  return signerAddress === env.WEB3_SIGNER_ADDRESS;
+  const signerAddress = ethers.verifyMessage(message, signature);
+  return signerAddress === process.env.WEB3_SIGNER_ADDRESS;
 };
 
 // .env Eklemeleri:
@@ -11,6 +10,6 @@ export const verifySignature = (message: string, signature: string) => {
 // const WEB3_SIGNER_KEY_ENCRYPTED="kdf2-encrypted-key" # Üretimde HSM/kms kullanın
 export const getSigner = () => {
   // HSM veya KMS ile anahtar yönetimi yapılmalı
-  const privateKey = env.WEB3_SIGNER_KEY_ENCRYPTED; // Şifrelenmiş anahtar
-  return new ethers.Wallet(privateKey);
+  const privateKey = process.env.WEB3_SIGNER_KEY_ENCRYPTED; // Şifrelenmiş anahtar
+  return new ethers.Wallet(privateKey || '');
 };

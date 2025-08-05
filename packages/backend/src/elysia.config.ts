@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
-import { corsMiddleware } from "../middleware/cors.js";
-import { securityMiddleware } from "../middleware/helmet.js";
-import { apiRateLimit } from "../middleware/rate-limiter.js";
+import { corsMiddleware } from "./middleware/cors.js";
+import { securityMiddleware } from "./middleware/helmet.js";
+import { apiRateLimit } from "./middleware/rate-limiter.js";
 
 // Environment configuration
 const config = {
@@ -190,7 +190,7 @@ export function addHealthCheck(app: Elysia) {
   return app.get('/health', async ({ set }) => {
     try {
       // Check database connectivity
-      const { checkDatabaseHealth } = await import('../lib/neon-client.js');
+      const { checkDatabaseHealth } = await import('./lib/neon-client.js');
       const dbHealthy = await checkDatabaseHealth();
       
       const health = {

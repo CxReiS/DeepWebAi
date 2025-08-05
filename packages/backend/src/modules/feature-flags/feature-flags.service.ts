@@ -1,5 +1,5 @@
 import { FeatureFlagManager, FeatureFlagConfig, UserContext, FEATURE_FLAGS } from 'feature-flags';
-import { config } from '../../src/elysia.config';
+import { config } from '../../elysia.config.js';
 
 class FeatureFlagService {
   private manager: FeatureFlagManager | null = null;

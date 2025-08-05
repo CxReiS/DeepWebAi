@@ -107,7 +107,7 @@ export const healthCheck = new Elysia({ name: 'health' })
     
     // Basic database health check
     try {
-      const { sql } = await import('../lib/neon-client.js');
+      const { sql } = await import('./lib/neon-client.js');
       await sql`SELECT 1 as health`;
       health.database = 'connected';
     } catch (error) {

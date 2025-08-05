@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { sql } from "../../lib/neon-client.js";
+import { sql } from "../lib/neon-client.js";
 import crypto from "crypto";
 import speakeasy from "speakeasy";
 import QRCode from "qrcode";

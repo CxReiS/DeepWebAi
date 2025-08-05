@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { sql } from "../../lib/neon-client.js";
+import { sql } from "../lib/neon-client.js";
 import { z } from "zod";
 import crypto from "crypto";
 

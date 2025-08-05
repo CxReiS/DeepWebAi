@@ -1,5 +1,5 @@
 import { Elysia, t } from "elysia";
-import { AuthService, RegisterSchema, LoginSchema, ChangePasswordSchema } from "../../src/auth/index.js";
+import { AuthService, RegisterSchema, LoginSchema, ChangePasswordSchema } from "../../auth/index.js";
 import { authRateLimit } from "../../middleware/rate-limiter.js";
 import { authSecurityMiddleware } from "../../middleware/helmet.js";
 

@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import * as Ably from 'ably';
-import { config } from '../../src/elysia.config';
-import { getUserFromToken } from './auth.service'; // Assume this exists
+import { config } from '../../elysia.config.js';
+import { AuthService } from '../../auth/index.js'; // Assume this exists
 
 // Ably token generation endpoint
 export const ablyAuthRouter = new Elysia({ name: 'ably-auth' })

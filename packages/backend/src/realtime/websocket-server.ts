@@ -1,5 +1,5 @@
 import { Elysia } from 'elysia';
-import { publishMessage, channels, getAblyStatus } from './ably-integration';
+import { publishMessage, channels, getAblyStatus } from './ably-integration.js';
 
 // WebSocket plugin for Elysia
 export const websocketPlugin = new Elysia({ name: 'websocket' })

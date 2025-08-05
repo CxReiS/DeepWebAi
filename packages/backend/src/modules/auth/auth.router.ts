@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import { authController } from "./auth.controller.js";
-import { authMiddleware, requireAuth } from "../../src/auth/index.js";
-import { AuthService } from "../../src/auth/index.js";
+import { authMiddleware, requireAuth } from "../../auth/index.js";
+import { AuthService } from "../../auth/index.js";
 
 // User profile management routes
 export const userProfileRouter = new Elysia({ prefix: '/user', name: 'user-profile' })

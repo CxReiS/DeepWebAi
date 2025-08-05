@@ -10,14 +10,14 @@ import {
   validateConfig,
   config
 } from "./elysia.config.js";
-import { authRouter } from "../modules/auth/auth.router.js";
-import { ablyAuthRouter } from "../modules/auth/ably-auth.js";
-import { featureFlagsRouter } from "../modules/feature-flags/feature-flags.router.js";
-import { featureFlagService } from "../modules/feature-flags/feature-flags.service.js";
+import { authRouter } from "./modules/auth/auth.router.js";
+import { ablyAuthRouter } from "./modules/auth/ably-auth.js";
+import { featureFlagsRouter } from "./modules/feature-flags/feature-flags.router.js";
+import { featureFlagService } from "./modules/feature-flags/feature-flags.service.js";
 import { analyticsRouter } from "./modules/analytics/analytics.router.js";
 import { analyticsMiddleware } from "./middleware/analytics.middleware.js";
-import { fileProcessingRoutes } from "./modules/files/index";
-import websocketPlugin from "../realtime/websocket-server.js";
+import { fileProcessingRoutes } from "./modules/files/index.js";
+import websocketPlugin from "./realtime/websocket-server.js";
 import { 
   logger, 
   analytics, 

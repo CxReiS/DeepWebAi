@@ -1,9 +1,9 @@
 import * as Ably from 'ably';
-import { config } from '../src/elysia.config';
+import { config } from '../elysia.config.js';
 
 // Initialize Ably client
 export const ablyClient = new Ably.Realtime({
-  key: config.ABLY_API_KEY,
+  key: config.ablyApiKey,
   // Additional options
   clientId: 'deepwebai-backend',
   environment: 'production',
