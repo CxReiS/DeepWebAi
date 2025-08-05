@@ -152,7 +152,7 @@
 │ │ ├── ⚖️ load-balancer.ts → API key rotasyonu ve yük dağıtım mantığı
 │ │ └── 📈self-improvement.ts → Modelin kendini geliştirme mekanizması
 │ │ │
-│ └── ⚙️ backend/ → pnpm + Elysia 1.3.2
+│ └── ⚙️ backend/ → pnpm + Elysia 2.3.0
 │ │ ├── 🛢️ database/ → Neon DB bağlantısı ve sorgular
 │ │ │ ├── 📁 operations/ → SQL sorguları
 │ │ │ │ ├── 🤖ai.queries.ts  
@@ -163,7 +163,7 @@
 │ │ │ ├── 🔄 cors.ts → CORS yönetimi
 │ │ │ ├── 🔒 helmet.ts → Güvenlik başlıkları
 │ │ │ └── ⏱️ rate-limiter.ts → Sağlayıcı bazlı istek sınırlama (token/dakika)
-│ │ ├── 🔐modules/ → Lucia Auth 3.2 entegre İş mantığı modülleri
+│ │ ├── 🔐modules/ → Lucia Auth 3.2.2 entegre İş mantığı modülleri
 │ │ │ ├── 🤖ai/ → Yapay zeka endpoint yönetimi(streaming chat, model yönlendirme)
 │ │ │ │ ├── 🎮ai.controller.ts → Sadece HTTP isteklerini yönetir (request/response).
 │ │ │ │ ├── 🛣️ai.router.ts
@@ -183,7 +183,7 @@
 │ │ │ ├── chat-events.ts → Mesaj iletim olayları  
 │ │ │ └── user-notifications.ts → Bildirim olayları  
 │ │ ├── 📁 src/
-│ │ │ ├── 🔐auth/ → Lucia Auth 3.2 ile kimlik yönetimi (Lucia 3.2 + Web3/OAuth2)
+│ │ │ ├── 🔐auth/ → Lucia Auth 3.2.2 ile kimlik yönetimi (Lucia 3.2.2 + Web3/OAuth2)
 │ │ │ │ └── 🔑 strategies/ → Discord/GitHub/Web3 auth stratejileri
 │ │ │ │ │ ├── 🔗discord.ts
 │ │ │ │ │ └── 🔗github.ts
@@ -253,7 +253,7 @@
 │ │ │ └── 👁️ ocr/ → OCR işlemleri
 │ │ │ └── 👁️ocr_processor.ts → Resimden metin çıkarma
 │ │ └── 📄 index.ts
-│ └── 🚀frontend/ → Vite + React 20.2.1
+│ └── 🚀frontend/ → Vite + React 19.1.1
 │ │ ├── 📁public/ → Statik asset'ler (favicon, SVG'ler)
 │ │ │ ├── 🎯 favicon.ico
 │ │ │ ├── ⚛️ react.svg
@@ -323,7 +323,7 @@
 │ │ │ ├── 🏪store/ → Jotai global state yönetimi
 │ │ │ │ ├── 🏗️ atom-store.ts → Jotai spesifikasyonu
 │ │ │ │ └── ⚛️ atoms.ts → Jotai-Immer Entegrasyonu
-│ │ │ ├── 🎨 style/ → Stil ve CSS Şeması :contentReference[oaicite:2]{index=2}
+│ │ │ ├── 🎨 style/ → Stil ve CSS Şeması
 │ │ │ │ ├── 🧩 components.css
 │ │ │ │ ├── 🖼️ layout.css
 │ │ │ │ ├── 🎨 main.css
@@ -455,10 +455,6 @@
 ├── 🚨 sentry.config.ts → Hata izleme konfigürasyonu
 └── 🔄 turbo.json → TURBOREPO KONFİGÜRASYONU (Build pipeline)
 
-# "name": "deepweb-ai-production-stack",
-
-# "dependencies": {
-
 # "react": "19.1.1",
 
 # "react-dom": "19.1.1",
@@ -467,30 +463,40 @@
 
 # "jotai": "4.2.0",
 
+# jotai-immer": "^2.6.0",
+
 # "elysia": "2.3.0",
 
-# "@neondatabase/serverless": "1.0.1",
+# "@neondatabase/serverless": "4.1.0",
 
 # "lucia-auth": "3.2.2",
 
 # "ably": "2.11.0"
 
-# },
-
-# "devDependencies": {
-
 # "vite": "7.1.0",
-
-# "bun": "",
 
 # "typescript": "5.5.2"
 
-# },
+# "@vitejs/plugin-react": "4.7.0"
 
-# "scripts": {
+# "pg": "^8.11.5",
 
-# "start": "bun run --hot packages/backend & vite dev packages/#frontend --port 3000",
+# "@types/pg": "^8.15.5"
 
-# "test": "bun test --coverage",
+# "@types/jsonwebtoken": "^9.0.5",
 
-# "build": "turbo run build"
+# "playwright": "2.0.0"
+
+# pnpm@10.14.0",
+
+# "name":"modernite-monorepo", 1.0.0
+
+# "@sentry/profiling-node": "^7.104.0",
+
+# Node.js version: v22.14.0
+
+# "@types/bcrypt": "^5.0.2",
+
+# "@elysiajs/cors": "1.3.3",
+
+#

@@ -1,19 +1,46 @@
 {
-  "name": "modernite-monorepo",
-  "private": true,
+  "name": "deepwebai-monorepo",
   "version": "1.0.0",
+  "private": true,
+  "description": "DeepWebAI - AI-powered conversation and content generation platform",
+  "type": "module",
   "packageManager": "pnpm@10.14.0",
-  "workspaces": [
-    "packages/*"
-  ],
+  "engines": {
+    "node": ">=22.14.0",
+    "pnpm": ">=10.14.0"
+  },
   "scripts": {
-    "dev": "dotenv -- turbo run dev",
     "build": "turbo run build",
+    "dev": "turbo run dev",
     "test": "turbo run test",
-    "start": "turbo run start"
+    "test:unit": "vitest run tests/unit/",
+    "test:integration": "vitest run tests/integration/",
+    "test:e2e": "playwright test tests/e2e/",
+    "test:auth": "vitest run tests/unit/backend/auth.test.ts tests/unit/backend/mfa.test.ts tests/unit/backend/oauth.test.ts",
+    "test:auth-integration": "vitest run tests/integration/auth-mfa-oauth-flow.spec.ts",
+    "test:auth-e2e": "playwright test tests/e2e/auth-complete-flow.spec.ts",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean",
+    "db:migrate": "node scripts/migrate.js",
+    "db:seed": "node scripts/seed.js",
+    "db:reset": "node scripts/reset-db.js"
   },
   "devDependencies": {
-    "dotenv-cli": "^10.0.0",
-    "turbo": "2.2.1"
-  }
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.14.0",
+    "turbo": "^2.1.0",
+    "vitest": "^2.1.0",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "speakeasy": "^2.0.0",
+    "qrcode": "^1.5.3",
+    "@types/speakeasy": "^2.0.10",
+    "@types/qrcode": "^1.5.5"
+  },
+  "workspaces": [
+    "packages/*",
+    "libs/*"
+  ]
 }
