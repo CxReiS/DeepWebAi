@@ -1,6 +1,4 @@
 import { Elysia } from "elysia";
-import { cors } from "@elysiajs/cors";
-import helmet from "elysia-helmet";
 import { corsMiddleware } from "../middleware/cors.js";
 import { securityMiddleware } from "../middleware/helmet.js";
 import { apiRateLimit } from "../middleware/rate-limiter.js";
@@ -61,7 +59,7 @@ function validateConfig() {
     console.warn('⚠️  No AI provider API keys configured. Some features may not work.');
   }
   
-  console.log(`✅ Configuration validated for ${config.env} environment`);
+
 }
 
 // Base Elysia app configuration
@@ -143,14 +141,10 @@ export function createBaseApp() {
       console.log('🛑 DeepWebAI API shutting down...');
     })
     .onRequest(({ request }) => {
-      if (config.env === 'development') {
-        console.log(`📥 ${request.method} ${request.url}`);
-      }
+      // Request logging handled by middleware
     })
     .onResponse(({ request, set }) => {
-      if (config.env === 'development') {
-        console.log(`📤 ${request.method} ${request.url} - ${set.status}`);
-      }
+      // Response logging handled by middleware
     });
 
   return app;
@@ -170,13 +164,7 @@ export function addDevelopmentMiddleware(app: Elysia) {
   
   return app
     .derive(({ request }) => {
-      // Development-only request logging
-      console.log(`🔍 [DEV] ${request.method} ${request.url}`);
-      console.log(`🔍 [DEV] Headers:`, Object.fromEntries(
-        Object.entries(request.headers).filter(([key]) => 
-          !key.startsWith('x-') && key !== 'authorization'
-        )
-      ));
+      // Development middleware active
       return {};
     });
 }

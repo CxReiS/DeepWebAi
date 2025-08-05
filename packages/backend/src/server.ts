@@ -1,4 +1,3 @@
-// Remove unused import
 import { createServer } from "http";
 import dotenv from "dotenv";
 import {
@@ -17,6 +16,7 @@ import { featureFlagsRouter } from "../modules/feature-flags/feature-flags.route
 import { featureFlagService } from "../modules/feature-flags/feature-flags.service.js";
 import { analyticsRouter } from "./modules/analytics/analytics.router.js";
 import { analyticsMiddleware } from "./middleware/analytics.middleware.js";
+import { fileProcessingRoutes } from "./modules/files/index";
 import websocketPlugin from "../realtime/websocket-server.js";
 import { 
   logger, 
@@ -115,6 +115,7 @@ app.use(authRouter);
 app.use(ablyAuthRouter);
 app.use(featureFlagsRouter);
 app.use(analyticsRouter);
+app.use(fileProcessingRoutes);
 app.use(websocketPlugin);
 
 // Root endpoint
@@ -152,6 +153,7 @@ app.get("/api", () => ({
     chat: "/api/chat",
     models: "/api/models",
     files: "/api/files",
+    ocr: "/api/ocr",
     feature_flags: "/api/feature-flags"
   }
 }));

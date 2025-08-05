@@ -1,0 +1,26 @@
+{
+  "name": "@deepwebai/ai-gateway",
+  "version": "1.0.0",
+  "description": "AI provider gateway with unified interface",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@deepwebai/shared-types": "workspace:*",
+    "openai": "^4.28.0",
+    "@anthropic-ai/sdk": "^0.17.1",
+    "@google/generative-ai": "^0.2.1",
+    "axios": "^1.6.7",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "typescript": "^5.5.2",
+    "vitest": "^1.2.2"
+  }
+}

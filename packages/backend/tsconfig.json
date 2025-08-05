@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
+    "module": "NodeNext",
     "lib": ["ES2022"],
     "allowJs": true,
     "outDir": "./dist",
-    "rootDir": "packages/backend",
+    "rootDir": "./src",
     "strict": true,
     "moduleResolution": "NodeNext",
     "declaration": true,
@@ -20,9 +20,12 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["../shared-types/*"]
+      "@deepwebai/shared-types": ["../shared-types/src/index"],
+      "@deepwebai/ai-gateway": ["../ai-gateway/src/index"],
+      "@deepwebai/caching": ["../caching/src/index"],
+      "@deepwebai/file-processing": ["../file-processing/src/index"]
     }
   },
-  "include": ["packages/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

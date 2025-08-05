@@ -1,4 +1,10 @@
-import { encrypt, decrypt } from "./encryption";
+import { encrypt } from "./encryption";
+import { sql } from "../shared-types";
+
+interface EncryptedKey {
+  data: string;
+  iv: string;
+}
 
 export class APIKeyManager {
   private keys = new Map<string, EncryptedKey>();
@@ -18,6 +24,6 @@ export class APIKeyManager {
   }
 
   async rotateKeys() {
-    // Otomatik key rotation için cron job
+    throw new Error('Key rotation not implemented yet');
   }
 }

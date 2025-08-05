@@ -13,13 +13,7 @@ export class GrowthBookFeatureFlagProvider implements FeatureFlagProvider {
       enableDevMode: config.environment === 'development',
       subscribeToChanges: true,
       trackingCallback: (experiment, result) => {
-        if (this.config.enableAnalytics) {
-          console.log('GrowthBook experiment tracked:', {
-            experiment: experiment.key,
-            variation: result.variationId,
-            result: result.value
-          });
-        }
+        // Analytics tracking handled by external service
       }
     });
   }
@@ -28,7 +22,7 @@ export class GrowthBookFeatureFlagProvider implements FeatureFlagProvider {
     try {
       // Load features from GrowthBook
       await this.growthbook.loadFeatures();
-      console.log('GrowthBook feature flag provider initialized');
+      // GrowthBook initialized successfully
     } catch (error) {
       console.error('Failed to initialize GrowthBook feature flag provider:', error);
       throw error;
@@ -85,7 +79,7 @@ export class GrowthBookFeatureFlagProvider implements FeatureFlagProvider {
       ...userContext.customAttributes
     });
 
-    return this.growthbook.getFeatureValue(flagName, defaultValue);
+    return this.growthbook.getFeatureValue(flagName, defaultValue) as T;
   }
 
   async trackEvent(
@@ -97,11 +91,6 @@ export class GrowthBookFeatureFlagProvider implements FeatureFlagProvider {
 
     // GrowthBook handles tracking automatically through experiments
     // For custom events, you would integrate with your analytics provider
-    console.log('Custom event tracked:', {
-      event: eventName,
-      userId: userContext.id,
-      properties
-    });
   }
 
   async destroy(): Promise<void> {

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { sql } from '../../packages/backend/lib/neon-client.js';
+import { sql } from './test-db-client.js';
 
 // Test data
 const testUser = {

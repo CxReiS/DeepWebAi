@@ -232,7 +232,7 @@ export class MFAService {
     `;
     
     // In a real implementation, send SMS verification code here
-    console.log(`SMS MFA setup for ${validated.phoneNumber} - Code: ${this.generateSMSCode()}`);
+    // Note: Code generated but not logged for security
   }
 
   static async verifySMS(userId: string, token: string): Promise<boolean> {

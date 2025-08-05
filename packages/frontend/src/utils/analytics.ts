@@ -130,7 +130,7 @@ class FrontendAnalyticsService {
 
   private log(message: string, data?: any): void {
     if (this.config.debug) {
-      console.log(`[Analytics] ${message}`, data);
+      console.debug('[Analytics]', message, data);
     }
   }
 

@@ -11,7 +11,7 @@ export const RealtimeChat: React.FC = () => {
   const [inputMessage, setInputMessage] = useState('');
   
   const handleMessage = useCallback((message: any) => {
-    console.log('Received message:', message.data);
+    // Handle incoming message
   }, []);
 
   const { messages, publish } = useChannel('chat', 'message', handleMessage);
