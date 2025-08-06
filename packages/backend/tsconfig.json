@@ -28,6 +28,6 @@
       "@deepwebai/file-processing": ["../file-processing/src/index"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*", "modules/**/*", "../shared-types/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
