@@ -18,16 +18,15 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@auth/neon-adapter": "^1.10.0",
     "@deepwebai/caching": "workspace:*",
     "@deepwebai/file-processing": "workspace:*",
     "@deepwebai/shared-types": "workspace:*",
     "@elysiajs/cors": "1.3.3",
-    "@lucia-auth/adapter-postgresql": "^3.1.2",
-    "@neondatabase/serverless": "1.0.1",
+    "@neondatabase/serverless": "^1.0.1",
     "@sentry/node": "^7.104.0",
     "@sentry/profiling-node": "^7.104.0",
     "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.5",
     "@types/pg": "^8.15.5",
     "ably": "2.10.1",
     "bcrypt": "^5.1.1",
@@ -36,21 +35,20 @@
     "elysia-helmet": "3.0.0",
     "ethers": "^6.9.0",
     "feature-flags": "workspace:*",
-    "jsonwebtoken": "^9.0.2",
-    "lucia": "3.2.2",
-    "multer": "^1.4.5-lts.1",
+    "formidable": "^3.5.1",
+    "next-auth": "5.0.0-beta.26",
     "pg": "^8.16.3",
     "rate-limiter-flexible": "^3.0.0",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/multer": "^1.4.11",
+    "@types/formidable": "^3.4.5",
     "@types/node": "^24.2.0",
     "@types/uuid": "^9.0.8",
     "ts-node": "^10.9.1",
     "tsx": "^4.20.3",
     "typescript": "5.5.2",
-    "vitest": "^1.5.0"
+    "vitest": "^3.2.4"
   }
 }

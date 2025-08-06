@@ -12,9 +12,9 @@ const config = {
   // Database
   databaseUrl: process.env.DATABASE_URL!,
   
-  // Security
+  // Security - NextAuth.js implementasyonu
   jwtSecret: process.env.JWT_SECRET!,
-  luciaSecret: process.env.LUCIA_SECRET!,
+  nextAuthSecret: process.env.NEXTAUTH_SECRET!,
   
   // AI Providers
   openaiApiKey: process.env.OPENAI_API_KEY,
@@ -46,9 +46,9 @@ const config = {
   rateLimitMaxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100')
 };
 
-// Validate required configuration
+// Gerekli konfigürasyon doğrulaması - NextAuth.js için güncellenmiş
 function validateConfig() {
-  const required = ['DATABASE_URL', 'JWT_SECRET', 'LUCIA_SECRET'];
+  const required = ['DATABASE_URL', 'JWT_SECRET', 'NEXTAUTH_SECRET'];
   const missing = required.filter(key => !process.env[key]);
   
   if (missing.length > 0) {

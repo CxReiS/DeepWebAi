@@ -1,90 +1,90 @@
-# Installation and Deployment Guide
+# Kurulum ve Dağıtım Kılavuzu
 
-Comprehensive guide for installing and deploying the DeepWebAI platform in various environments.
+DeepWebAI platformunun çeşitli ortamlarda kurulum ve dağıtımı için kapsamlı kılavuz.
 
-## System Requirements
+## Sistem Gereksinimleri
 
-### Minimum Requirements
+### Minimum Gereksinimler
 
-**Hardware:**
+**Donanım:**
 ```
-CPU: 4 cores, 2.4 GHz
-RAM: 8 GB minimum, 16 GB recommended
-Storage: 50 GB SSD for application
-Network: 100 Mbps bandwidth
-```
-
-**Software:**
-```
-Node.js: 18.x or 20.x LTS
-pnpm: 8.x or higher
-PostgreSQL: 14.x or higher
-Redis: 6.x or higher (optional, for caching)
-Docker: 20.x or higher (for containerized deployment)
+CPU: 4 çekirdek, 2.4 GHz
+RAM: 8 GB minimum, 16 GB önerilen
+Depolama: Uygulama için 50 GB SSD
+Ağ: 100 Mbps bant genişliği
 ```
 
-**Supported Operating Systems:**
-- Ubuntu 20.04 LTS or higher
-- CentOS 8 or higher
-- Debian 11 or higher
-- Windows Server 2019 or higher
-- macOS 12 or higher (development only)
-
-### Production Requirements
-
-**Hardware:**
+**Yazılım:**
 ```
-CPU: 8+ cores, 3.0+ GHz
-RAM: 32 GB minimum, 64 GB recommended
-Storage: 500 GB+ NVMe SSD
-Network: 1 Gbps+ bandwidth
-Load Balancer: Nginx or similar
+Node.js: 18.x veya 20.x LTS
+pnpm: 8.x veya üstü
+PostgreSQL: 14.x veya üstü
+Redis: 6.x veya üstü (isteğe bağlı, önbellekleme için)
+Docker: 20.x veya üstü (konteynerli dağıtım için)
 ```
 
-**Infrastructure:**
+**Desteklenen İşletim Sistemleri:**
+- Ubuntu 20.04 LTS veya üstü
+- CentOS 8 veya üstü
+- Debian 11 veya üstü
+- Windows Server 2019 veya üstü
+- macOS 12 veya üstü (sadece geliştirme için)
+
+### Üretim Gereksinimleri
+
+**Donanım:**
 ```
-Database: PostgreSQL 15+ with connection pooling
-Cache: Redis Cluster for high availability
-CDN: CloudFlare or AWS CloudFront
-Monitoring: Prometheus + Grafana
-Logging: ELK Stack or similar
+CPU: 8+ çekirdek, 3.0+ GHz
+RAM: 32 GB minimum, 64 GB önerilen
+Depolama: 500 GB+ NVMe SSD
+Ağ: 1 Gbps+ bant genişliği
+Load Balancer: Nginx veya benzeri
 ```
 
-## Installation Methods
+**Altyapı:**
+```
+Veritabanı: Bağlantı havuzlaması olan PostgreSQL 15+
+Önbellek: Yüksek erişilebilirlik için Redis Cluster
+CDN: CloudFlare veya AWS CloudFront
+İzleme: Prometheus + Grafana
+Loglama: ELK Stack veya benzeri
+```
 
-### Docker Deployment (Recommended)
+## Kurulum Yöntemleri
 
-**Prerequisites:**
+### Docker Dağıtımı (Önerilen)
+
+**Ön Gereksinimler:**
 ```bash
-# Install Docker and Docker Compose
+# Docker ve Docker Compose'u yükle
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 sudo usermod -aG docker $USER
 
-# Install Docker Compose
+# Docker Compose'u yükle
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-**Quick Start:**
+**Hızlı Başlangıç:**
 ```bash
-# Clone repository
+# Repository'yi klonla
 git clone https://github.com/yourusername/deepwebai.git
 cd deepwebai
 
-# Copy environment configuration
+# Ortam yapılandırmasını kopyala
 cp .env.example .env
-nano .env  # Configure environment variables
+nano .env  # Ortam değişkenlerini yapılandır
 
-# Start services
+# Servisleri başlat
 docker-compose up -d
 
-# Check status
+# Durumu kontrol et
 docker-compose ps
 docker-compose logs -f
 ```
 
-**Docker Compose Configuration:**
+**Docker Compose Yapılandırması:**
 ```yaml
 # docker-compose.yml
 version: '3.8'
@@ -138,61 +138,61 @@ volumes:
   redis_data:
 ```
 
-### Manual Installation
+### Manuel Kurulum
 
-**System Preparation:**
+**Sistem Hazırlığı:**
 ```bash
-# Update system
+# Sistemi güncelle
 sudo apt update && sudo apt upgrade -y
 
-# Install dependencies
+# Bağımlılıkları yükle
 sudo apt install -y curl git build-essential python3-pip
 
-# Install Node.js 20 LTS
+# Node.js 20 LTS'yi yükle
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-# Install pnpm
+# pnpm'i yükle
 npm install -g pnpm
 
-# Install PostgreSQL
+# PostgreSQL'i yükle
 sudo apt install -y postgresql postgresql-contrib
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
-# Install Redis (optional)
+# Redis'i yükle (isteğe bağlı)
 sudo apt install -y redis-server
 sudo systemctl start redis
 sudo systemctl enable redis
 ```
 
-**Application Setup:**
+**Uygulama Kurulumu:**
 ```bash
-# Clone and setup application
+# Uygulamayı klonla ve kur
 git clone https://github.com/yourusername/deepwebai.git
 cd deepwebai
 
-# Install dependencies
+# Bağımlılıkları yükle
 pnpm install
 
-# Setup environment
+# Ortamı kur
 cp .env.example .env
 nano .env
 
-# Setup database
+# Veritabanını kur
 pnpm db:setup
 pnpm db:migrate
 
-# Build application
+# Uygulamayı derle
 pnpm build
 
-# Start application
+# Uygulamayı başlat
 pnpm start
 ```
 
-### Kubernetes Deployment
+### Kubernetes Dağıtımı
 
-**Namespace Setup:**
+**Namespace Kurulumu:**
 ```yaml
 # namespace.yaml
 apiVersion: v1
@@ -211,7 +211,7 @@ data:
   REDIS_URL: "redis://redis:6379"
 ```
 
-**Application Deployment:**
+**Uygulama Dağıtımı:**
 ```yaml
 # deployment.yaml
 apiVersion: apps/v1
@@ -261,7 +261,7 @@ spec:
   type: LoadBalancer
 ```
 
-**Database Setup:**
+**Veritabanı Kurulumu:**
 ```yaml
 # postgres.yaml
 apiVersion: apps/v1
@@ -311,19 +311,19 @@ spec:
           storage: 100Gi
 ```
 
-## Environment Configuration
+## Ortam Yapılandırması
 
-### Database Setup
+### Veritabanı Kurulumu
 
-**PostgreSQL Configuration:**
+**PostgreSQL Yapılandırması:**
 ```sql
--- Create database and user
+-- Veritabanı ve kullanıcı oluştur
 CREATE DATABASE deepwebai;
 CREATE USER deepwebai_user WITH PASSWORD 'secure_password';
 GRANT ALL PRIVILEGES ON DATABASE deepwebai TO deepwebai_user;
 
--- Configure PostgreSQL settings
--- Edit postgresql.conf
+-- PostgreSQL ayarlarını yapılandır
+-- postgresql.conf'u düzenle
 max_connections = 200
 shared_buffers = 256MB
 effective_cache_size = 1GB
@@ -334,61 +334,61 @@ wal_buffers = 16MB
 default_statistics_target = 100
 ```
 
-**Database Migration:**
+**Veritabanı Migration'ı:**
 ```bash
-# Run initial migration
+# İlk migration'ı çalıştır
 pnpm db:migrate
 
-# Seed initial data
+# İlk verileri yükle
 pnpm db:seed
 
-# Verify setup
+# Kurulumu doğrula
 pnpm db:status
 ```
 
-### Redis Configuration
+### Redis Yapılandırması
 
-**Redis Setup:**
+**Redis Kurulumu:**
 ```bash
-# Edit redis.conf
+# redis.conf'u düzenle
 maxmemory 2gb
 maxmemory-policy allkeys-lru
 save 900 1
 save 300 10
 save 60 10000
 
-# Restart Redis
+# Redis'i yeniden başlat
 sudo systemctl restart redis
 ```
 
-**Connection Test:**
+**Bağlantı Testi:**
 ```bash
-# Test Redis connection
+# Redis bağlantısını test et
 redis-cli ping
-# Should return: PONG
+# Döndürmesi gereken: PONG
 
-# Test from application
+# Uygulamadan test et
 node -e "const redis = require('ioredis'); const client = new redis('redis://localhost:6379'); client.ping().then(console.log).finally(() => client.disconnect());"
 ```
 
-## SSL/TLS Configuration
+## SSL/TLS Yapılandırması
 
-### Let's Encrypt Setup
+### Let's Encrypt Kurulumu
 
-**Certbot Installation:**
+**Certbot Kurulumu:**
 ```bash
-# Install Certbot
+# Certbot'u yükle
 sudo apt install -y certbot python3-certbot-nginx
 
-# Generate certificates
+# Sertifikaları oluştur
 sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 
-# Auto-renewal setup
+# Otomatik yenileme kurulumu
 sudo crontab -e
-# Add: 0 12 * * * /usr/bin/certbot renew --quiet
+# Ekle: 0 12 * * * /usr/bin/certbot renew --quiet
 ```
 
-**Nginx SSL Configuration:**
+**Nginx SSL Yapılandırması:**
 ```nginx
 # nginx.conf
 server {
@@ -420,7 +420,7 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 
-    # WebSocket support
+    # WebSocket desteği
     location /ws {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
@@ -434,9 +434,9 @@ server {
 }
 ```
 
-## High Availability Setup
+## Yüksek Erişilebilirlik Kurulumu
 
-### Load Balancer Configuration
+### Load Balancer Yapılandırması
 
 **Nginx Load Balancer:**
 ```nginx
@@ -457,14 +457,14 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         
-        # Health check
+        # Sağlık kontrolü
         proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
         proxy_connect_timeout 5s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
     
-    # Health check endpoint
+    # Sağlık kontrolü endpoint'i
     location /health {
         access_log off;
         proxy_pass http://deepwebai_backend;
@@ -473,37 +473,37 @@ server {
 }
 ```
 
-**Database High Availability:**
+**Veritabanı Yüksek Erişilebilirliği:**
 ```yaml
-# PostgreSQL Primary-Replica Setup
-# Primary server configuration
+# PostgreSQL Primary-Replica Kurulumu
+# Primary sunucu yapılandırması
 # postgresql.conf
 wal_level = replica
 max_wal_senders = 10
 max_replication_slots = 10
 synchronous_commit = on
 
-# Replica server configuration
+# Replica sunucu yapılandırması
 # recovery.conf
 standby_mode = 'on'
 primary_conninfo = 'host=primary_server port=5432 user=replicator password=secret'
 trigger_file = '/tmp/postgresql.trigger'
 ```
 
-### Health Checks and Monitoring
+### Sağlık Kontrolleri ve İzleme
 
-**Health Check Endpoints:**
+**Sağlık Kontrolü Endpoint'leri:**
 ```javascript
-// Health check implementation
+// Sağlık kontrolü implementasyonu
 app.get('/health', async (req, res) => {
   try {
-    // Database check
+    // Veritabanı kontrolü
     await db.query('SELECT 1');
     
-    // Redis check
+    // Redis kontrolü
     await redis.ping();
     
-    // AI providers check
+    // AI sağlayıcıları kontrolü
     const providerStatus = await checkAIProviders();
     
     res.json({
@@ -524,7 +524,7 @@ app.get('/health', async (req, res) => {
 });
 ```
 
-**Monitoring Setup:**
+**İzleme Kurulumu:**
 ```yaml
 # docker-compose.monitoring.yml
 version: '3.8'
@@ -557,11 +557,11 @@ volumes:
   grafana_data:
 ```
 
-## Backup and Recovery
+## Yedekleme ve Kurtarma
 
-### Database Backup
+### Veritabanı Yedekleme
 
-**Automated Backup Script:**
+**Otomatik Yedekleme Betiği:**
 ```bash
 #!/bin/bash
 # backup-db.sh
@@ -571,40 +571,40 @@ DATE=$(date +%Y%m%d_%H%M%S)
 DB_NAME="deepwebai"
 DB_USER="deepwebai_user"
 
-# Create backup directory
+# Yedekleme dizinini oluştur
 mkdir -p $BACKUP_DIR
 
-# Database backup
+# Veritabanı yedeklemesi
 pg_dump -U $DB_USER -h localhost $DB_NAME | gzip > $BACKUP_DIR/db_backup_$DATE.sql.gz
 
-# File system backup
+# Dosya sistemi yedeklemesi
 tar -czf $BACKUP_DIR/files_backup_$DATE.tar.gz /var/lib/deepwebai/uploads
 
-# Cleanup old backups (keep 30 days)
+# Eski yedekleri temizle (30 gün sakla)
 find $BACKUP_DIR -name "*.gz" -mtime +30 -delete
 
-# Upload to S3 (optional)
+# S3'e yükle (isteğe bağlı)
 aws s3 cp $BACKUP_DIR/db_backup_$DATE.sql.gz s3://your-backup-bucket/database/
 aws s3 cp $BACKUP_DIR/files_backup_$DATE.tar.gz s3://your-backup-bucket/files/
 ```
 
-**Cron Schedule:**
+**Cron Zamanlaması:**
 ```bash
-# Add to crontab
+# Crontab'a ekle
 0 2 * * * /usr/local/bin/backup-db.sh
 ```
 
-### Disaster Recovery
+### Felaket Kurtarma
 
-**Recovery Procedures:**
+**Kurtarma Prosedürleri:**
 ```bash
-# Database Recovery
+# Veritabanı Kurtarma
 gunzip < db_backup_YYYYMMDD_HHMMSS.sql.gz | psql -U deepwebai_user deepwebai
 
-# File Recovery
+# Dosya Kurtarma
 tar -xzf files_backup_YYYYMMDD_HHMMSS.tar.gz -C /
 
-# Application Recovery
+# Uygulama Kurtarma
 cd /opt/deepwebai
 git pull origin main
 pnpm install
@@ -613,18 +613,18 @@ pnpm db:migrate
 systemctl restart deepwebai
 ```
 
-## Performance Optimization
+## Performans Optimizasyonu
 
-### Application Tuning
+### Uygulama Ayarlama
 
-**Node.js Optimization:**
+**Node.js Optimizasyonu:**
 ```bash
-# Environment variables for production
+# Üretim için ortam değişkenleri
 export NODE_ENV=production
 export NODE_OPTIONS="--max-old-space-size=4096"
 export UV_THREADPOOL_SIZE=32
 
-# PM2 Configuration
+# PM2 Yapılandırması
 # ecosystem.config.js
 module.exports = {
   apps: [{
@@ -642,48 +642,48 @@ module.exports = {
 };
 ```
 
-**Database Optimization:**
+**Veritabanı Optimizasyonu:**
 ```sql
--- PostgreSQL performance tuning
+-- PostgreSQL performans ayarlama
 -- postgresql.conf
-shared_buffers = 25% of RAM
-effective_cache_size = 75% of RAM
+shared_buffers = RAM'in %25'i
+effective_cache_size = RAM'in %75'i
 random_page_cost = 1.1
 effective_io_concurrency = 200
 work_mem = RAM / max_connections / 4
 maintenance_work_mem = RAM / 16
 
--- Create indexes for performance
+-- Performans için indeks oluştur
 CREATE INDEX CONCURRENTLY idx_users_email ON users(email);
 CREATE INDEX CONCURRENTLY idx_conversations_user_id ON conversations(user_id);
 CREATE INDEX CONCURRENTLY idx_messages_conversation_id ON messages(conversation_id);
 CREATE INDEX CONCURRENTLY idx_files_user_id ON files(user_id);
 ```
 
-### Caching Strategy
+### Önbellekleme Stratejisi
 
-**Redis Caching:**
+**Redis Önbellekleme:**
 ```javascript
-// Cache configuration
+// Önbellek yapılandırması
 const cacheConfig = {
   ai_responses: {
-    ttl: 3600, // 1 hour
+    ttl: 3600, // 1 saat
     prefix: 'ai_resp:'
   },
   user_sessions: {
-    ttl: 86400, // 24 hours
+    ttl: 86400, // 24 saat
     prefix: 'session:'
   },
   file_metadata: {
-    ttl: 7200, // 2 hours
+    ttl: 7200, // 2 saat
     prefix: 'file_meta:'
   }
 };
 ```
 
-**CDN Configuration:**
+**CDN Yapılandırması:**
 ```nginx
-# Static asset caching
+# Statik varlık önbellekleme
 location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
     expires 1y;
     add_header Cache-Control "public, immutable";
@@ -691,7 +691,7 @@ location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
     access_log off;
 }
 
-# API response caching
+# API yanıt önbellekleme
 location /api/ {
     proxy_cache api_cache;
     proxy_cache_valid 200 5m;
@@ -700,13 +700,13 @@ location /api/ {
 }
 ```
 
-## Security Hardening
+## Güvenlik Sertleştirme
 
-### System Security
+### Sistem Güvenliği
 
-**Firewall Configuration:**
+**Firewall Yapılandırması:**
 ```bash
-# UFW Setup
+# UFW Kurulumu
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
@@ -714,9 +714,9 @@ sudo ufw allow 80
 sudo ufw allow 443
 sudo ufw enable
 
-# Fail2ban Setup
+# Fail2ban Kurulumu
 sudo apt install fail2ban
-# Edit /etc/fail2ban/jail.local
+# /etc/fail2ban/jail.local'i düzenle
 [DEFAULT]
 bantime = 3600
 findtime = 600
@@ -729,9 +729,9 @@ logpath = /var/log/nginx/error.log
 maxretry = 6
 ```
 
-**Application Security:**
+**Uygulama Güvenliği:**
 ```javascript
-// Security middleware
+// Güvenlik middleware'i
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -749,64 +749,64 @@ app.use(helmet({
   }
 }));
 
-// Rate limiting
+// Hız sınırlaması
 const rateLimit = require('express-rate-limit');
 app.use('/api', rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000, // 15 dakika
+  max: 100 // her IP için windowMs başına 100 istek sınırı
 }));
 ```
 
-## Troubleshooting Deployment
+## Dağıtım Sorun Giderme
 
-### Common Issues
+### Yaygın Sorunlar
 
-**Database Connection Issues:**
+**Veritabanı Bağlantı Sorunları:**
 ```bash
-# Check PostgreSQL status
+# PostgreSQL durumunu kontrol et
 sudo systemctl status postgresql
 
-# Check connections
+# Bağlantıları kontrol et
 sudo -u postgres psql -c "SELECT * FROM pg_stat_activity;"
 
-# Reset connections
+# Bağlantıları sıfırla
 sudo systemctl restart postgresql
 ```
 
-**Memory Issues:**
+**Bellek Sorunları:**
 ```bash
-# Monitor memory usage
+# Bellek kullanımını izle
 free -h
 htop
 
-# Check Node.js heap usage
+# Node.js heap kullanımını kontrol et
 node --expose-gc app.js &
-kill -USR2 $!  # Trigger heap dump
+kill -USR2 $!  # Heap dump'ı tetikle
 ```
 
-**Performance Issues:**
+**Performans Sorunları:**
 ```bash
-# Check system performance
+# Sistem performansını kontrol et
 iostat -x 1
 sar -u 1
 netstat -i
 
-# Application performance
+# Uygulama performansı
 pnpm run analyze-bundle
 pnpm run profile
 ```
 
-### Log Analysis
+### Log Analizi
 
-**Centralized Logging:**
+**Merkezi Loglama:**
 ```bash
-# Install ELK Stack
+# ELK Stack'i yükle
 docker run -d --name elasticsearch -p 9200:9200 -e "discovery.type=single-node" elasticsearch:7.14.0
 docker run -d --name kibana -p 5601:5601 --link elasticsearch:elasticsearch kibana:7.14.0
 docker run -d --name logstash -p 5044:5044 --link elasticsearch:elasticsearch logstash:7.14.0
 ```
 
-**Log Rotation:**
+**Log Rotasyonu:**
 ```bash
 # /etc/logrotate.d/deepwebai
 /var/log/deepwebai/*.log {
@@ -823,4 +823,4 @@ docker run -d --name logstash -p 5044:5044 --link elasticsearch:elasticsearch lo
 }
 ```
 
-This comprehensive installation and deployment guide provides everything needed to successfully deploy DeepWebAI in various environments, from development to enterprise production setups.
+Bu kapsamlı kurulum ve dağıtım kılavuzu, DeepWebAI'nin geliştirmeden kurumsal üretim kurulumlarına kadar çeşitli ortamlarda başarıyla dağıtılması için gereken her şeyi sağlar.

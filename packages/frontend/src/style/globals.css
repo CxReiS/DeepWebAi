@@ -54,11 +54,14 @@
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -72,25 +75,28 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    background-color: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/20 rounded-full;
+    background-color: hsl(var(--muted-foreground) / 0.2);
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/30;
+    background-color: hsl(var(--muted-foreground) / 0.3);
   }
 
-  /* Selection styles */
+  /* Selection styles - Metin seçimi için stil ayarları */
   ::selection {
-    @apply bg-primary/20 text-foreground;
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
   }
 
-  /* Focus styles */
+  /* Focus styles - Klavye navigasyonu için odak stilleri */
   .focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring)), 0 0 0 4px hsl(var(--background));
   }
 
   /* Text rendering optimizations */
@@ -102,36 +108,87 @@
 }
 
 @layer components {
-  /* Layout containers */
+  /* Layout containers - Sayfa düzenlemesi için çeşitli container sınıfları */
   .container-responsive {
-    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
     max-width: min(90vw, 1400px);
   }
 
   .container-centered {
-    @apply w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+    width: 100%;
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .container-narrow {
-    @apply w-full max-w-2xl mx-auto px-4 sm:px-6;
+    width: 100%;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .container-wide {
-    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    width: 100%;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .container-responsive, .container-centered, .container-wide {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container-responsive, .container-centered, .container-wide {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 
-  /* Card variants */
+  /* Card variants - Çeşitli kart stillerini tanımlar */
   .card-modern {
-    @apply bg-card text-card-foreground rounded-lg border border-border/60 shadow-sm;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
   .card-elevated {
-    @apply bg-card text-card-foreground rounded-lg border border-border/60 shadow-lg shadow-black/5;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1), 0 10px 15px -3px rgb(0 0 0 / 0.05);
   }
 
   .card-interactive {
-    @apply bg-card text-card-foreground rounded-lg border border-border/60 shadow-sm 
-           hover:shadow-md hover:border-border transition-all duration-200 cursor-pointer;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  
+  .card-interactive:hover {
+    border-color: hsl(var(--border));
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
   /* Animation utilities */
@@ -143,21 +200,35 @@
     animation: fadeOut 0.2s ease-in;
   }
 
-  /* Gradient backgrounds */
+  /* Gradient backgrounds - Arka plan gradyan stilleri */
   .bg-gradient-primary {
-    @apply bg-gradient-to-br from-primary/10 to-primary/5;
+    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.1), hsl(var(--primary) / 0.05));
   }
 
   .bg-gradient-secondary {
-    @apply bg-gradient-to-br from-secondary to-secondary/80;
+    background: linear-gradient(to bottom right, hsl(var(--secondary)), hsl(var(--secondary) / 0.8));
   }
 
-  /* Button base styles */
+  /* Button base styles - Temel buton stilleri */
   .btn-base {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium 
-           transition-colors focus-visible:outline-none focus-visible:ring-2 
-           focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 
-           disabled:pointer-events-none ring-offset-background;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: colors 0.2s;
+    pointer-events: auto;
+  }
+  
+  .btn-base:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring)), 0 0 0 4px hsl(var(--background));
+  }
+  
+  .btn-base:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }
 

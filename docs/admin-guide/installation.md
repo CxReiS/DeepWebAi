@@ -1,62 +1,62 @@
-# DeepWebAI Admin Guide - Installation & Deployment
+# DeepWebAI Yönetici Kılavuzu - Kurulum ve Dağıtım
 
-This guide covers the complete installation and deployment process for DeepWebAI platform.
+Bu kılavuz DeepWebAI platformunun tam kurulum ve dağıtım sürecini kapsamaktadır.
 
-## Prerequisites
+## Ön Gereksinimler
 
-### System Requirements
-- **Node.js**: 18.x or higher
-- **pnpm**: 8.x or higher
-- **PostgreSQL**: 14+ (or Neon serverless)
-- **Redis**: 6+ (for caching)
-- **Docker**: 20+ (optional, for containerized deployment)
+### Sistem Gereksinimleri
+- **Node.js**: 18.x veya üstü
+- **pnpm**: 8.x veya üstü
+- **PostgreSQL**: 14+ (veya Neon serverless)
+- **Redis**: 6+ (önbellekleme için)
+- **Docker**: 20+ (isteğe bağlı, konteynerli dağıtım için)
 
-### External Services
+### Harici Servisler
 - **Neon Database**: Serverless PostgreSQL
-- **Ably**: Real-time messaging
-- **Sentry**: Error tracking (optional)
-- **AI Providers**: OpenAI, Anthropic, Google, DeepSeek
+- **Ably**: Gerçek zamanlı mesajlaşma
+- **Sentry**: Hata takibi (isteğe bağlı)
+- **AI Sağlayıcıları**: OpenAI, Anthropic, Google, DeepSeek
 
-## Installation
+## Kurulum
 
-### 1. Clone Repository
+### 1. Repository'yi Klonla
 ```bash
 git clone https://github.com/CxReiS/DeepWebAi.git
 cd DeepWebAi
 ```
 
-### 2. Install Dependencies
+### 2. Bağımlılıkları Yükle
 ```bash
 pnpm install
 ```
 
-### 3. Environment Configuration
-Copy environment template:
+### 3. Ortam Yapılandırması
+Ortam şablonunu kopyala:
 ```bash
 cp .env.example .env
 ```
 
-### Required Environment Variables
+### Gerekli Ortam Değişkenleri
 
-#### Database Configuration
+#### Veritabanı Yapılandırması
 ```env
 # Neon Database
 DATABASE_URL="postgresql://username:password@host/database?sslmode=require"
 NEON_DATABASE_URL="postgresql://username:password@host/database?sslmode=require"
 ```
 
-#### Authentication
+#### Kimlik Doğrulama
 ```env
 # JWT Secrets
 JWT_SECRET="your-jwt-secret-here"
-LUCIA_SECRET="your-lucia-secret-here"
+NEXTAUTH_SECRET="your-nextauth-secret-here"
 
 # Session Configuration
 SESSION_COOKIE_NAME="deepwebai-session"
 SESSION_MAX_AGE=604800
 ```
 
-#### AI Provider APIs
+#### AI Sağlayıcı API'leri
 ```env
 # OpenAI
 OPENAI_API_KEY="sk-..."
@@ -71,16 +71,16 @@ GEMINI_API_KEY="..."
 DEEPSEEK_API_KEY="..."
 ```
 
-#### Real-time Services
+#### Gerçek Zamanlı Servisler
 ```env
 # Ably Real-time
 ABLY_API_KEY="..."
 ABLY_APP_ID="..."
 ```
 
-#### Caching & Storage
+#### Önbellekleme ve Depolama
 ```env
-# Redis (optional)
+# Redis (isteğe bağlı)
 REDIS_URL="redis://localhost:6379"
 
 # File Storage
@@ -88,9 +88,9 @@ UPLOAD_DIR="./uploads"
 MAX_FILE_SIZE=52428800
 ```
 
-#### Monitoring & Analytics
+#### İzleme ve Analitik
 ```env
-# Sentry (optional)
+# Sentry (isteğe bağlı)
 SENTRY_DSN="https://..."
 SENTRY_ENVIRONMENT="production"
 
@@ -98,98 +98,98 @@ SENTRY_ENVIRONMENT="production"
 ANALYTICS_ENABLED=true
 ```
 
-### 4. Database Setup
+### 4. Veritabanı Kurulumu
 ```bash
-# Run migrations
+# Migrationları çalıştır
 pnpm run db:migrate
 
-# Seed initial data
+# İlk verileri yükle
 pnpm run db:seed
 ```
 
-### 5. Build Application
+### 5. Uygulamayı Derle
 ```bash
 pnpm build
 ```
 
-## Deployment Options
+## Dağıtım Seçenekleri
 
-### Option 1: Traditional Server Deployment
+### Seçenek 1: Geleneksel Sunucu Dağıtımı
 
-#### 1. Production Build
+#### 1. Üretim Derlemesi
 ```bash
 NODE_ENV=production pnpm build
 ```
 
-#### 2. Start Services
+#### 2. Servisleri Başlat
 ```bash
-# Start backend
+# Backend'i başlat
 cd packages/backend
 pnpm start
 
-# Start frontend (separate terminal)
+# Frontend'i başlat (ayrı terminal)
 cd packages/frontend
 pnpm preview --host 0.0.0.0 --port 3000
 ```
 
-#### 3. Process Manager (PM2)
+#### 3. Süreç Yöneticisi (PM2)
 ```bash
-# Install PM2
+# PM2'yi yükle
 npm install -g pm2
 
-# Start with PM2
+# PM2 ile başlat
 pm2 start ecosystem.config.js
 pm2 save
 pm2 startup
 ```
 
-### Option 2: Docker Deployment
+### Seçenek 2: Docker Dağıtımı
 
-#### 1. Build Images
+#### 1. Image'ları Derle
 ```bash
-# Build backend
+# Backend'i derle
 docker build -f docker/backend.Dockerfile -t deepwebai-backend .
 
-# Build frontend
+# Frontend'i derle
 docker build -f docker/frontend.Dockerfile -t deepwebai-frontend .
 ```
 
 #### 2. Docker Compose
 ```bash
-# Start all services
+# Tüm servisleri başlat
 docker-compose up -d
 
-# View logs
+# Logları görüntüle
 docker-compose logs -f
 ```
 
-### Option 3: Cloud Deployment (Vercel/Netlify)
+### Seçenek 3: Bulut Dağıtımı (Vercel/Netlify)
 
 #### Frontend (Vercel)
 ```bash
-# Install Vercel CLI
+# Vercel CLI'yi yükle
 npm i -g vercel
 
-# Deploy
+# Dağıt
 cd packages/frontend
 vercel --prod
 ```
 
 #### Backend (Railway/Render)
-1. Connect GitHub repository
-2. Set environment variables
-3. Deploy automatically on push
+1. GitHub repository'sini bağla
+2. Ortam değişkenlerini ayarla
+3. Push'ta otomatik dağıt
 
-## Configuration Management
+## Yapılandırma Yönetimi
 
-### Feature Flags Configuration
+### Özellik Bayrakları Yapılandırması
 ```env
 # Feature Flags Provider
 FEATURE_FLAGS_PROVIDER="database"  # or "growthbook"
 GROWTHBOOK_API_KEY="..."
 ```
 
-### Security Configuration
+### Güvenlik Yapılandırması
 ```env
 # CORS
 CORS_ORIGIN="https://yourapp.com"
@@ -203,7 +203,7 @@ RATE_LIMIT_MAX_REQUESTS=100
 SECURITY_HEADERS_ENABLED=true
 ```
 
-### Performance Configuration
+### Performans Yapılandırması
 ```env
 # Caching
 CACHE_TTL=3600
@@ -215,22 +215,22 @@ OCR_LANGUAGE="eng"
 MAX_PROCESSING_TIME=300000
 ```
 
-## SSL/TLS Setup
+## SSL/TLS Kurulumu
 
-### Using Let's Encrypt (Certbot)
+### Let's Encrypt Kullanımı (Certbot)
 ```bash
-# Install certbot
+# Certbot'u yükle
 sudo apt install certbot
 
-# Generate certificate
+# Sertifika oluştur
 sudo certbot certonly --standalone -d yourdomain.com
 
-# Auto-renewal
+# Otomatik yenileme
 sudo crontab -e
-# Add: 0 12 * * * /usr/bin/certbot renew --quiet
+# Ekle: 0 12 * * * /usr/bin/certbot renew --quiet
 ```
 
-### Nginx Configuration
+### Nginx Yapılandırması
 ```nginx
 server {
     listen 443 ssl http2;
@@ -263,14 +263,14 @@ server {
 }
 ```
 
-## Health Checks & Monitoring
+## Sağlık Kontrolleri ve İzleme
 
-### Application Health
+### Uygulama Sağlığı
 ```bash
-# Check health endpoint
+# Sağlık endpoint'ini kontrol et
 curl https://yourapp.com/api/health
 
-# Expected response:
+# Beklenen yanıt:
 {
   "status": "ok",
   "database": "connected",
@@ -282,84 +282,84 @@ curl https://yourapp.com/api/health
 }
 ```
 
-### Log Management
+### Log Yönetimi
 ```bash
-# View application logs
+# Uygulama loglarını görüntüle
 pm2 logs
 
-# Structured logging
+# Yapılandırılmış loglama
 tail -f /var/log/deepwebai/app.log | jq
 ```
 
-### Monitoring Setup
-1. **Sentry**: Error tracking and performance monitoring
-2. **Prometheus + Grafana**: Metrics and dashboards
-3. **Uptime monitoring**: Pingdom, UptimeRobot
-4. **Log aggregation**: ELK stack or similar
+### İzleme Kurulumu
+1. **Sentry**: Hata takibi ve performans izleme
+2. **Prometheus + Grafana**: Metrikler ve dashboard'lar
+3. **Uptime izleme**: Pingdom, UptimeRobot
+4. **Log toplama**: ELK stack veya benzeri
 
-## Backup Configuration
+## Yedekleme Yapılandırması
 
-### Database Backups
+### Veritabanı Yedekleri
 ```bash
-# Daily backup script
+# Günlük yedekleme betiği
 #!/bin/bash
 pg_dump $DATABASE_URL > backups/db-$(date +%Y%m%d).sql
 ```
 
-### File Storage Backups
+### Dosya Depolama Yedekleri
 ```bash
-# Sync uploads to S3
+# Upload'ları S3'e senkronize et
 aws s3 sync ./uploads s3://deepwebai-backups/uploads/
 ```
 
-## Troubleshooting
+## Sorun Giderme
 
-### Common Issues
+### Yaygın Sorunlar
 
-#### Database Connection
-- Verify DATABASE_URL format
-- Check network connectivity
-- Ensure database exists and user has permissions
+#### Veritabanı Bağlantısı
+- DATABASE_URL formatını doğrula
+- Ağ bağlantısını kontrol et
+- Veritabanının var olduğunu ve kullanıcının izinleri olduğunu doğrula
 
-#### Build Failures
-- Clear node_modules and reinstall
-- Check Node.js version compatibility
-- Verify all environment variables are set
+#### Derleme Hatası
+- node_modules'u temizle ve yeniden yükle
+- Node.js sürüm uyumluluğunu kontrol et
+- Tüm ortam değişkenlerinin ayarlandığını doğrula
 
-#### Performance Issues
-- Enable Redis caching
-- Optimize database queries
-- Configure CDN for static assets
+#### Performans Sorunları
+- Redis önbelleklemesini etkinleştir
+- Veritabanı sorgularını optimize et
+- Statik varlıklar için CDN yapılandır
 
-### Logs to Check
-- Application logs: `/var/log/deepwebai/`
-- System logs: `/var/log/syslog`
-- Nginx logs: `/var/log/nginx/`
-- Database logs: Check Neon dashboard
+### Kontrol Edilecek Loglar
+- Uygulama logları: `/var/log/deepwebai/`
+- Sistem logları: `/var/log/syslog`
+- Nginx logları: `/var/log/nginx/`
+- Veritabanı logları: Neon dashboard'u kontrol et
 
-## Security Checklist
+## Güvenlik Kontrol Listesi
 
-- [ ] All secrets properly configured
-- [ ] SSL/TLS enabled
-- [ ] Rate limiting configured
-- [ ] CORS properly set
-- [ ] Security headers enabled
-- [ ] Database access restricted
-- [ ] File upload validation active
-- [ ] MFA enforced for admin accounts
-- [ ] Regular security updates applied
+- [ ] Tüm gizli anahtarlar düzgün yapılandırıldı
+- [ ] SSL/TLS etkinleştirildi
+- [ ] Hız sınırlaması yapılandırıldı
+- [ ] CORS düzgün ayarlandı
+- [ ] Güvenlik başlıkları etkinleştirildi
+- [ ] Veritabanı erişimi kısıtlandı
+- [ ] Dosya yükleme doğrulaması aktif
+- [ ] Yönetici hesapları için MFA zorunlu
+- [ ] Düzenli güvenlik güncellemeleri uygulandı
 
-## Production Checklist
+## Üretim Kontrol Listesi
 
-- [ ] Environment variables configured
-- [ ] Database migrations applied
-- [ ] SSL certificates installed
-- [ ] Monitoring configured
-- [ ] Backups scheduled
-- [ ] Health checks working
-- [ ] CDN configured
-- [ ] Domain DNS configured
-- [ ] Performance testing completed
-- [ ] Security audit passed
+- [ ] Ortam değişkenleri yapılandırıldı
+- [ ] Veritabanı migration'ları uygulandı
+- [ ] SSL sertifikaları yüklendi
+- [ ] İzleme yapılandırıldı
+- [ ] Yedeklemeler zamanlandı
+- [ ] Sağlık kontrolleri çalışıyor
+- [ ] CDN yapılandırıldı
+- [ ] Domain DNS yapılandırıldı
+- [ ] Performans testleri tamamlandı
+- [ ] Güvenlik denetimi geçildi
 
-For additional support, contact: admin@deepwebai.com
+Ek destek için iletişim: admin@deepwebai.com

@@ -8,7 +8,7 @@ dotenv.config({ path: '.env.test' });
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || 'postgresql://test:test@localhost:5432/deepweb_ai_test';
 process.env.JWT_SECRET = 'test-jwt-secret-key';
-process.env.LUCIA_SECRET = 'test-lucia-secret-key';
+process.env.NEXTAUTH_SECRET = 'test-nextauth-secret-key';
 process.env.REDIS_URL = 'redis://localhost:6379/1';
 
 // Global test setup

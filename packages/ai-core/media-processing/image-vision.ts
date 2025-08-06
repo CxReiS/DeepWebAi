@@ -1,12 +1,22 @@
 import Tesseract from "tesseract.js";
 
 export class ImageVisionService {
-  // OCR için Tesseract
+  // OCR için tesseract.js
   async extractTextFromImage(imageFile: File): Promise<string> {
-    const result = await Tesseract.recognize(imageFile, "eng+tur", {
-      logger: (m) => console.log(m),
+    const worker = await Tesseract.createWorker("eng+tur", 1, {
+      logger: (m: any) => {
+        if (m.status === 'recognizing text') {
+          console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`);
+        }
+      }
     });
-    return result.data.text;
+    
+    try {
+      const { data } = await worker.recognize(imageFile);
+      return data.text || '';
+    } finally {
+      await worker.terminate();
+    }
   }
 
   // Vision API için (GPT-4V, Claude Vision vb.)
