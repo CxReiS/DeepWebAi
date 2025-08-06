@@ -1,16 +1,13 @@
-"use strict";
 // Shared types for real-time communication
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.EVENTS = exports.CHANNELS = void 0;
 // Channel definitions
-exports.CHANNELS = {
+export const CHANNELS = {
     CHAT: 'chat',
     NOTIFICATIONS: 'notifications',
     AI_STATUS: 'ai-status',
     USER_PRESENCE: 'user-presence',
 };
 // Event types for each channel
-exports.EVENTS = {
+export const EVENTS = {
     CHAT: {
         MESSAGE: 'message',
         TYPING_START: 'typing_start',

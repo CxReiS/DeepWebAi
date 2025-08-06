@@ -180,7 +180,7 @@ export function addProductionMiddleware(app: Elysia) {
         ...set.headers,
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
         'X-Production': 'true'
-      };
+      } as any;
       return {};
     });
 }

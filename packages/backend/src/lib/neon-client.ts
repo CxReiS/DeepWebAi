@@ -1,6 +1,6 @@
 // Enhanced Neon client with branch and compute configuration
 import { neon, neonConfig, Pool } from "@neondatabase/serverless";
-import { configureNeon, getCurrentNeonConfig } from "../../database/neon-config.js";
+import { configureNeon, getCurrentNeonConfig } from "../../../../database/neon-config.js";
 
 // Configure Neon with branch and compute settings
 configureNeon();

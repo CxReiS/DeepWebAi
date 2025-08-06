@@ -1,5 +1,4 @@
 
 > @deepwebai/shared-types@1.0.0 build D:\Python_Gereksinimleri\Venvler\DeepWebAi\packages\shared-types
-> echo 'No build needed for types'
+> tsc
 
-'No build needed for types'

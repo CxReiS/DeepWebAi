@@ -47,7 +47,7 @@ const mockProfile: UserProfile = {
   }
 }
 
-export function Profile() {
+function Profile() {
   const [profile, setProfile] = React.useState<UserProfile>(mockProfile)
   const [editing, setEditing] = React.useState(false)
   const [tempName, setTempName] = React.useState(profile.name)
@@ -343,3 +343,5 @@ function PreferenceRow({ label, description, value, action }: PreferenceRowProps
     </div>
   )
 }
+
+export default Profile

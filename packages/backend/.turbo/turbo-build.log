@@ -2,13 +2,364 @@
 > backend@1.0.0 build D:\Python_Gereksinimleri\Venvler\DeepWebAi\packages\backend
 > tsc
 
-error TS6059: File 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/shared-types/schema-validator.ts' is not under 'rootDir' 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/backend/src'. 'rootDir' is expected to contain all source files.
-  The file is in the program because:
-    Matched by include pattern '../shared-types/**/*' in 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/backend/tsconfig.json'
-  File is CommonJS module because 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/shared-types/package.json' does not have field "type"
-error TS6059: File 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/shared-types/utils.ts' is not under 'rootDir' 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/backend/src'. 'rootDir' is expected to contain all source files.
-  The file is in the program because:
-    Matched by include pattern '../shared-types/**/*' in 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/backend/tsconfig.json'
-  File is CommonJS module because 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/shared-types/package.json' does not have field "type"
-src/modules/ai/chat.ts(3,14): error TS2742: The inferred type of 'streamingAI' cannot be named without a reference to '.pnpm/undici-types@7.10.0/node_modules/undici-types'. This is likely not portable. A type annotation is necessary.
- ELIFECYCLE  Command failed with exit code 1.
+../../libs/error-tracking/custom-logger.ts(3,36): error TS6059: File 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/libs/error-tracking/sentry-integration.ts' is not under 'rootDir' 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages'. 'rootDir' is expected to contain all source files.
+  File is ECMAScript module because 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/package.json' has field "type" with value "module"
+../../libs/error-tracking/custom-logger.ts(383,30): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(cb?: (() => void) | undefined): WritableStream', gave the following error.
+    Argument of type '(error: any) => void' is not assignable to parameter of type '() => void'.
+      Target signature provides too few arguments. Expected 1 or more, but got 0.
+  Overload 2 of 3, '(data: string | Uint8Array, cb?: (() => void) | undefined): WritableStream', gave the following error.
+    Argument of type '(error: any) => void' is not assignable to parameter of type 'string | Uint8Array'.
+  Overload 3 of 3, '(str: string, encoding?: BufferEncoding | undefined, cb?: (() => void) | undefined): WritableStream', gave the following error.
+    Argument of type '(error: any) => void' is not assignable to parameter of type 'string'.
+../../libs/error-tracking/custom-logger.ts(383,31): error TS7006: Parameter 'error' implicitly has an 'any' type.
+../../libs/error-tracking/sentry-integration.ts(1,25): error TS2307: Cannot find module '@sentry/node' or its corresponding type declarations.
+../../libs/error-tracking/sentry-integration.ts(2,42): error TS2307: Cannot find module '@sentry/profiling-node' or its corresponding type declarations.
+../../libs/error-tracking/sentry-integration.ts(62,18): error TS7006: Parameter 'event' implicitly has an 'any' type.
+../../libs/error-tracking/sentry-integration.ts(62,25): error TS7006: Parameter 'hint' implicitly has an 'any' type.
+../../libs/error-tracking/sentry-integration.ts(94,29): error TS7006: Parameter 'event' implicitly has an 'any' type.
+../../libs/error-tracking/sentry-integration.ts(116,30): error TS7006: Parameter 'scope' implicitly has an 'any' type.
+../../libs/error-tracking/sentry-integration.ts(147,30): error TS7006: Parameter 'scope' implicitly has an 'any' type.
+src/auth/index.ts(23,7): error TS2353: Object literal may only specify known properties, and 'httpOnly' does not exist in type 'SessionCookieAttributesOptions'.
+src/auth/index.ts(346,11): error TS7034: Variable 'values' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/auth/index.ts(368,8): error TS2554: Expected 1 arguments, but got 2.
+src/auth/index.ts(368,12): error TS7005: Variable 'values' implicitly has an 'any[]' type.
+src/auth/index.ts(370,16): error TS2339: Property 'length' does not exist on type 'UnsafeRawSql'.
+src/auth/index.ts(374,18): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'UnsafeRawSql'.
+  Property '0' does not exist on type 'UnsafeRawSql'.
+src/auth/index.ts(441,14): error TS2339: Property 'user' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/auth/index.ts(454,16): error TS2339: Property 'user' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/auth/oauth.ts(310,41): error TS2339: Property 'lucia' does not exist on type 'typeof AuthService'.
+src/auth/oauth.ts(343,41): error TS2339: Property 'lucia' does not exist on type 'typeof AuthService'.
+src/auth/oauth.ts(413,39): error TS2339: Property 'lucia' does not exist on type 'typeof AuthService'.
+src/auth/security.ts(458,16): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/auth/security.ts(459,16): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/auth/security.ts(466,7): error TS2322: Type '{ 'Retry-After': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Retry-After': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/core/security/rate-limiter.ts(29,13): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ api: RateLimiterMemory; ai: RateLimiterMemory; tokens: RateLimiterMemory; }'.
+  No index signature with a parameter of type 'string' was found on type '{ api: RateLimiterMemory; ai: RateLimiterMemory; tokens: RateLimiterMemory; }'.
+src/core/security/rate-limiter.ts(33,45): error TS18046: 'rejRes' is of type 'unknown'.
+src/database/operations/ai.queries.ts(74,5): error TS2322: Type 'Record<string, any>[]' is not assignable to type '{ name: string; id: string; created_at: Date; updated_at: Date; provider: string; model_type: string; capabilities: string[]; pricing_info: Record<string, any>; is_active: boolean; version?: string | undefined; api_endpoint?: string | undefined; context_length?: number | undefined; max_tokens?: number | undefined; }[]'.
+  Type 'Record<string, any>' is missing the following properties from type '{ name: string; id: string; created_at: Date; updated_at: Date; provider: string; model_type: string; capabilities: string[]; pricing_info: Record<string, any>; is_active: boolean; version?: string | undefined; api_endpoint?: string | undefined; context_length?: number | undefined; max_tokens?: number | undefined; }': name, id, created_at, updated_at, and 5 more.
+src/database/operations/ai.queries.ts(82,5): error TS2322: Type 'Record<string, any>' is not assignable to type '{ name: string; id: string; created_at: Date; updated_at: Date; provider: string; model_type: string; capabilities: string[]; pricing_info: Record<string, any>; is_active: boolean; version?: string | undefined; api_endpoint?: string | undefined; context_length?: number | undefined; max_tokens?: number | undefined; }'.
+src/database/operations/ai.queries.ts(91,5): error TS2322: Type 'Record<string, any>[]' is not assignable to type '{ name: string; id: string; created_at: Date; updated_at: Date; provider: string; model_type: string; capabilities: string[]; pricing_info: Record<string, any>; is_active: boolean; version?: string | undefined; api_endpoint?: string | undefined; context_length?: number | undefined; max_tokens?: number | undefined; }[]'.
+src/database/operations/ai.queries.ts(100,5): error TS2322: Type 'Record<string, any>[]' is not assignable to type '{ name: string; id: string; created_at: Date; updated_at: Date; provider: string; model_type: string; capabilities: string[]; pricing_info: Record<string, any>; is_active: boolean; version?: string | undefined; api_endpoint?: string | undefined; context_length?: number | undefined; max_tokens?: number | undefined; }[]'.
+src/database/operations/ai.queries.ts(120,5): error TS2740: Type 'Record<string, any>' is missing the following properties from type '{ id: string; created_at: Date; updated_at: Date; metadata: Record<string, any>; user_id: string; is_archived: boolean; title?: string | undefined; model_id?: string | undefined; system_prompt?: string | undefined; }': id, created_at, updated_at, metadata, and 2 more.
+src/database/operations/ai.queries.ts(128,5): error TS2322: Type 'Record<string, any>' is not assignable to type '{ id: string; created_at: Date; updated_at: Date; metadata: Record<string, any>; user_id: string; is_archived: boolean; title?: string | undefined; model_id?: string | undefined; system_prompt?: string | undefined; }'.
+src/database/operations/ai.queries.ts(154,7): error TS2322: Type 'Record<string, any>[]' is not assignable to type '{ id: string; created_at: Date; updated_at: Date; metadata: Record<string, any>; user_id: string; is_archived: boolean; title?: string | undefined; model_id?: string | undefined; system_prompt?: string | undefined; }[]'.
+  Type 'Record<string, any>' is not assignable to type '{ id: string; created_at: Date; updated_at: Date; metadata: Record<string, any>; user_id: string; is_archived: boolean; title?: string | undefined; model_id?: string | undefined; system_prompt?: string | undefined; }'.
+src/database/operations/ai.queries.ts(164,11): error TS7034: Variable 'values' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/database/operations/ai.queries.ts(184,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/ai.queries.ts(184,12): error TS7005: Variable 'values' implicitly has an 'any[]' type.
+src/database/operations/ai.queries.ts(186,12): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'UnsafeRawSql'.
+  Property '0' does not exist on type 'UnsafeRawSql'.
+src/database/operations/ai.queries.ts(194,19): error TS2339: Property 'count' does not exist on type 'Record<string, any>[]'.
+src/database/operations/ai.queries.ts(221,5): error TS2740: Type 'Record<string, any>' is missing the following properties from type '{ id: string; role: "user" | "assistant" | "system"; created_at: Date; metadata: Record<string, any>; conversation_id: string; content: string; token_count?: number | undefined; }': id, role, created_at, metadata, and 2 more.
+src/database/operations/ai.queries.ts(243,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/ai.queries.ts(245,5): error TS2740: Type 'UnsafeRawSql' is missing the following properties from type '{ id: string; role: "user" | "assistant" | "system"; created_at: Date; metadata: Record<string, any>; conversation_id: string; content: string; token_count?: number | undefined; }[]': length, pop, push, concat, and 29 more.
+src/database/operations/ai.queries.ts(253,5): error TS2322: Type 'Record<string, any>' is not assignable to type '{ id: string; role: "user" | "assistant" | "system"; created_at: Date; metadata: Record<string, any>; conversation_id: string; content: string; token_count?: number | undefined; }'.
+src/database/operations/ai.queries.ts(260,11): error TS7034: Variable 'setClause' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/database/operations/ai.queries.ts(261,11): error TS7034: Variable 'values' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/database/operations/ai.queries.ts(276,13): error TS7005: Variable 'setClause' implicitly has an 'any[]' type.
+src/database/operations/ai.queries.ts(279,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/ai.queries.ts(279,12): error TS7005: Variable 'values' implicitly has an 'any[]' type.
+src/database/operations/ai.queries.ts(281,12): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'UnsafeRawSql'.
+  Property '0' does not exist on type 'UnsafeRawSql'.
+src/database/operations/ai.queries.ts(289,19): error TS2339: Property 'count' does not exist on type 'Record<string, any>[]'.
+src/database/operations/ai.queries.ts(375,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/ai.queries.ts(386,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/ai.queries.ts(389,7): error TS2740: Type 'UnsafeRawSql' is missing the following properties from type 'any[]': length, pop, push, concat, and 29 more.
+src/database/operations/ai.queries.ts(390,14): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'UnsafeRawSql'.
+  Property '0' does not exist on type 'UnsafeRawSql'.
+src/database/operations/ai.queries.ts(421,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/ai.queries.ts(423,5): error TS2322: Type 'UnsafeRawSql' is not assignable to type 'any[]'.
+src/database/operations/user.queries.ts(44,5): error TS2740: Type 'Record<string, any>' is missing the following properties from type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; }': id, email, username, role, and 4 more.
+src/database/operations/user.queries.ts(53,5): error TS2322: Type 'Record<string, any>' is not assignable to type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; }'.
+src/database/operations/user.queries.ts(62,5): error TS2322: Type 'Record<string, any>' is not assignable to type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; }'.
+src/database/operations/user.queries.ts(84,5): error TS2322: Type 'Record<string, any>' is not assignable to type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; }'.
+src/database/operations/user.queries.ts(92,11): error TS7034: Variable 'values' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/database/operations/user.queries.ts(112,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/user.queries.ts(112,12): error TS7005: Variable 'values' implicitly has an 'any[]' type.
+src/database/operations/user.queries.ts(114,12): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'UnsafeRawSql'.
+  Property '0' does not exist on type 'UnsafeRawSql'.
+src/database/operations/user.queries.ts(125,19): error TS2339: Property 'count' does not exist on type 'Record<string, any>[]'.
+src/database/operations/user.queries.ts(165,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/user.queries.ts(173,8): error TS2554: Expected 1 arguments, but got 2.
+src/database/operations/user.queries.ts(176,7): error TS2740: Type 'UnsafeRawSql' is missing the following properties from type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; }[]': length, pop, push, concat, and 29 more.
+src/database/operations/user.queries.ts(177,23): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'UnsafeRawSql'.
+  Property '0' does not exist on type 'UnsafeRawSql'.
+src/database/operations/user.queries.ts(219,5): error TS2739: Type 'Record<string, any>' is missing the following properties from type '{ totalConversations: number; totalMessages: number; totalTokensUsed: number; totalCost: number; }': totalConversations, totalMessages, totalTokensUsed, totalCost
+src/database/operations/user.queries.ts(242,5): error TS2322: Type '{ oauthAccounts: Record<string, any>[]; }' is not assignable to type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; } & { ...; }'.
+  Type '{ oauthAccounts: Record<string, any>[]; }' is missing the following properties from type '{ id: string; email: string; username: string; role: "user" | "admin" | "developer" | "premium"; preferences: Record<string, any>; is_verified: boolean; created_at: Date; ... 4 more ...; bio?: string | undefined; }': id, email, username, role, and 4 more.
+src/elysia.config.ts(81,22): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(82,20): error TS2339: Property 'stack' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'stack' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(92,15): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(92,57): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(100,15): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(100,54): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(108,15): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(116,15): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(116,55): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(120,24): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(128,53): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/elysia.config.ts(146,6): error TS2339: Property 'onResponse' does not exist on type 'Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>'.
+src/elysia.config.ts(146,20): error TS7031: Binding element 'request' implicitly has an 'any' type.
+src/elysia.config.ts(146,29): error TS7031: Binding element 'set' implicitly has an 'any' type.
+src/elysia.config.ts(179,7): error TS2322: Type '{ 'Strict-Transport-Security': string; 'X-Production': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Strict-Transport-Security': string; 'X-Production': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/elysia.config.ts(228,47): error TS18046: 'error' is of type 'unknown'.
+src/lib/neon-client.ts(3,53): error TS2307: Cannot find module '../../database/neon-config.js' or its corresponding type declarations.
+src/middleware/analytics.middleware.ts(3,24): error TS2307: Cannot find module '../../../libs/error-tracking/custom-logger.js' or its corresponding type declarations.
+src/middleware/analytics.middleware.ts(8,28): error TS2339: Property 'headers' does not exist on type '{ store: {}; request: Request; redirect: (url: string, status?: 301 | 302 | 303 | 307 | 308 | undefined) => Response; server: any; set: { headers: HTTPHeaders; status?: number | undefined; redirect?: string | undefined; }; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ...'.
+src/middleware/analytics.middleware.ts(11,15): error TS2339: Property 'startTime' does not exist on type 'Request'.
+src/middleware/analytics.middleware.ts(16,35): error TS2339: Property 'startTime' does not exist on type 'Request'.
+src/middleware/analytics.middleware.ts(18,28): error TS18046: 'response' is of type 'unknown'.
+src/middleware/analytics.middleware.ts(72,34): error TS2339: Property 'status' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'status' does not exist on type 'Readonly<Error>'.
+src/middleware/analytics.middleware.ts(73,34): error TS2339: Property 'startTime' does not exist on type 'Request'.
+src/middleware/analytics.middleware.ts(73,67): error TS2339: Property 'startTime' does not exist on type 'Request'.
+src/middleware/analytics.middleware.ts(75,30): error TS2345: Argument of type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>' is not assignable to parameter of type 'Error'.
+  Type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>' is missing the following properties from type 'Error': name, message
+src/middleware/cors.ts(34,5): error TS2561: Object literal may only specify known properties, but 'exposedHeaders' does not exist in type 'CORSConfig'. Did you mean to write 'exposeHeaders'?
+src/middleware/cors.ts(46,36): error TS2339: Property 'origin' does not exist on type 'Headers'.
+src/middleware/cors.ts(54,7): error TS2322: Type '{ 'Access-Control-Allow-Origin': any; 'Access-Control-Allow-Methods': string; 'Access-Control-Allow-Headers': string; 'Access-Control-Max-Age': string; 'www-authenticate'?: string; authorization?: string; ... 88 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Access-Control-Allow-Origin': any; 'Access-Control-Allow-Methods': string; 'Access-Control-Allow-Headers': string; 'Access-Control-Max-Age': string; 'www-authenticate'?: string; authorization?: string; ... 88 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+        Type 'string[]' is not assignable to type 'string | number'.
+src/middleware/deepwebai-flag.middleware.ts(5,36): error TS2307: Cannot find module '../modules/feature-flags/feature-flags.service' or its corresponding type declarations.
+src/middleware/deepwebai-flag.middleware.ts(13,11): error TS2345: Argument of type '({ headers, query }: { body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : ...' is not assignable to parameter of type '(context: { body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code:...'.
+  Type 'Promise<DeepWebAIFlagContext & { userContext: { id: string; email: string; role: string; customAttributes: { timestamp: string; source: string; }; }; }>' is not assignable to type 'MaybePromise<void | Record<string, unknown> | ElysiaCustomStatusResponse<any, any, any>>'.
+    Type 'Promise<DeepWebAIFlagContext & { userContext: { id: string; email: string; role: string; customAttributes: { timestamp: string; source: string; }; }; }>' is not assignable to type 'Promise<void | Record<string, unknown> | ElysiaCustomStatusResponse<any, any, any>>'.
+      Type 'DeepWebAIFlagContext & { userContext: { id: string; email: string; role: string; customAttributes: { timestamp: string; source: string; }; }; }' is not assignable to type 'void | Record<string, unknown> | ElysiaCustomStatusResponse<any, any, any>'.
+        Type 'DeepWebAIFlagContext & { userContext: { id: string; email: string; role: string; customAttributes: { timestamp: string; source: string; }; }; }' is not assignable to type 'Record<string, unknown>'.
+          Index signature for type 'string' is missing in type 'DeepWebAIFlagContext & { userContext: { id: string; email: string; role: string; customAttributes: { timestamp: string; source: string; }; }; }'.
+src/middleware/deepwebai-flag.middleware.ts(70,22): error TS2339: Property 'isDeepWebAIFlagEnabled' does not exist on type '{ [x: string]: unknown; body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] :...'.
+src/middleware/deepwebai-flag.middleware.ts(70,46): error TS2339: Property 'userContext' does not exist on type '{ [x: string]: unknown; body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] :...'.
+src/middleware/deepwebai-flag.middleware.ts(85,22): error TS2339: Property 'isDeepWebAIFlagEnabled' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/middleware/helmet.ts(91,8): error TS2349: This expression is not callable.
+  Type 'typeof import("D:/Python_Gereksinimleri/Venvler/DeepWebAi/node_modules/.pnpm/elysia-helmet@3.0.0_elysia@_aa5ed9463fe5471691d83e03d156650f/node_modules/elysia-helmet/dist/index")' has no call signatures.
+src/middleware/helmet.ts(167,5): error TS2322: Type '{ 'Content-Type': string; 'X-API-Version': string; 'X-Request-ID': `${string}-${string}-${string}-${string}-${string}`; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; ... 86 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Content-Type': string; 'X-API-Version': string; 'X-Request-ID': `${string}-${string}-${string}-${string}-${string}`; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; ... 86 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/middleware/helmet.ts(176,7): error TS2322: Type '{ 'Cache-Control': string; Pragma: string; Expires: string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Cache-Control': string; Pragma: string; Expires: string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/middleware/helmet.ts(190,25): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(201,9): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(202,38): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(224,71): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(243,16): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(243,54): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(244,23): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(249,5): error TS2322: Type '{ 'X-Auth-Required': string; 'WWW-Authenticate': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'X-Auth-Required': string; 'WWW-Authenticate': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/middleware/helmet.ts(267,25): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/helmet.ts(282,7): error TS2322: Type '{ 'X-File-Upload': string; 'X-Max-File-Size': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'X-File-Upload': string; 'X-Max-File-Size': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; ... 84 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/middleware/rate-limiter.ts(129,9): error TS2322: Type '{ 'X-RateLimit-Limit': string; 'X-RateLimit-Remaining': string; 'X-RateLimit-Reset': string; 'X-RateLimit-Window': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; ... 87 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'X-RateLimit-Limit': string; 'X-RateLimit-Remaining': string; 'X-RateLimit-Reset': string; 'X-RateLimit-Window': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; ... 87 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/middleware/rate-limiter.ts(196,22): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/rate-limiter.ts(240,11): error TS2345: Argument of type '({ request, set }: { body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Co...' is not assignable to parameter of type '(context: { body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code:...'.
+  Type 'Promise<Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>>' is not assignable to type 'MaybePromise<void | Record<string, unknown> | ElysiaCustomStatusResponse<any, any, any>>'.
+    Type 'Promise<Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>>' is not assignable to type 'Promise<void | Record<string, unknown> | ElysiaCustomStatusResponse<any, any, any>>'.
+      Type 'Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>' is not assignable to type 'void | Record<string, unknown> | ElysiaCustomStatusResponse<any, any, any>'.
+        Type 'Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>' is not assignable to type 'Record<string, unknown>'.
+          Index signature for type 'string' is missing in type 'Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>'.
+src/middleware/rate-limiter.ts(241,20): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/rate-limiter.ts(242,22): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/middleware/rate-limiter.ts(256,37): error TS7052: Element implicitly has an 'any' type because type 'Headers' has no index signature. Did you mean to call 'request.headers.get'?
+src/modules/analytics/analytics.router.ts(3,24): error TS2307: Cannot find module '../../../../libs/error-tracking/custom-logger.js' or its corresponding type declarations.
+src/modules/analytics/analytics.router.ts(44,26): error TS2341: Property 'config' is private and only accessible within class 'AnalyticsService'.
+src/modules/auth/ably-auth.ts(20,26): error TS2304: Cannot find name 'getUserFromToken'.
+src/modules/auth/ably-auth.ts(27,54): error TS2551: Property 'ABLY_API_KEY' does not exist on type '{ port: number; host: string; env: string; databaseUrl: string; jwtSecret: string; luciaSecret: string; openaiApiKey: string | undefined; anthropicApiKey: string | undefined; deepseekApiKey: string | undefined; ... 11 more ...; rateLimitMaxRequests: number; }'. Did you mean 'ablyApiKey'?
+src/modules/auth/ably-auth.ts(58,26): error TS2304: Cannot find name 'getUserFromToken'.
+src/modules/auth/ably-auth.ts(64,54): error TS2551: Property 'ABLY_API_KEY' does not exist on type '{ port: number; host: string; env: string; databaseUrl: string; jwtSecret: string; luciaSecret: string; openaiApiKey: string | undefined; anthropicApiKey: string | undefined; deepseekApiKey: string | undefined; ... 11 more ...; rateLimitMaxRequests: number; }'. Did you mean 'ablyApiKey'?
+src/modules/auth/auth.controller.ts(18,9): error TS2322: Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.controller.ts(107,9): error TS2322: Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.controller.ts(195,7): error TS2322: Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.controller.ts(208,7): error TS2322: Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.controller.ts(351,7): error TS2322: Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.router.ts(11,29): error TS2339: Property 'user' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/modules/auth/auth.router.ts(51,31): error TS2339: Property 'user' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/modules/auth/auth.router.ts(83,32): error TS2339: Property 'user' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/modules/auth/auth.router.ts(107,7): error TS2322: Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ 'Set-Cookie': string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.router.ts(149,5): error TS2322: Type '{ Location: string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ Location: string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.router.ts(206,5): error TS2322: Type '{ Location: string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'HTTPHeaders'.
+  Type '{ Location: string; 'www-authenticate'?: string; authorization?: string; 'proxy-authenticate'?: string; 'proxy-authorization'?: string; age?: string; 'cache-control'?: string; 'clear-site-data'?: string; ... 83 more ...; 'x-ua-compatible'?: string; }' is not assignable to type 'Record<string, string | number>'.
+    Property ''set-cookie'' is incompatible with index signature.
+      Type 'string | string[]' is not assignable to type 'string | number'.
+src/modules/auth/auth.router.ts(247,14): error TS2339: Property 'user' does not exist on type '{ body: unknown; query: Record<string, string>; params: {}; headers: Record<string, string | undefined>; cookie: Record<string, Cookie<string | undefined>>; ... 8 more ...; error: <const Code extends number | keyof StatusMap, const T = Code extends 300 | ... 58 more ... | 511 ? { ...; }[Code] : Code>(code: Code, res...'.
+src/modules/auth/auth.router.ts(340,72): error TS2353: Object literal may only specify known properties, and 'role' does not exist in type '{ displayName?: string | undefined; avatarUrl?: string | undefined; bio?: string | undefined; preferences?: Record<string, any> | undefined; }'.
+src/modules/deepwebai-features/deepwebai-features.router.ts(5,82): error TS2307: Cannot find module '../../middleware/deepwebai-flag.middleware' or its corresponding type declarations.
+src/modules/deepwebai-features/deepwebai-features.router.ts(12,36): error TS7031: Binding element 'isDeepWebAIFlagEnabled' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(12,60): error TS7031: Binding element 'deepWebAIFlagValue' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(12,80): error TS7031: Binding element 'userContext' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(25,39): error TS7031: Binding element 'isDeepWebAIFlagEnabled' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(25,63): error TS7031: Binding element 'userContext' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(60,46): error TS7031: Binding element 'userContext' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(92,49): error TS7031: Binding element 'body' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(92,55): error TS7031: Binding element 'userContext' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(140,47): error TS7031: Binding element 'userContext' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(140,60): error TS7031: Binding element 'query' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(174,45): error TS7031: Binding element 'body' implicitly has an 'any' type.
+src/modules/deepwebai-features/deepwebai-features.router.ts(174,51): error TS7031: Binding element 'userContext' implicitly has an 'any' type.
+src/modules/feature-flags/feature-flags.router.ts(2,36): error TS2307: Cannot find module './feature-flags.service' or its corresponding type declarations.
+src/modules/feature-flags/feature-flags.service.ts(95,11): error TS2741: Property 'customAttributes' is missing in type '{ id: string; }' but required in type '{ id: string; customAttributes: Record<string, any>; email?: string | undefined; role?: string | undefined; plan?: string | undefined; country?: string | undefined; }'.
+src/modules/files/file.controller.ts(2,45): error TS2307: Cannot find module './file.service' or its corresponding type declarations.
+src/modules/files/file.controller.ts(5,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+src/modules/files/file.controller.ts(6,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileUploadResponse'.
+src/modules/files/file.controller.ts(7,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ProcessedFileContent'.
+src/modules/files/file.controller.ts(8,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingStatus'.
+src/modules/files/file.controller.ts(62,30): error TS2339: Property 'extractImages' does not exist on type '{}'.
+src/modules/files/file.controller.ts(63,27): error TS2339: Property 'ocrEnabled' does not exist on type '{}'.
+src/modules/files/file.controller.ts(64,25): error TS2339: Property 'language' does not exist on type '{}'.
+src/modules/files/file.controller.ts(65,26): error TS2339: Property 'cleanText' does not exist on type '{}'.
+src/modules/files/file.controller.ts(66,25): error TS2339: Property 'maxPages' does not exist on type '{}'.
+src/modules/files/file.controller.ts(67,9): error TS2698: Spread types may only be created from object types.
+src/modules/files/file.controller.ts(169,28): error TS18046: 'error' is of type 'unknown'.
+src/modules/files/file.controller.ts(191,25): error TS2339: Property 'language' does not exist on type '{}'.
+src/modules/files/file.controller.ts(192,27): error TS2339: Property 'confidence' does not exist on type '{}'.
+src/modules/files/file.controller.ts(193,32): error TS2339: Property 'preprocessImage' does not exist on type '{}'.
+src/modules/files/file.router.ts(2,32): error TS2307: Cannot find module './file.controller' or its corresponding type declarations.
+src/modules/files/file.service.ts(6,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+src/modules/files/file.service.ts(7,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileUploadResponse'.
+src/modules/files/file.service.ts(8,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ProcessedFileContent'.
+src/modules/files/file.service.ts(9,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingStatus'.
+src/modules/files/file.service.ts(10,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+src/modules/files/file.service.ts(11,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SUPPORTED_DOCUMENT_TYPES'.
+src/modules/files/file.service.ts(12,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SUPPORTED_IMAGE_TYPES'.
+src/modules/files/file.service.ts(13,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'MAX_FILE_SIZE'.
+src/modules/files/file.service.ts(14,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ALLOWED_FILE_EXTENSIONS'.
+src/modules/files/index.ts(2,42): error TS2307: Cannot find module './file.service' or its corresponding type declarations.
+src/modules/files/index.ts(3,48): error TS2307: Cannot find module './file.controller' or its corresponding type declarations.
+src/modules/files/index.ts(4,61): error TS2307: Cannot find module './file.router' or its corresponding type declarations.
+src/modules/files/index.ts(8,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileUploadResponse'.
+src/modules/files/index.ts(9,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ProcessedFileContent'.
+src/modules/files/index.ts(10,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileMetadata'.
+src/modules/files/index.ts(11,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+src/modules/files/index.ts(12,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRResult'.
+src/modules/files/index.ts(13,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRBlock'.
+src/modules/files/index.ts(14,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+src/modules/files/index.ts(15,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingStatus'.
+src/monitoring.ts(84,4): error TS2339: Property 'onResponse' does not exist on type 'Elysia<"", { decorator: {}; store: {}; derive: {}; resolve: {}; }, { typebox: {}; error: {}; }, { schema: {}; standaloneSchema: {}; macro: {}; macroFn: {}; parser: {}; }, {}, { derive: {}; resolve: {}; schema: {}; standaloneSchema: {}; }, { ...; }>'.
+src/monitoring.ts(84,18): error TS7031: Binding element 'monitoring' implicitly has an 'any' type.
+src/monitoring.ts(84,30): error TS7031: Binding element 'set' implicitly has an 'any' type.
+src/monitoring.ts(87,15): error TS7031: Binding element 'error' implicitly has an 'any' type.
+src/monitoring.ts(87,22): error TS7031: Binding element 'monitoring' implicitly has an 'any' type.
+src/monitoring.ts(87,34): error TS7031: Binding element 'set' implicitly has an 'any' type.
+src/monitoring.ts(112,14): error TS2339: Property 'database' does not exist on type '{ status: string; timestamp: string; environment: string; uptime: number; memory: MemoryUsage; }'.
+src/monitoring.ts(114,14): error TS2339: Property 'database' does not exist on type '{ status: string; timestamp: string; environment: string; uptime: number; memory: MemoryUsage; }'.
+src/realtime/websocket-server.ts(10,25): error TS2339: Property 'userId' does not exist on type '{ set: { headers: HTTPHeaders; status?: number | "Continue" | "Switching Protocols" | "Processing" | "Early Hints" | "OK" | "Created" | "Accepted" | "Non-Authoritative Information" | ... 52 more ... | undefined; redirect?: string | undefined; cookie?: Record<...> | undefined; }; ... 8 more ...; path: string; }'.
+src/realtime/websocket-server.ts(18,25): error TS2339: Property 'userId' does not exist on type '{ set: { headers: HTTPHeaders; status?: number | "Continue" | "Switching Protocols" | "Processing" | "Early Hints" | "OK" | "Created" | "Accepted" | "Non-Authoritative Information" | ... 52 more ... | undefined; redirect?: string | undefined; cookie?: Record<...> | undefined; }; ... 8 more ...; path: string; }'.
+src/realtime/websocket-server.ts(25,25): error TS2339: Property 'userId' does not exist on type '{ set: { headers: HTTPHeaders; status?: number | "Continue" | "Switching Protocols" | "Processing" | "Early Hints" | "OK" | "Created" | "Accepted" | "Non-Authoritative Information" | ... 52 more ... | undefined; redirect?: string | undefined; cookie?: Record<...> | undefined; }; ... 8 more ...; path: string; }'.
+src/server-dev.ts(287,35): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/server-dev.ts(289,20): error TS2339: Property 'message' does not exist on type 'Readonly<Error> | Readonly<ValidationError> | Readonly<NotFoundError> | Readonly<ParseError> | Readonly<...> | Readonly<...> | Readonly<...> | Readonly<...>'.
+  Property 'message' does not exist on type 'Readonly<ElysiaCustomStatusResponse<number, number, number>>'.
+src/server-dev.ts(309,5): error TS1232: An import declaration can only be used at the top level of a namespace or module.
+src/server-dev.ts(311,41): error TS2345: Argument of type 'IncomingMessage' is not assignable to parameter of type 'Request'.
+  Type 'IncomingMessage' is missing the following properties from type 'Request': cache, credentials, destination, integrity, and 14 more.
+src/server.ts(49,16): error TS7006: Parameter 'event' implicitly has an 'any' type.
+../file-processing/index.ts(19,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileUploadResponse'.
+../file-processing/index.ts(20,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ProcessedFileContent'.
+../file-processing/index.ts(21,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileMetadata'.
+../file-processing/index.ts(22,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+../file-processing/index.ts(23,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRResult'.
+../file-processing/index.ts(24,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRBlock'.
+../file-processing/index.ts(25,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+../file-processing/index.ts(26,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingStatus'.
+../file-processing/index.ts(27,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SupportedDocumentType'.
+../file-processing/index.ts(28,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SupportedImageType'.
+../file-processing/index.ts(29,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SupportedFileType'.
+../file-processing/index.ts(30,8): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/index.ts(33,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SUPPORTED_DOCUMENT_TYPES'.
+../file-processing/index.ts(34,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SUPPORTED_IMAGE_TYPES'.
+../file-processing/index.ts(35,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'MAX_FILE_SIZE'.
+../file-processing/index.ts(36,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'MAX_PAGES'.
+../file-processing/index.ts(37,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ALLOWED_FILE_EXTENSIONS'.
+../file-processing/index.ts(38,8): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/src/document/docx_reader.ts(2,10): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileMetadata'.
+../file-processing/src/document/docx_reader.ts(2,24): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+../file-processing/src/document/docx_reader.ts(2,47): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+../file-processing/src/document/docx_reader.ts(2,74): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/src/document/pdf_reader.ts(2,10): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileMetadata'.
+../file-processing/src/document/pdf_reader.ts(2,24): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+../file-processing/src/document/pdf_reader.ts(2,47): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+../file-processing/src/document/pdf_reader.ts(2,74): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/src/file-processor.ts(3,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+../file-processing/src/file-processor.ts(4,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'ProcessedFileContent'.
+../file-processing/src/file-processor.ts(5,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileMetadata'.
+../file-processing/src/file-processor.ts(6,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SupportedFileType'.
+../file-processing/src/file-processor.ts(7,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SUPPORTED_DOCUMENT_TYPES'.
+../file-processing/src/file-processor.ts(8,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'SUPPORTED_IMAGE_TYPES'.
+../file-processing/src/file-processor.ts(9,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'MAX_FILE_SIZE'.
+../file-processing/src/file-processor.ts(10,3): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+../file-processing/src/file-processor.ts(11,8): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/src/ocr/ocr_processor.ts(3,10): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRResult'.
+../file-processing/src/ocr/ocr_processor.ts(3,21): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRBlock'.
+../file-processing/src/ocr/ocr_processor.ts(3,31): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingOptions'.
+../file-processing/src/ocr/ocr_processor.ts(3,54): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'FileProcessingError'.
+../file-processing/src/ocr/ocr_processor.ts(3,81): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/src/ocr/ocr_processor.ts(14,15): error TS2305: Module '"@deepwebai/shared-types"' has no exported member 'OCRResult'.
+../file-processing/src/ocr/ocr_processor.ts(14,32): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("@deepwebai/shared-types")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/file-processing/package.json'.
+../file-processing/src/ocr/ocr_processor.ts(193,15): error TS7006: Parameter 'block' implicitly has an 'any' type.
+../file-processing/src/ocr/ocr_processor.ts(194,14): error TS7006: Parameter 'a' implicitly has an 'any' type.
+../file-processing/src/ocr/ocr_processor.ts(194,17): error TS7006: Parameter 'b' implicitly has an 'any' type.
+../observability/analytics/index.ts(1,24): error TS6059: File 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/libs/error-tracking/custom-logger.ts' is not under 'rootDir' 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages'. 'rootDir' is expected to contain all source files.
+  File is ECMAScript module because 'D:/Python_Gereksinimleri/Venvler/DeepWebAi/package.json' has field "type" with value "module"
+../shared-types/index.ts(1,15): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './realtime.js'?
+../shared-types/index.ts(2,15): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './ai-providers.js'?
+../shared-types/index.ts(3,15): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean './file-processing.js'?
+ ELIFECYCLE  Command failed with exit code 2.

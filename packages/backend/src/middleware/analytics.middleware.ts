@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
 import { analytics, AnalyticsEventType } from '../../../observability/analytics/index.js';
-import { logger } from '../../../libs/error-tracking/custom-logger.js';
+import { logger } from '../../../../libs/error-tracking/custom-logger.js';
 
 // Middleware to automatically track API requests
 export const analyticsMiddleware = (app: Elysia) => 

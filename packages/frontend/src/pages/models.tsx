@@ -70,7 +70,7 @@ const mockModels: AIModel[] = [
   }
 ]
 
-export function Models() {
+function Models() {
   const [models, setModels] = React.useState<AIModel[]>(mockModels)
   const [loading, setLoading] = React.useState(false)
 
@@ -321,3 +321,5 @@ function PerformanceBar({ label, value, color, inverted }: PerformanceBarProps) 
     </div>
   )
 }
+
+export default Models

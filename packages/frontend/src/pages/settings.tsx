@@ -20,7 +20,7 @@ import { useTheme } from "@/hooks/use-theme"
 import { Tooltip } from "@/components/ui/tooltip"
 import toast from "react-hot-toast"
 
-export function Settings() {
+function Settings() {
   const { theme, setTheme, isDark } = useTheme()
   const [apiKey, setApiKey] = React.useState("")
   const [showApiKey, setShowApiKey] = React.useState(false)
@@ -442,3 +442,5 @@ function SettingRow({ label, description, control }: SettingRowProps) {
     </div>
   )
 }
+
+export default Settings

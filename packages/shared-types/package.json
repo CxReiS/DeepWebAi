@@ -1,12 +1,16 @@
 {
   "name": "@deepwebai/shared-types",
   "version": "1.0.0",
+  "type": "module",
   "description": "Shared TypeScript types for DeepWebAi monorepo",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "echo 'No build needed for types'",
-    "type-check": "tsc --noEmit"
+    "build": "tsc",
+    "lint": "tsc --skipLibCheck",
+    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --project tsconfig.check.json",
+    "clean": "rm -rf dist *.js *.d.ts"
   },
   "devDependencies": {
     "typescript": "^5.5.2"

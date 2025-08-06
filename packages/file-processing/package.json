@@ -1,6 +1,7 @@
 {
   "name": "@deepwebai/file-processing",
   "version": "1.0.0",
+  "type": "module",
   "description": "File processing utilities for PDF, DOCX, OCR and text processing",
   "main": "index.ts",
   "types": "index.ts",

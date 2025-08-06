@@ -11,7 +11,7 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest run --coverage",
-    "lint": "echo 'Linting backend...'",
+    "lint": "tsc --noEmit --skipLibCheck",
     "typecheck": "tsc --noEmit",
     "db:migrate": "echo 'Running database migrations...'",
     "db:seed": "echo 'Seeding database...'",
