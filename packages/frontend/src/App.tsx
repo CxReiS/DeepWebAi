@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MainLayout } from "@/components/layout/main-layout"
 import { WelcomeTour } from "@/components/welcome-tour"
-import { Dashboard } from "@/pages/dashboard"
-import { Chat } from "@/pages/chat"
-import { Search } from "@/pages/search"
+import { Dashboard } from "@/pages/dashboard.tsx"
+import { Chat } from "@/pages/chat.tsx"
+import { Search } from "@/pages/search.tsx"
 import { useTheme } from "@/hooks/use-theme"
 
 // Lazy loading ile performans optimizasyonu
-const Models = React.lazy(() => import("@/pages/models").then(m => ({ default: m.Models })))
-const Profile = React.lazy(() => import("@/pages/profile").then(m => ({ default: m.Profile })))
-const Settings = React.lazy(() => import("@/pages/settings").then(m => ({ default: m.Settings })))
+const Models = React.lazy(() => import("@/pages/models.tsx").then(m => ({ default: m.Models })))
+const Profile = React.lazy(() => import("@/pages/profile.tsx").then(m => ({ default: m.Profile })))
+const Settings = React.lazy(() => import("@/pages/settings.tsx").then(m => ({ default: m.Settings })))
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -4,12 +4,5 @@
 
 [36mvite v7.0.6 [32mbuilding for production...[36m[39m
 transforming...
-(node:27816) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/Python_Gereksinimleri/Venvler/DeepWebAi/packages/frontend/postcss.config.js?t=1754482805693 is not specified and it doesn't parse as CommonJS.
-Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to D:\Python_Gereksinimleri\Venvler\DeepWebAi\packages\frontend\package.json.
-(Use `node --trace-warnings ...` to show where the warning was created)
-[33msrc/components/ui/Tooltip.tsx (6:41): "Root" is not exported by "../../node_modules/.pnpm/@ark-ui+react@5.18.3_react-_3e2f870e87b9efadf60690207a8094f7/node_modules/@ark-ui/react/dist/components/tooltip/index.js", imported by "src/components/ui/Tooltip.tsx".[39m
-[33msrc/components/ui/Tooltip.tsx (8:40): "Trigger" is not exported by "../../node_modules/.pnpm/@ark-ui+react@5.18.3_react-_3e2f870e87b9efadf60690207a8094f7/node_modules/@ark-ui/react/dist/components/tooltip/index.js", imported by "src/components/ui/Tooltip.tsx".[39m
-[33msrc/components/ui/Tooltip.tsx (14:20): "Content" is not exported by "../../node_modules/.pnpm/@ark-ui+react@5.18.3_react-_3e2f870e87b9efadf60690207a8094f7/node_modules/@ark-ui/react/dist/components/tooltip/index.js", imported by "src/components/ui/Tooltip.tsx".[39m
-[33msrc/components/ui/Tooltip.tsx (24:46): "Content" is not exported by "../../node_modules/.pnpm/@ark-ui+react@5.18.3_react-_3e2f870e87b9efadf60690207a8094f7/node_modules/@ark-ui/react/dist/components/tooltip/index.js", imported by "src/components/ui/Tooltip.tsx".[39m
-[32m✓[39m 2064 modules transformed.
+[32m✓[39m 2026 modules transformed.
+rendering chunks...
