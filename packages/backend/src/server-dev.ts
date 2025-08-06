@@ -305,7 +305,7 @@ async function startServer() {
     // Initialize feature flags
     await initializeFeatureFlags();
     
-    // Start the server using Node.js HTTP since Bun is not available
+    // Start the server using Node.js HTTP server
     import { createServer } from 'http';
     const server = createServer(async (req, res) => {
       const response = await app.handle(req);

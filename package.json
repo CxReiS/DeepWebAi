@@ -16,9 +16,10 @@
     "test:unit": "vitest run tests/unit/",
     "test:integration": "vitest run tests/integration/",
     "test:e2e": "playwright test tests/e2e/",
-    "test:auth": "vitest run tests/unit/backend/auth.test.ts tests/unit/backend/mfa.test.ts tests/unit/backend/oauth.test.ts",
+    "test:auth": "vitest run tests/unit/backend/authjs.test.ts tests/unit/backend/mfa.test.ts tests/unit/backend/oauth.test.ts",
     "test:auth-integration": "vitest run tests/integration/auth-mfa-oauth-flow.spec.ts",
     "test:auth-e2e": "playwright test tests/e2e/auth-complete-flow.spec.ts",
+    "test:files": "vitest run tests/unit/backend/formidable.test.ts",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean",
@@ -26,23 +27,28 @@
     "db:seed": "node scripts/seed.js",
     "db:reset": "node scripts/reset-db.js",
     "test:deepwebai-flag": "node scripts/test-deepwebai-flag.js",
-    "test:growthbook-flag": "node scripts/test-growthbook-flag.js"
+    "test:growthbook-flag": "node scripts/test-growthbook-flag.js",
+    "migration:check": "echo 'Checking Auth.js and Formidable migration status...' && pnpm test:auth && pnpm test:files"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.0",
-    "@types/node": "^22.14.0",
-    "turbo": "^2.1.0",
-    "typescript": "^5.5.2",
-    "vitest": "^2.1.0"
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^24.2.0",
+    "turbo": "^2.5.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "@growthbook/growthbook": "^1.6.0",
     "@types/qrcode": "^1.5.5",
     "@types/speakeasy": "^2.0.10",
-    "dotenv": "^16.3.1",
-    "pg": "^8.11.3",
-    "qrcode": "^1.5.3",
-    "speakeasy": "^2.0.0"
+    "dotenv": "^16.6.1",
+    "esbuild": "^0.25.8",
+    "lru-cache": "^11.1.0",
+    "pg": "^8.16.3",
+    "qrcode": "^1.5.4",
+    "rimraf": "^6.0.1",
+    "speakeasy": "^2.0.0",
+    "vite": "^7.0.6"
   },
   "workspaces": [
     "packages/*",

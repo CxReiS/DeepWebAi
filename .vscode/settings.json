@@ -28,6 +28,7 @@
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.tabSizing": "fixed",
   "workbench.editor.closeOnFileDelete": true,
+  "workbench.editor.tabActionCloseVisibility": true,
   "window.zoomLevel": 0,
   "window.density.editorTabHeight": "compact",
   "workbench.sideBar.location": "left",

@@ -1,115 +1,115 @@
-# DeepWebAI - Getting Started Guide
+# DeepWebAI - Başlangıç Kılavuzu
 
-Welcome to DeepWebAI, an advanced AI-powered platform for document processing, chat, and intelligent analysis.
+DeepWebAI'ye hoş geldiniz - dokuman işleme, sohbet ve akıllı analiz için gelişmiş AI destekli platform.
 
-## Quick Start
+## Hızlı Başlangıç
 
-### 1. Account Setup
-1. **Sign Up**: Visit the registration page and create your account
-2. **Email Verification**: Check your email and verify your account
-3. **Profile Setup**: Complete your profile with display name and preferences
+### 1. Hesap Kurulumu
+1. **Kayıt Ol**: Kayıt sayfasını ziyaret edin ve hesabınızı oluşturun
+2. **E-posta Doğrulama**: E-postanızı kontrol edin ve hesabınızı doğrulayın
+3. **Profil Kurulumu**: Görünen ad ve tercihlerle profilinizi tamamlayın
 
-### 2. Multi-Factor Authentication (MFA)
-For enhanced security, we recommend setting up MFA:
-1. Go to Settings → Security
-2. Choose your preferred MFA method:
-   - **TOTP Apps**: Google Authenticator, Authy, etc.
-   - **SMS**: Receive codes via text message
-   - **Backup Codes**: Download and store safely
-3. Scan QR code or enter secret key
-4. Enter verification code to complete setup
+### 2. Çok Faktörlü Kimlik Doğrulama (MFA)
+Gelişmiş güvenlik için MFA kurmanızı öneririz:
+1. Ayarlar → Güvenlik'e gidin
+2. Tercih ettiğiniz MFA yöntemini seçin:
+   - **TOTP Apps**: Google Authenticator, Authy, vb.
+   - **SMS**: Kısa mesaj yoluyla kod alma
+   - **Backup Codes**: İndir ve güvenli sakla
+3. QR kodunu tarayın veya gizli anahtarı girin
+4. Kurulumu tamamlamak için doğrulama kodunu girin
 
-### 3. File Upload and Processing
-DeepWebAI supports various file types for intelligent processing:
+### 3. Dosya Yükleme ve İşleme
+DeepWebAI akıllı işleme için çeşitli dosya türlerini destekler:
 
-#### Supported File Types
-- **Documents**: PDF, DOC, DOCX, TXT, MD
-- **Images**: PNG, JPG, JPEG, GIF, WEBP
-- **Spreadsheets**: XLS, XLSX, CSV
+#### Desteklenen Dosya Türleri
+- **Dokümanlar**: PDF, DOC, DOCX, TXT, MD
+- **Resimler**: PNG, JPG, JPEG, GIF, WEBP
+- **Tablolar**: XLS, XLSX, CSV
 
-#### Upload Process
-1. Click "Upload File" button or drag & drop files
-2. Select processing options:
-   - **OCR**: Extract text from images and scanned PDFs
-   - **Language Detection**: Auto-detect document language
-   - **Text Cleaning**: Remove formatting and normalize text
-   - **Image Extraction**: Extract images from documents
-3. Monitor processing progress in real-time
-4. Access results when processing completes
+#### Yükleme Süreci
+1. "Dosya Yükle" butonuna tıklayın veya dosyaları sürükleyip bırakın
+2. İşleme seçeneklerini belirleyin:
+   - **OCR**: Resimlerden ve taranmış PDF'lerden metin çıkarma
+   - **Language Detection**: Doküman dilini otomatik algılama
+   - **Text Cleaning**: Formatı temizleme ve metni normalleştirme
+   - **Image Extraction**: Dokümanlardan resim çıkarma
+3. İşleme ilerlemesini gerçek zamanlı izleyin
+4. İşleme tamamlandığında sonuçlara erişin
 
-### 4. AI Assistant Features
-Interact with our advanced AI models for various tasks:
+### 4. AI Asistan Özellikleri
+Çeşitli görevler için gelişmiş AI modellerimizle etkileşim kurun:
 
-#### Available Models
-- **GPT-4**: Advanced reasoning and analysis
-- **Claude**: Excellent for writing and summarization
-- **Gemini**: Fast responses and creative tasks
+#### Mevcut Modeller
+- **GPT-4**: Gelişmiş akıl yürütme ve analiz
+- **Claude**: Yazma ve özetleme konusunda mükemmel
+- **Gemini**: Hızlı yanıtlar ve yaratıcı görevler
 
-#### Chat Features
-- **Document Analysis**: Upload files and ask questions
-- **Real-time Streaming**: See responses as they're generated
-- **Context Awareness**: AI remembers conversation history
-- **Code Generation**: Get help with programming tasks
+#### Sohbet Özellikleri
+- **Document Analysis**: Dosya yükleyin ve sorular sorun
+- **Real-time Streaming**: Yanıtları oluşturulurken görün
+- **Context Awareness**: AI konuşma geçmişini hatırlar
+- **Code Generation**: Programlama görevlerinde yardım alın
 
-### 5. Feature Flags & Personalization
-Customize your experience with feature flags:
+### 5. Özellik Bayrakları ve Kişiselleştirme
+Özellik bayraklarıyla deneyiminizi özelleştirin:
 
-1. **Access Features**: Some features may be enabled/disabled based on your plan
-2. **Beta Testing**: Opt into experimental features
-3. **Personalization**: Adjust interface and behavior preferences
+1. **Access Features**: Bazı özellikler planınıza göre etkin/devre dışı olabilir
+2. **Beta Testing**: Deneysel özellikleri kullanmayı seçin
+3. **Personalization**: Arayüz ve davranış tercihlerini ayarlayın
 
-## Common Tasks
+## Yaygın Görevler
 
-### Analyzing a Document
-1. Upload your document
-2. Wait for processing to complete
-3. Open chat interface
-4. Ask questions like:
-   - "Summarize this document"
-   - "What are the key points?"
-   - "Extract important dates and names"
+### Bir Dokümanı Analiz Etme
+1. Dokümanınızı yükleyin
+2. İşlemenin tamamlanmasını bekleyin
+3. Sohbet arayüzünü açın
+4. Şu tür sorular sorun:
+   - "Bu dokümanı özetle"
+   - "Ana noktalar nelerdir?"
+   - "Önemli tarihleri ve isimleri çıkar"
 
-### Real-time Collaboration
-1. Share documents with team members
-2. Use real-time chat for discussions
-3. Get instant notifications for updates
-4. Collaborate on analysis and insights
+### Gerçek Zamanlı İşbirliği
+1. Dokümanları ekip üyeleriyle paylaşın
+2. Tartışmalar için gerçek zamanlı sohbeti kullanın
+3. Güncellemeler için anında bildirimler alın
+4. Analiz ve içgörüler üzerinde işbirliği yapın
 
-### Managing Your Account
-- **Profile**: Update personal information
-- **Security**: Manage passwords and MFA
-- **Billing**: View usage and upgrade plans
-- **Privacy**: Control data sharing preferences
+### Hesabınızı Yönetme
+- **Profile**: Kişisel bilgileri güncelleme
+- **Security**: Şifreleri ve MFA'yı yönetme
+- **Billing**: Kullanımı görüntüleme ve planları yükseltme
+- **Privacy**: Veri paylaşım tercihlerini kontrol etme
 
-## Troubleshooting
+## Sorun Giderme
 
-### File Upload Issues
-- **File too large**: Maximum size is 50MB
-- **Unsupported format**: Check supported file types above
-- **Processing failed**: Try uploading again or contact support
+### Dosya Yükleme Sorunları
+- **Dosya çok büyük**: Maksimum boyut 50MB
+- **Desteklenmeyen format**: Yukarıdaki desteklenen dosya türlerini kontrol edin
+- **İşleme başarısız**: Tekrar yüklemeyi deneyin veya destek ile iletişime geçin
 
-### Authentication Problems
-- **Login failed**: Check email/password or reset password
-- **MFA issues**: Use backup codes or contact support
-- **Account locked**: Wait 15 minutes or contact support
+### Kimlik Doğrulama Sorunları
+- **Giriş başarısız**: E-posta/şifre kontrolü yapın veya şifreyi sıfırlayın
+- **MFA sorunları**: Yedek kodları kullanın veya destek ile iletişime geçin
+- **Hesap kilitli**: 15 dakika bekleyin veya destek ile iletişime geçin
 
-### Performance Issues
-- **Slow responses**: Check internet connection
-- **Chat not loading**: Refresh page or clear browser cache
-- **Features missing**: Verify your account has required permissions
+### Performans Sorunları
+- **Yavaş yanıtlar**: İnternet bağlantısını kontrol edin
+- **Sohbet yüklenmiyor**: Sayfayı yenileyin veya tarayıcı önbelleğini temizleyin
+- **Özellikler eksik**: Hesabınızın gerekli izinlere sahip olduğunu doğrulayın
 
-## Getting Help
+## Yardım Alma
 
-- **Documentation**: Check our comprehensive guides
-- **Support**: Contact support@deepwebai.com
-- **Community**: Join our Discord for user discussions
-- **Status**: Check status.deepwebai.com for service updates
+- **Documentation**: Kapsamlı kılavuzlarımızı kontrol edin
+- **Support**: support@deepwebai.com ile iletişime geçin
+- **Community**: Kullanıcı tartışmaları için Discord'umuza katılın
+- **Status**: Servis güncellemeleri için status.deepwebai.com'u kontrol edin
 
-## Next Steps
+## Sonraki Adımlar
 
-1. **Explore Features**: Try different AI models and file types
-2. **Join Community**: Connect with other users
-3. **Upgrade Plan**: Access premium features and higher limits
-4. **Provide Feedback**: Help us improve the platform
+1. **Explore Features**: Farklı AI modelleri ve dosya türlerini deneyin
+2. **Join Community**: Diğer kullanıcılarla bağlantı kurun
+3. **Upgrade Plan**: Premium özelliklere ve daha yüksek limitlere erişin
+4. **Provide Feedback**: Platformu geliştirmemize yardımcı olun
 
-Welcome to the future of intelligent document processing!
+Akıllı doküman işlemenin geleceğine hoş geldiniz!

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "pdf-parse": "^1.1.1",
-    "tesseract.js": "^5.0.4",
+    "tesseract.js": "^5.1.1",
     "mammoth": "^1.6.0",
     "sharp": "^0.33.2",
     "mime-types": "^2.1.35",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/mime-types": "^2.1.4",
     "@types/pdf-parse": "^1.1.4",
+    "@types/node": "^24.2.0",
     "typescript": "^5.5.2",
     "vitest": "^1.5.0"
   }

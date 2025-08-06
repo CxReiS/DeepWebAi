@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_login_at TIMESTAMP WITH TIME ZONE
 );
 
--- Auth sessions table (Lucia Auth)
+-- Auth sessions table (NextAuth.js)
 CREATE TABLE IF NOT EXISTS auth_sessions (
     id VARCHAR(255) PRIMARY KEY,
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,

@@ -284,21 +284,21 @@ export class OAuthService {
     return this.processOAuthUser(oauthUserData);
   }
 
-  // Process OAuth user (login or register)
+  // OAuth kullanıcısı işleme (giriş veya kayıt) - NextAuth.js uyumlu
   static async processOAuthUser(oauthData: OAuthUserData): Promise<{
     user: any;
     session: any;
     token: string;
     isNewUser: boolean;
   }> {
-    // Check if OAuth account already exists
+    // OAuth hesabının zaten var olup olmadığını kontrol et
     const existingOAuthAccount = await sql`
       SELECT user_id FROM user_oauth_accounts 
       WHERE provider = ${oauthData.provider} AND provider_user_id = ${oauthData.providerUserId}
     `;
     
     if (existingOAuthAccount.length > 0) {
-      // OAuth account exists, log in the user
+      // OAuth hesabı mevcut, kullanıcıyı giriş yap
       const userId = existingOAuthAccount[0].user_id;
       const user = await AuthService.getUserById(userId);
       
@@ -306,30 +306,30 @@ export class OAuthService {
         throw new Error("User not found");
       }
       
-      // Create session
-      const session = await AuthService.lucia.createSession(userId, {});
-      const token = AuthService.generateJWT(userId, session.id);
+      // NextAuth.js ile uyumlu token oluşturma
+      const token = AuthService.generateJWT(userId);
+      const sessionResult = await AuthService.validateSession(token);
       
-      // Update last login
+      // Son giriş tarihini güncelle
       await sql`
         UPDATE users SET last_login_at = NOW() WHERE id = ${userId}
       `;
       
       return {
         user,
-        session,
+        session: sessionResult?.session || null,
         token,
         isNewUser: false
       };
     }
     
-    // Check if user with this email already exists
+    // Bu email ile kullanıcının zaten var olup olmadığını kontrol et
     const existingUser = await sql`
       SELECT id FROM users WHERE email = ${oauthData.email}
     `;
     
     if (existingUser.length > 0) {
-      // User exists, link OAuth account
+      // Kullanıcı mevcut, OAuth hesabını bağla
       const userId = existingUser[0].id;
       
       await this.linkOAuthAccount({
@@ -340,8 +340,8 @@ export class OAuthService {
       });
       
       const user = await AuthService.getUserById(userId);
-      const session = await AuthService.lucia.createSession(userId, {});
-      const token = AuthService.generateJWT(userId, session.id);
+      const token = AuthService.generateJWT(userId);
+      const sessionResult = await AuthService.validateSession(token);
       
       await sql`
         UPDATE users SET last_login_at = NOW() WHERE id = ${userId}
@@ -349,24 +349,24 @@ export class OAuthService {
       
       return {
         user,
-        session,
+        session: sessionResult?.session || null,
         token,
         isNewUser: false
       };
     }
     
-    // Create new user account
+    // Yeni kullanıcı hesabı oluştur
     return this.createUserFromOAuth(oauthData);
   }
 
-  // Create new user from OAuth data
+  // OAuth verilerinden yeni kullanıcı oluşturma - NextAuth.js uyumlu
   static async createUserFromOAuth(oauthData: OAuthUserData): Promise<{
     user: any;
     session: any;
     token: string;
     isNewUser: boolean;
   }> {
-    // Ensure username is unique
+    // Kullanıcı adının benzersiz olduğundan emin ol
     let username = oauthData.username;
     let counter = 1;
     
@@ -383,7 +383,7 @@ export class OAuthService {
       counter++;
     }
     
-    // Create user
+    // Kullanıcı oluştur
     const userResult = await sql`
       INSERT INTO users (
         email, username, display_name, avatar_url, role, is_verified, preferences
@@ -401,7 +401,7 @@ export class OAuthService {
     
     const user = userResult[0];
     
-    // Link OAuth account
+    // OAuth hesabını bağla
     await this.linkOAuthAccount({
       userId: user.id,
       provider: oauthData.provider,
@@ -409,11 +409,11 @@ export class OAuthService {
       providerEmail: oauthData.email
     });
     
-    // Create session
-    const session = await AuthService.lucia.createSession(user.id, {});
-    const token = AuthService.generateJWT(user.id, session.id);
+    // NextAuth.js ile uyumlu oturum oluşturma
+    const token = AuthService.generateJWT(user.id);
+    const sessionResult = await AuthService.validateSession(token);
     
-    // Update last login
+    // Son giriş tarihini güncelle
     await sql`
       UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}
     `;
@@ -430,7 +430,7 @@ export class OAuthService {
         preferences: user.preferences,
         createdAt: user.created_at
       },
-      session,
+      session: sessionResult?.session || null,
       token,
       isNewUser: true
     };
