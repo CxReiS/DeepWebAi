@@ -8,7 +8,7 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "rootDir": ".",
+    "rootDir": "../../",
     "outDir": "dist",
     "resolveJsonModule": true,
     "isolatedModules": false,
@@ -20,6 +20,11 @@
       "@deepwebai/shared-types/*": ["../shared-types/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src",
+    "../../libs",
+    "../../file-processing",
+    "../../observability"
+  ],
   "exclude": ["dist", "node_modules"]
 }

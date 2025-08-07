@@ -98,10 +98,10 @@ importers:
         specifier: 1.0.1
         version: 1.0.1
       '@sentry/node':
-        specifier: ^7.104.0
+        specifier: ^7.120.4
         version: 7.120.4
       '@sentry/profiling-node':
-        specifier: ^7.104.0
+        specifier: ^7.120.4
         version: 7.120.4
       '@types/bcrypt':
         specifier: ^5.0.2

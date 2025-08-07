@@ -10,6 +10,12 @@
     "**/dist": true,
     "**/bun.lockb": true
   },
+  "extensionsGallery": {
+    "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+    "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
+    "itemUrl": "https://marketplace.visualstudio.com/items"
+  },
+
   "files.autoSave": "onFocusChange",
   "git.autofetch": true,
   "vitest.enable": true,
@@ -25,11 +31,14 @@
   "vsintellicode.telemetry.enableTelemetry": false,
   "continue.telemetry": false,
   "security.workspace.trust.enabled": false,
+  "chat.agent.enabled": true,
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.tabSizing": "fixed",
   "workbench.editor.closeOnFileDelete": true,
   "window.zoomLevel": 0,
   "window.density.editorTabHeight": "compact",
   "workbench.sideBar.location": "left",
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "codium.codeCompletion.enable": false,
+  "workbench.settings.showAISearchToggle": true
 }

@@ -21,7 +21,7 @@
     "test:auth-e2e": "playwright test tests/e2e/auth-complete-flow.spec.ts",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "clean": "turbo run clean",
+    "clean": "rimraf dist build lib",
     "db:migrate": "node scripts/migrate.js",
     "db:seed": "node scripts/seed.js",
     "db:reset": "node scripts/reset-db.js",

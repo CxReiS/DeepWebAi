@@ -380,10 +380,8 @@ export class CustomLogger {
   async close(): Promise<void> {
     if (this.fileStream) {
       return new Promise((resolve, reject) => {
-        this.fileStream!.end((error) => {
-          if (error) reject(error);
-          else resolve();
-        });
+        this.fileStream!.once('error', reject);
+        this.fileStream!.end(() => resolve());
       });
     }
   }
