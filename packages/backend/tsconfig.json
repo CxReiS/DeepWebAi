@@ -1,30 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": false,
+    "strict": false,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "rootDir": "../../",
-    "outDir": "dist",
+    "noEmit": true,
     "resolveJsonModule": true,
-    "isolatedModules": false,
-    "typeRoots": [
-      "./node_modules/@types",
-      "../shared-types/node_modules/@types"
-    ],
-    "paths": {
-      "@deepwebai/shared-types/*": ["../shared-types/*"]
-    }
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": false
   },
-  "include": [
-    "src",
-    "../../libs",
-    "../../file-processing",
-    "../../observability"
-  ],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "../../libs", "../../observability"]
 }

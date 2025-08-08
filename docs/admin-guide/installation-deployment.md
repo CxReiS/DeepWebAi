@@ -7,6 +7,7 @@ Comprehensive guide for installing and deploying the DeepWebAI platform in vario
 ### Minimum Requirements
 
 **Hardware:**
+
 ```
 CPU: 4 cores, 2.4 GHz
 RAM: 8 GB minimum, 16 GB recommended
@@ -15,6 +16,7 @@ Network: 100 Mbps bandwidth
 ```
 
 **Software:**
+
 ```
 Node.js: 18.x or 20.x LTS
 pnpm: 8.x or higher
@@ -24,6 +26,7 @@ Docker: 20.x or higher (for containerized deployment)
 ```
 
 **Supported Operating Systems:**
+
 - Ubuntu 20.04 LTS or higher
 - CentOS 8 or higher
 - Debian 11 or higher
@@ -33,6 +36,7 @@ Docker: 20.x or higher (for containerized deployment)
 ### Production Requirements
 
 **Hardware:**
+
 ```
 CPU: 8+ cores, 3.0+ GHz
 RAM: 32 GB minimum, 64 GB recommended
@@ -42,6 +46,7 @@ Load Balancer: Nginx or similar
 ```
 
 **Infrastructure:**
+
 ```
 Database: PostgreSQL 15+ with connection pooling
 Cache: Redis Cluster for high availability
@@ -55,6 +60,7 @@ Logging: ELK Stack or similar
 ### Docker Deployment (Recommended)
 
 **Prerequisites:**
+
 ```bash
 # Install Docker and Docker Compose
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -67,6 +73,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 **Quick Start:**
+
 ```bash
 # Clone repository
 git clone https://github.com/yourusername/deepwebai.git
@@ -85,9 +92,10 @@ docker-compose logs -f
 ```
 
 **Docker Compose Configuration:**
+
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -141,6 +149,7 @@ volumes:
 ### Manual Installation
 
 **System Preparation:**
+
 ```bash
 # Update system
 sudo apt update && sudo apt upgrade -y
@@ -167,6 +176,7 @@ sudo systemctl enable redis
 ```
 
 **Application Setup:**
+
 ```bash
 # Clone and setup application
 git clone https://github.com/yourusername/deepwebai.git
@@ -193,6 +203,7 @@ pnpm start
 ### Kubernetes Deployment
 
 **Namespace Setup:**
+
 ```yaml
 # namespace.yaml
 apiVersion: v1
@@ -212,6 +223,7 @@ data:
 ```
 
 **Application Deployment:**
+
 ```yaml
 # deployment.yaml
 apiVersion: apps/v1
@@ -230,22 +242,22 @@ spec:
         app: deepwebai
     spec:
       containers:
-      - name: deepwebai
-        image: deepwebai:latest
-        ports:
-        - containerPort: 3000
-        envFrom:
-        - configMapRef:
-            name: deepwebai-config
-        - secretRef:
-            name: deepwebai-secrets
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "500m"
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
+        - name: deepwebai
+          image: deepwebai:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: deepwebai-config
+            - secretRef:
+                name: deepwebai-secrets
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
 ---
 apiVersion: v1
 kind: Service
@@ -256,12 +268,13 @@ spec:
   selector:
     app: deepwebai
   ports:
-  - port: 80
-    targetPort: 3000
+    - port: 80
+      targetPort: 3000
   type: LoadBalancer
 ```
 
 **Database Setup:**
+
 ```yaml
 # postgres.yaml
 apiVersion: apps/v1
@@ -281,34 +294,34 @@ spec:
         app: postgres
     spec:
       containers:
-      - name: postgres
-        image: postgres:15
-        env:
-        - name: POSTGRES_DB
-          value: "deepwebai"
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: deepwebai-secrets
-              key: DB_USER
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: deepwebai-secrets
-              key: DB_PASSWORD
-        ports:
-        - containerPort: 5432
-        volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
+        - name: postgres
+          image: postgres:15
+          env:
+            - name: POSTGRES_DB
+              value: "deepwebai"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: deepwebai-secrets
+                  key: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: deepwebai-secrets
+                  key: DB_PASSWORD
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
-  - metadata:
-      name: postgres-storage
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 100Gi
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 100Gi
 ```
 
 ## Environment Configuration
@@ -316,6 +329,7 @@ spec:
 ### Database Setup
 
 **PostgreSQL Configuration:**
+
 ```sql
 -- Create database and user
 CREATE DATABASE deepwebai;
@@ -335,6 +349,7 @@ default_statistics_target = 100
 ```
 
 **Database Migration:**
+
 ```bash
 # Run initial migration
 pnpm db:migrate
@@ -349,6 +364,7 @@ pnpm db:status
 ### Redis Configuration
 
 **Redis Setup:**
+
 ```bash
 # Edit redis.conf
 maxmemory 2gb
@@ -362,6 +378,7 @@ sudo systemctl restart redis
 ```
 
 **Connection Test:**
+
 ```bash
 # Test Redis connection
 redis-cli ping
@@ -376,6 +393,7 @@ node -e "const redis = require('ioredis'); const client = new redis('redis://loc
 ### Let's Encrypt Setup
 
 **Certbot Installation:**
+
 ```bash
 # Install Certbot
 sudo apt install -y certbot python3-certbot-nginx
@@ -389,6 +407,7 @@ sudo crontab -e
 ```
 
 **Nginx SSL Configuration:**
+
 ```nginx
 # nginx.conf
 server {
@@ -439,6 +458,7 @@ server {
 ### Load Balancer Configuration
 
 **Nginx Load Balancer:**
+
 ```nginx
 # upstream.conf
 upstream deepwebai_backend {
@@ -450,20 +470,20 @@ upstream deepwebai_backend {
 
 server {
     listen 80;
-    
+
     location / {
         proxy_pass http://deepwebai_backend;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        
+
         # Health check
         proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
         proxy_connect_timeout 5s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
-    
+
     # Health check endpoint
     location /health {
         access_log off;
@@ -474,6 +494,7 @@ server {
 ```
 
 **Database High Availability:**
+
 ```yaml
 # PostgreSQL Primary-Replica Setup
 # Primary server configuration
@@ -493,41 +514,43 @@ trigger_file = '/tmp/postgresql.trigger'
 ### Health Checks and Monitoring
 
 **Health Check Endpoints:**
+
 ```javascript
 // Health check implementation
-app.get('/health', async (req, res) => {
+app.get("/health", async (req, res) => {
   try {
     // Database check
-    await db.query('SELECT 1');
-    
+    await db.query("SELECT 1");
+
     // Redis check
     await redis.ping();
-    
+
     // AI providers check
     const providerStatus = await checkAIProviders();
-    
+
     res.json({
-      status: 'healthy',
+      status: "healthy",
       timestamp: new Date().toISOString(),
       services: {
-        database: 'connected',
-        redis: 'connected',
-        aiProviders: providerStatus
-      }
+        database: "connected",
+        redis: "connected",
+        aiProviders: providerStatus,
+      },
     });
   } catch (error) {
     res.status(503).json({
-      status: 'unhealthy',
-      error: error.message
+      status: "unhealthy",
+      error: error.message,
     });
   }
 });
 ```
 
 **Monitoring Setup:**
+
 ```yaml
 # docker-compose.monitoring.yml
-version: '3.8'
+version: "3.8"
 
 services:
   prometheus:
@@ -562,6 +585,7 @@ volumes:
 ### Database Backup
 
 **Automated Backup Script:**
+
 ```bash
 #!/bin/bash
 # backup-db.sh
@@ -589,6 +613,7 @@ aws s3 cp $BACKUP_DIR/files_backup_$DATE.tar.gz s3://your-backup-bucket/files/
 ```
 
 **Cron Schedule:**
+
 ```bash
 # Add to crontab
 0 2 * * * /usr/local/bin/backup-db.sh
@@ -597,6 +622,7 @@ aws s3 cp $BACKUP_DIR/files_backup_$DATE.tar.gz s3://your-backup-bucket/files/
 ### Disaster Recovery
 
 **Recovery Procedures:**
+
 ```bash
 # Database Recovery
 gunzip < db_backup_YYYYMMDD_HHMMSS.sql.gz | psql -U deepwebai_user deepwebai
@@ -618,6 +644,7 @@ systemctl restart deepwebai
 ### Application Tuning
 
 **Node.js Optimization:**
+
 ```bash
 # Environment variables for production
 export NODE_ENV=production
@@ -643,6 +670,7 @@ module.exports = {
 ```
 
 **Database Optimization:**
+
 ```sql
 -- PostgreSQL performance tuning
 -- postgresql.conf
@@ -663,25 +691,27 @@ CREATE INDEX CONCURRENTLY idx_files_user_id ON files(user_id);
 ### Caching Strategy
 
 **Redis Caching:**
+
 ```javascript
 // Cache configuration
 const cacheConfig = {
   ai_responses: {
     ttl: 3600, // 1 hour
-    prefix: 'ai_resp:'
+    prefix: "ai_resp:",
   },
   user_sessions: {
     ttl: 86400, // 24 hours
-    prefix: 'session:'
+    prefix: "session:",
   },
   file_metadata: {
     ttl: 7200, // 2 hours
-    prefix: 'file_meta:'
-  }
+    prefix: "file_meta:",
+  },
 };
 ```
 
 **CDN Configuration:**
+
 ```nginx
 # Static asset caching
 location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
@@ -705,6 +735,7 @@ location /api/ {
 ### System Security
 
 **Firewall Configuration:**
+
 ```bash
 # UFW Setup
 sudo ufw default deny incoming
@@ -730,31 +761,37 @@ maxretry = 6
 ```
 
 **Application Security:**
+
 ```javascript
 // Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "wss:", "https:"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", "wss:", "https:"],
+      },
     },
-  },
-  hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true,
-    preload: true
-  }
-}));
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+  })
+);
 
 // Rate limiting
-const rateLimit = require('express-rate-limit');
-app.use('/api', rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-}));
+const rateLimit = require("express-rate-limit");
+app.use(
+  "/api",
+  rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  })
+);
 ```
 
 ## Troubleshooting Deployment
@@ -762,6 +799,7 @@ app.use('/api', rateLimit({
 ### Common Issues
 
 **Database Connection Issues:**
+
 ```bash
 # Check PostgreSQL status
 sudo systemctl status postgresql
@@ -774,6 +812,7 @@ sudo systemctl restart postgresql
 ```
 
 **Memory Issues:**
+
 ```bash
 # Monitor memory usage
 free -h
@@ -785,6 +824,7 @@ kill -USR2 $!  # Trigger heap dump
 ```
 
 **Performance Issues:**
+
 ```bash
 # Check system performance
 iostat -x 1
@@ -799,6 +839,7 @@ pnpm run profile
 ### Log Analysis
 
 **Centralized Logging:**
+
 ```bash
 # Install ELK Stack
 docker run -d --name elasticsearch -p 9200:9200 -e "discovery.type=single-node" elasticsearch:7.14.0
@@ -807,6 +848,7 @@ docker run -d --name logstash -p 5044:5044 --link elasticsearch:elasticsearch lo
 ```
 
 **Log Rotation:**
+
 ```bash
 # /etc/logrotate.d/deepwebai
 /var/log/deepwebai/*.log {

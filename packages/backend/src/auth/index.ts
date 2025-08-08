@@ -20,7 +20,6 @@ export const lucia = new Lucia(adapter, {
     attributes: {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      httpOnly: true,
       domain: process.env.NODE_ENV === "production" ? process.env.COOKIE_DOMAIN : undefined
     }
   },

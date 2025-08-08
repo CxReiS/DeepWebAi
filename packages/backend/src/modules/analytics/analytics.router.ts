@@ -1,6 +1,6 @@
 import { Elysia, t } from 'elysia';
 import { analytics, AnalyticsEventType } from '../../../../observability/analytics/index.js';
-import { logger } from '../../../../../libs/error-tracking/custom-logger.js';
+import { logger } from '../../../../libs/error-tracking/custom-logger.js';
 
 // Analytics router for backend tracking endpoints
 export const analyticsRouter = new Elysia({ prefix: '/analytics' })

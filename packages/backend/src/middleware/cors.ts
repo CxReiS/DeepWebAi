@@ -31,7 +31,7 @@ export const corsMiddleware = new Elysia({ name: 'cors' })
       'X-Request-ID',
       'Cache-Control'
     ],
-    exposedHeaders: [
+    exposeHeaders: [
       'X-RateLimit-Limit',
       'X-RateLimit-Remaining', 
       'X-RateLimit-Reset',

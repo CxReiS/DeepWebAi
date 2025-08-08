@@ -91,7 +91,7 @@ export const securityMiddleware = new Elysia({ name: 'security' })
   .use(helmet(securityHeaders))
   .derive(({ set, request }) => {
     // Additional security headers
-    set.headers = {
+    (set.headers as any) = {
       ...set.headers,
       
       // Hide server information
