@@ -1,90 +1,116 @@
-import '@testing-library/jest-dom';
-import { cleanup } from '@testing-library/react';
-import { afterEach, beforeAll } from 'vitest';
+// Test kurulum dosyası - Testing Library ve Mock'lar için yapılandırma
+import '@testing-library/jest-dom'
+import { vi } from 'vitest'
 
-// Cleanup after each test
-afterEach(() => {
-  cleanup();
-});
+// Framer Motion animasyonlarını test ortamında devre dışı bırak
+vi.mock('framer-motion', () => ({
+  motion: {
+    div: 'div',
+    button: 'button',
+    span: 'span',
+    h1: 'h1',
+    h2: 'h2',
+    h3: 'h3',
+    p: 'p',
+    section: 'section',
+    article: 'article',
+    nav: 'nav',
+    header: 'header',
+    main: 'main',
+    aside: 'aside',
+    footer: 'footer'
+  },
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => children
+}))
 
-// Global test setup
-beforeAll(() => {
-  // Mock environment variables
-  process.env.VITE_API_URL = 'http://localhost:3001';
-  process.env.NODE_ENV = 'test';
-  
-  // Mock window.matchMedia
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: () => {},
-      removeListener: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      dispatchEvent: () => {},
-    }),
-  });
+// React Router mock
+vi.mock('react-router-dom', () => ({
+  BrowserRouter: ({ children }: { children: React.ReactNode }) => children,
+  Link: ({ children, to }: { children: React.ReactNode; to: string }) => 
+    <a href={to}>{children}</a>,
+  useLocation: () => ({ pathname: '/' }),
+  useNavigate: () => vi.fn(),
+  Routes: ({ children }: { children: React.ReactNode }) => children,
+  Route: ({ element }: { element: React.ReactNode }) => element
+}))
 
-  // Mock ResizeObserver
-  global.ResizeObserver = class ResizeObserver {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
+// React Hot Toast mock
+vi.mock('react-hot-toast', () => ({
+  default: {
+    success: vi.fn(),
+    error: vi.fn(),
+    loading: vi.fn()
+  },
+  Toaster: () => null
+}))
 
-  // Mock IntersectionObserver
-  global.IntersectionObserver = class IntersectionObserver {
-    constructor() {}
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
+// React Joyride mock
+vi.mock('react-joyride', () => ({
+  default: ({ run }: { run: boolean }) => run ? <div data-testid="joyride-tour" /> : null
+}))
 
-  // Mock localStorage
-  Object.defineProperty(window, 'localStorage', {
-    value: {
-      getItem: (key: string) => null,
-      setItem: (key: string, value: string) => {},
-      removeItem: (key: string) => {},
-      clear: () => {},
-    },
-    writable: true,
-  });
+// LocalStorage mock
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn()
+}
 
-  // Mock fetch
-  global.fetch = async (url: string, options?: any) => {
-    return new Response(JSON.stringify({}), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  };
-});
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock
+})
 
-// Test utilities
-export const mockUser = {
-  id: 'test-user-id',
-  email: 'test@example.com',
-  username: 'testuser',
-  displayName: 'Test User',
-  role: 'user',
-  isVerified: true,
-  preferences: {}
-};
+// matchMedia mock
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+})
 
-export const mockConversation = {
-  id: 'test-conversation-id',
-  title: 'Test Conversation',
-  userId: 'test-user-id',
-  modelId: 'test-model-id',
-  createdAt: new Date().toISOString()
-};
+// ResizeObserver mock
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}))
 
-export const createMockResponse = (data: any, status = 200) => {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json' }
-  });
-};
+// IntersectionObserver mock  
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}))
+
+// Navigator.clipboard mock
+Object.defineProperty(navigator, 'clipboard', {
+  value: {
+    writeText: vi.fn().mockResolvedValue(undefined),
+    readText: vi.fn().mockResolvedValue('')
+  }
+})
+
+// Navigator.share mock
+Object.defineProperty(navigator, 'share', {
+  value: vi.fn().mockResolvedValue(undefined)
+})
+
+// Console uyarıları için mock (test çıktısını temiz tutmak için)
+const originalConsoleError = console.error
+console.error = (...args) => {
+  if (
+    typeof args[0] === 'string' && 
+    args[0].includes('Warning: ReactDOM.render is no longer supported')
+  ) {
+    return
+  }
+  originalConsoleError.call(console, ...args)
+}

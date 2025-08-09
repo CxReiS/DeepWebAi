@@ -17,15 +17,15 @@ export class OCRProcessor {
   private worker?: Tesseract.Worker;
 
   /**
-   * Initialize OCR worker
+   * Initialize Tesseract worker
    */
   async initialize(language: string = 'eng'): Promise<void> {
     try {
       if (!this.worker) {
         this.worker = await Tesseract.createWorker(language, 1, {
-          logger: (m: any) => {
+          logger: (m) => {
             if (m.status === 'recognizing text') {
-              console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`);
+              // Log progress if needed
             }
           }
         });
@@ -43,6 +43,10 @@ export class OCRProcessor {
     
     try {
       await this.initialize(options.language || 'eng');
+      
+      if (!this.worker) {
+        throw new Error('OCR worker not initialized');
+      }
 
       // Preprocess image if requested
       let processedBuffer = buffer;
@@ -51,28 +55,28 @@ export class OCRProcessor {
       }
 
       // Set OCR parameters
-      if (options.pageSegmentationMode !== undefined && this.worker) {
+      if (options.pageSegmentationMode !== undefined) {
         await this.worker.setParameters({
-          tessedit_pageseg_mode: options.pageSegmentationMode as any
+          tessedit_pageseg_mode: String(options.pageSegmentationMode)
         } as any);
       }
 
-      if (options.ocrEngineMode !== undefined && this.worker) {
+      if (options.ocrEngineMode !== undefined) {
         await this.worker.setParameters({
-          tessedit_ocr_engine_mode: options.ocrEngineMode as any
+          tessedit_ocr_engine_mode: String(options.ocrEngineMode)
         } as any);
       }
 
       // Perform OCR
-      const { data } = await this.worker!.recognize(processedBuffer);
+      const { data } = await this.worker.recognize(processedBuffer);
       
       const processingTime = Date.now() - startTime;
 
       // Filter results by confidence if specified
       const minConfidence = options.confidence || 0;
       const filteredBlocks: OCRBlock[] = (data.blocks || [])
-        .filter((block: any) => block.confidence >= minConfidence)
-        .map((block: any) => ({
+        .filter(block => block.confidence >= minConfidence)
+        .map(block => ({
           text: block.text,
           confidence: block.confidence,
           bbox: {
@@ -216,9 +220,7 @@ export class OCRProcessor {
   getSupportedLanguages(): string[] {
     return [
       'eng', 'ara', 'chi_sim', 'chi_tra', 'deu', 'fra', 'ita', 'jpn',
-      'kor', 'por', 'rus', 'spa', 'tur', 'nld', 'pol', 'swe', 'dan',
-      'fin', 'nor', 'ces', 'hun', 'bul', 'hrv', 'est', 'lav', 'lit',
-      'slk', 'slv', 'ron', 'ell', 'heb', 'tha', 'vie', 'ind', 'msa'
+      'kor', 'por', 'rus', 'spa', 'tur', 'nld', 'pol', 'swe'
     ];
   }
 

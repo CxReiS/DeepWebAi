@@ -12,9 +12,9 @@ const config = {
   // Database
   databaseUrl: process.env.DATABASE_URL!,
   
-  // Security - NextAuth.js implementasyonu
+  // Security
   jwtSecret: process.env.JWT_SECRET!,
-  nextAuthSecret: process.env.NEXTAUTH_SECRET!,
+  luciaSecret: process.env.LUCIA_SECRET!,
   
   // AI Providers
   openaiApiKey: process.env.OPENAI_API_KEY,
@@ -46,9 +46,9 @@ const config = {
   rateLimitMaxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100')
 };
 
-// Gerekli konfigürasyon doğrulaması - NextAuth.js için güncellenmiş
+// Validate required configuration
 function validateConfig() {
-  const required = ['DATABASE_URL', 'JWT_SECRET', 'NEXTAUTH_SECRET'];
+  const required = ['DATABASE_URL', 'JWT_SECRET', 'LUCIA_SECRET'];
   const missing = required.filter(key => !process.env[key]);
   
   if (missing.length > 0) {
@@ -180,7 +180,7 @@ export function addProductionMiddleware(app: Elysia) {
         ...set.headers,
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
         'X-Production': 'true'
-      };
+      } as any;
       return {};
     });
 }
