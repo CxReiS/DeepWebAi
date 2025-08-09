@@ -1,6 +1,35 @@
+# Ortak
 node_modules/
 dist/
-.env
-.DS_Store
-node_modules
+build/
+coverage/
+*.log
+*.log.*
+npm-debug.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# Cache / daemon / cookies
+.cache/
+cache/
+daemon/
+cookies/
+
+# Turbo / Vite / Paketler
 .turbo/
+packages/**/.turbo/
+.vite/
+.parcel-cache/
+.svelte-kit/
+
+# Ortam ve editör
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+.eslintcache
+
+# Çeşitli
+.vercel/
+
