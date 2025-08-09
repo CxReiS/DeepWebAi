@@ -1,337 +1,337 @@
-# File Upload and Processing Features
+# Dosya Yükleme ve İşleme Özellikleri
 
-DeepWebAI supports comprehensive file processing capabilities, allowing you to upload, analyze, and interact with various document types through AI assistance.
+DeepWebAI kapsamlı dosya işleme yeteneklerini destekler, AI yardımıyla çeşitli doküman türlerini yüklemenize, analiz etmenize ve etkileşim kurmanıza olanak sağlar.
 
-## Supported File Types
+## Desteklenen Dosya Türleri
 
-### Document Formats
+### Doküman Formatları
 
-**PDF Documents**
-- ✅ Text extraction and analysis
-- ✅ Multi-page document processing
-- ✅ Form data extraction
-- ✅ Metadata parsing
-- 📄 Max size: 10MB per file
+**PDF Dokümanları**
+- ✅ Metin çıkarma ve analiz
+- ✅ Çok sayfalı doküman işleme
+- ✅ Form verisi çıkarma
+- ✅ Metadata ayrıştırma
+- 📄 Maksimum boyut: Dosya başına 10MB
 
-**Microsoft Word Documents**
-- ✅ DOCX format support
-- ✅ Text content extraction
-- ✅ Formatting preservation
-- ✅ Table and list processing
-- 📄 Max size: 10MB per file
+**Microsoft Word Dokümanları**
+- ✅ DOCX format desteği
+- ✅ Metin içeriği çıkarma
+- ✅ Formatlama korunması
+- ✅ Tablo ve liste işleme
+- 📄 Maksimum boyut: Dosya başına 10MB
 
-### Image Formats
+### Resim Formatları
 
-**Supported Types:**
+**Desteklenen Türler:**
 - ✅ PNG (Portable Network Graphics)
 - ✅ JPEG/JPG (Joint Photographic Experts Group)
 - ✅ GIF (Graphics Interchange Format)
 
-**Image Processing Features:**
-- 🔍 **OCR (Optical Character Recognition)**: Extract text from images
-- 📊 **Content Analysis**: Describe and analyze image content
-- 🖼️ **Metadata Extraction**: EXIF data and image properties
-- 🔧 **Image Optimization**: Automatic compression and format conversion
-- 📏 **Size Limits**: 5MB per image file
+**Resim İşleme Özellikleri:**
+- 🔍 **OCR (Optical Character Recognition)**: Resimlerden metin çıkarma
+- 📊 **İçerik Analizi**: Resim içeriğini tanımlama ve analiz etme
+- 🖼️ **Metadata Çıkarma**: EXIF verisi ve resim özellikleri
+- 🔧 **Resim Optimizasyonu**: Otomatik sıkıştırma ve format dönüştürme
+- 📏 **Boyut Limitleri**: Resim dosyası başına 5MB
 
-## File Upload Methods
+## Dosya Yükleme Yöntemleri
 
-### Drag and Drop
+### Sürükle ve Bırak
 
-1. **Simple Upload**
+1. **Basit Yükleme**
    ```
-   1. Open the chat interface
-   2. Drag files from your computer
-   3. Drop them onto the chat area
-   4. Files will upload automatically
-   ```
-
-2. **Multiple Files**
-   - Select multiple files simultaneously
-   - Drag and drop all at once
-   - Each file processed individually
-
-### Click to Upload
-
-1. **Upload Button**
-   - Click the file upload button (📎)
-   - Browse and select files
-   - Click "Open" to upload
-
-2. **File Selection**
-   - Single file selection
-   - Multiple file selection (Ctrl+Click)
-   - Folder selection (where supported)
-
-### Paste from Clipboard
-
-- **Screenshots**: Paste directly from clipboard
-- **Copied Images**: From other applications
-- **Text Content**: Direct paste for immediate analysis
-
-## File Processing Workflow
-
-### Upload Process
-
-1. **File Validation**
-   ```
-   ✅ File type verification
-   ✅ Size limit checking
-   ✅ Security scanning
-   ✅ MIME type detection
+   1. Sohbet arayüzünü açın
+   2. Dosyaları bilgisayarınızdan sürükleyin
+   3. Sohbet alanına bırakın
+   4. Dosyalar otomatik yüklenecek
    ```
 
-2. **Processing Status**
-   - 📤 **Uploading**: File transfer in progress
-   - ⚙️ **Processing**: Content extraction active
-   - ✅ **Ready**: File available for AI analysis
-   - ❌ **Error**: Processing failed (see troubleshooting)
+2. **Çoklu Dosyalar**
+   - Birden fazla dosyayı aynı anda seçin
+   - Hepsini birden sürükleyip bırakın
+   - Her dosya ayrı ayrı işlenecek
 
-3. **Content Extraction**
-   - Text content parsed and extracted
-   - Images processed for OCR
-   - Metadata collected and stored
-   - Content prepared for AI analysis
+### Tıklayarak Yükleme
 
-### AI Integration
+1. **Yükleme Butonu**
+   - Dosya yükleme butonuna (📎) tıklayın
+   - Dosyalara göz atın ve seçin
+   - Yüklemek için "Aç"a tıklayın
 
-**Automatic Analysis:**
-- Files are automatically analyzed upon upload
-- AI provides initial content summary
-- Key information highlighted
-- Questions and insights suggested
+2. **Dosya Seçimi**
+   - Tekli dosya seçimi
+   - Çoklu dosya seçimi (Ctrl+Tık)
+   - Klasör seçimi (desteklendiği yerlerde)
 
-**Interactive Analysis:**
-- Ask specific questions about file content
-- Request detailed explanations
-- Extract specific information
-- Cross-reference multiple files
+### Panodan Yapıştırma
 
-## Advanced Features
+- **Ekran Görüntüleri**: Panodan doğrudan yapıştırın
+- **Kopyalanan Resimler**: Diğer uygulamalardan
+- **Metin İçeriği**: Anında analiz için doğrudan yapıştırma
+
+## Dosya İşleme İş Akışı
+
+### Yükleme Süreci
+
+1. **Dosya Doğrulama**
+   ```
+   ✅ Dosya türü doğrulaması
+   ✅ Boyut limiti kontrolü
+   ✅ Güvenlik taraması
+   ✅ MIME türü algılama
+   ```
+
+2. **İşleme Durumu**
+   - 📤 **Yükleniyor**: Dosya transferi devam ediyor
+   - ⚙️ **İşleniyor**: İçerik çıkarma aktif
+   - ✅ **Hazır**: Dosya AI analizi için mevcut
+   - ❌ **Hata**: İşleme başarısız (sorun gidermeye bakın)
+
+3. **İçerik Çıkarma**
+   - Metin içeriği ayrıştırılır ve çıkarılır
+   - Resimler OCR için işlenir
+   - Metadata toplanır ve saklanır
+   - İçerik AI analizi için hazırlanır
+
+### AI Entegrasyonu
+
+**Otomatik Analiz:**
+- Dosyalar yüklendikten sonra otomatik analiz edilir
+- AI başlangıç içerik özeti sağlar
+- Önemli bilgiler vurgulanır
+- Sorular ve içgörüler önerilir
+
+**Etkileşimli Analiz:**
+- Dosya içeriği hakkında belirli sorular sorun
+- Detaylı açıklamalar isteyin
+- Belirli bilgileri çıkarın
+- Birden fazla dosyayı çapraz referanslayın
+
+## Gelişmiş Özellikler
 
 ### OCR (Optical Character Recognition)
 
-**Text Extraction from Images:**
+**Resimlerden Metin Çıkarma:**
 ```
-Supported Languages:
-- English (primary)
-- Spanish, French, German
-- Additional languages available
-```
-
-**OCR Capabilities:**
-- 📝 Handwritten text recognition
-- 🖨️ Printed text extraction
-- 📊 Table and form processing
-- 🔍 High-accuracy text detection
-
-**Usage Tips:**
-- Use high-quality, clear images
-- Ensure good lighting and contrast
-- Avoid skewed or rotated images
-- Text should be clearly visible
-
-### Document Analysis
-
-**PDF Processing:**
-- Multi-page document handling
-- Table of contents extraction
-- Chapter and section identification
-- Cross-reference analysis
-
-**Word Document Features:**
-- Style and formatting preservation
-- Comment and revision tracking
-- Header and footer extraction
-- Embedded object handling
-
-### Batch Processing
-
-**Multiple File Upload:**
-1. Select multiple files simultaneously
-2. Upload all files at once
-3. Each file processed individually
-4. Combined analysis available
-
-**Cross-File Analysis:**
-- Compare content across documents
-- Find relationships between files
-- Aggregate information extraction
-- Comprehensive document review
-
-## File Management
-
-### Uploaded Files Panel
-
-**File Organization:**
-```
-📁 Recent Files
-├── 📄 document1.pdf (2MB)
-├── 🖼️ image1.png (1.5MB)
-├── 📄 report.docx (3MB)
-└── 🖼️ screenshot.jpg (800KB)
+Desteklenen Diller:
+- İngilizce (birincil)
+- İspanyolca, Fransızca, Almanca
+- Ek diller mevcut
 ```
 
-**File Actions:**
-- 👁️ **View**: Preview file content
-- 🔄 **Reprocess**: Re-analyze file
-- 📥 **Download**: Get original file
-- 🗑️ **Delete**: Remove from storage
+**OCR Yetenekleri:**
+- 📝 El yazısı metin tanıma
+- 🖨️ Basılı metin çıkarma
+- 📊 Tablo ve form işleme
+- 🔍 Yüksek doğrulukta metin algılama
 
-### Storage Limits
+**Kullanım İpuçları:**
+- Yüksek kaliteli, net resimler kullanın
+- İyi aydınlatma ve kontrast sağlayın
+- Eğik veya döndürülmüş resimlerden kaçının
+- Metin açıkça görünür olmalı
 
-**Free Tier:**
-- 📦 100MB total storage
-- 📁 10 files maximum
-- 🕐 30-day retention
+### Doküman Analizi
 
-**Premium Tier:**
-- 📦 1GB total storage
-- 📁 100 files maximum
-- 🕐 1-year retention
+**PDF İşleme:**
+- Çok sayfalı doküman işleme
+- İçindekiler çıkarma
+- Bölüm ve kısım tanımlama
+- Çapraz referans analizi
 
-**Developer Tier:**
-- 📦 5GB total storage
-- 📁 Unlimited files
-- 🕐 Permanent retention
+**Word Doküman Özellikleri:**
+- Stil ve formatlama korunması
+- Yorum ve revizyon takibi
+- Üstbilgi ve altbilgi çıkarma
+- Gömülü nesne işleme
 
-### File Security
+### Toplu İşleme
 
-**Privacy Protection:**
-- 🔒 Files encrypted in storage
-- 🚫 Not shared with third parties
-- 🗑️ Automatic deletion after retention period
-- 🛡️ Secure transmission (HTTPS)
+**Çoklu Dosya Yükleme:**
+1. Birden fazla dosyayı aynı anda seçin
+2. Tüm dosyaları bir kerede yükleyin
+3. Her dosya ayrı ayrı işlenir
+4. Birleşik analiz mevcut
 
-**Access Control:**
-- Only you can access your files
-- No public file sharing
-- Secure deletion when removed
-- Privacy-compliant processing
+**Dosyalar Arası Analiz:**
+- Dokümanlar arasında içerik karşılaştırma
+- Dosyalar arasındaki ilişkileri bulma
+- Toplam bilgi çıkarma
+- Kapsamlı doküman inceleme
 
-## Using Files with AI
+## Dosya Yönetimi
 
-### Conversation Integration
+### Yüklenmiş Dosyalar Paneli
 
-**Referencing Files:**
+**Dosya Organizasyonu:**
 ```
-Examples:
-"Summarize the key points in my uploaded PDF"
-"What text does this image contain?"
-"Compare the data in these two documents"
-"Extract the table from page 3"
+📁 Son Dosyalar
+├── 📄 dokuman1.pdf (2MB)
+├── 🖼️ resim1.png (1.5MB)
+├── 📄 rapor.docx (3MB)
+└── 🖼️ ekrangoruntusu.jpg (800KB)
 ```
 
-**Context Awareness:**
-- AI remembers uploaded files in conversation
-- Reference files by name or content
-- Multi-file analysis and comparison
-- Persistent file context across messages
+**Dosya Eylemleri:**
+- 👁️ **Görüntüle**: Dosya içeriğini önizle
+- 🔄 **Yeniden İşle**: Dosyayı tekrar analiz et
+- 📥 **İndir**: Orijinal dosyayı al
+- 🗑️ **Sil**: Depolamadan kaldır
 
-### Analysis Types
+### Depolama Limitleri
 
-**Document Summarization:**
-- Executive summaries
-- Key point extraction
-- Content categorization
-- Topic identification
+**Ücretsiz Seviye:**
+- 📦 100MB toplam depolama
+- 📁 Maksimum 10 dosya
+- 🕐 30 gün saklama
 
-**Information Extraction:**
-- Specific data points
-- Contact information
-- Dates and numbers
-- Technical specifications
+**Premium Seviye:**
+- 📦 1GB toplam depolama
+- 📁 Maksimum 100 dosya
+- 🕐 1 yıl saklama
 
-**Content Questions:**
-- Factual information queries
-- Clarification requests
-- Detail exploration
-- Cross-reference analysis
+**Developer Seviye:**
+- 📦 5GB toplam depolama
+- 📁 Sınırsız dosya
+- 🕐 Kalıcı saklama
 
-## Troubleshooting
+### Dosya Güvenliği
 
-### Common Upload Issues
+**Gizlilik Koruması:**
+- 🔒 Dosyalar depoda şifrelenmiş
+- 🚫 Üçüncü taraflarla paylaşılmaz
+- 🗑️ Saklama süresinden sonra otomatik silme
+- 🛡️ Güvenli iletim (HTTPS)
 
-**File Too Large:**
-- Check file size limits for your tier
-- Compress large files if possible
-- Split large documents into sections
-- Contact support for enterprise needs
+**Erişim Kontrolü:**
+- Sadece siz dosyalarınıza erişebilirsiniz
+- Halka açık dosya paylaşımı yok
+- Kaldırıldığında güvenli silme
+- Gizlilik uyumlu işleme
 
-**Unsupported Format:**
-- Convert to supported format
-- Use PDF for complex documents
-- Export images in PNG/JPEG format
-- Check file extension accuracy
+## Dosyaları AI ile Kullanma
 
-**Upload Failed:**
-- Check internet connection
-- Refresh browser and retry
-- Clear browser cache
-- Try different browser
+### Konuşma Entegrasyonu
 
-### Processing Problems
+**Dosyalara Referans Verme:**
+```
+Örnekler:
+"Yüklediğim PDF'deki ana noktaları özetle"
+"Bu resimde hangi metin var?"
+"Bu iki dokümandaki verileri karşılaştır"
+"3. sayfadaki tabloyu çıkar"
+```
 
-**OCR Not Working:**
-- Ensure image quality is sufficient
-- Check for supported languages
-- Verify text is clearly visible
-- Try different image format
+**Bağlam Farkındalığı:**
+- AI konuşmada yüklenmiş dosyaları hatırlar
+- Dosyalara isim veya içerikle referans verin
+- Çoklu dosya analizi ve karşılaştırma
+- Mesajlar arasında kalıcı dosya bağlamı
 
-**PDF Processing Failed:**
-- Check PDF is not password-protected
-- Verify PDF is not corrupted
-- Try converting to different PDF version
-- Use alternative document format
+### Analiz Türleri
 
-**Slow Processing:**
-- Large files take longer to process
-- Complex documents require more time
-- Check server status
-- Retry during off-peak hours
+**Doküman Özetleme:**
+- Yönetici özetleri
+- Ana nokta çıkarma
+- İçerik kategorilendirme
+- Konu tanımlama
 
-### Getting Help
+**Bilgi Çıkarma:**
+- Belirli veri noktaları
+- İletişim bilgileri
+- Tarihler ve sayılar
+- Teknik özellikler
 
-**Support Resources:**
-- 📋 Help Center articles
-- 💬 Community forum
-- 📧 Direct support contact
-- 📹 Video tutorials
+**İçerik Soruları:**
+- Gerçek bilgi sorguları
+- Açıklama istekleri
+- Detay keşfi
+- Çapraz referans analizi
 
-**Reporting Issues:**
-- Include file type and size
-- Describe error message
-- Provide browser information
-- Share processing timeline
+## Sorun Giderme
 
-## Best Practices
+### Yaygın Yükleme Sorunları
 
-### File Preparation
+**Dosya Çok Büyük:**
+- Seviyeniz için dosya boyut limitlerini kontrol edin
+- Mümkünse büyük dosyaları sıkıştırın
+- Büyük dokümanları bölümlere ayırın
+- Kurumsal ihtiyaçlar için destekle iletişime geçin
 
-**Optimize for Processing:**
-- Use clear, high-resolution images
-- Ensure PDF text is selectable
-- Remove password protection
-- Keep file sizes reasonable
+**Desteklenmeyen Format:**
+- Desteklenen formata dönüştürün
+- Karmaşık dokümanlar için PDF kullanın
+- Resimleri PNG/JPEG formatında dışa aktarın
+- Dosya uzantısı doğruluğunu kontrol edin
 
-**Organization Tips:**
-- Use descriptive file names
-- Group related documents
-- Remove duplicate files
-- Regular cleanup of old files
+**Yükleme Başarısız:**
+- İnternet bağlantısını kontrol edin
+- Tarayıcıyı yenileyin ve tekrar deneyin
+- Tarayıcı önbelleğini temizleyin
+- Farklı tarayıcı deneyin
 
-### Effective AI Interaction
+### İşleme Sorunları
 
-**Clear Instructions:**
-- Specify what you want extracted
-- Ask focused questions
-- Reference specific parts of documents
-- Request particular analysis types
+**OCR Çalışmıyor:**
+- Resim kalitesinin yeterli olduğundan emin olun
+- Desteklenen dilleri kontrol edin
+- Metnin açıkça görünür olduğunu doğrulayın
+- Farklı resim formatı deneyin
 
-**Follow-up Questions:**
-- Build on initial analysis
-- Dig deeper into specific topics
-- Compare with other documents
-- Request additional insights
+**PDF İşleme Başarısız:**
+- PDF'in şifre korumalı olmadığını kontrol edin
+- PDF'in bozuk olmadığını doğrulayın
+- Farklı PDF versiyonuna dönüştürmeyi deneyin
+- Alternatif doküman formatı kullanın
 
-Remember: File processing quality depends on source file quality and clarity. For best results, use clear, well-formatted documents and high-quality images.
+**Yavaş İşleme:**
+- Büyük dosyaların işlenmesi daha uzun sürer
+- Karmaşık dokümanlar daha fazla zaman gerektirir
+- Sunucu durumunu kontrol edin
+- Yoğun olmayan saatlerde tekrar deneyin
+
+### Yardım Alma
+
+**Destek Kaynakları:**
+- 📋 Yardım Merkezi makaleleri
+- 💬 Topluluk forumu
+- 📧 Doğrudan destek iletişimi
+- 📹 Video öğreticiler
+
+**Sorun Bildirme:**
+- Dosya türü ve boyutunu ekleyin
+- Hata mesajını açıklayın
+- Tarayıcı bilgilerini sağlayın
+- İşleme zaman çizelgesini paylaşın
+
+## En İyi Uygulamalar
+
+### Dosya Hazırlığı
+
+**İşleme için Optimize Etme:**
+- Net, yüksek çözünürlüklü resimler kullanın
+- PDF metninin seçilebilir olduğundan emin olun
+- Şifre korumasını kaldırın
+- Dosya boyutlarını makul tutun
+
+**Organizasyon İpuçları:**
+- Açıklayıcı dosya isimleri kullanın
+- İlgili dokümanları gruplandırın
+- Yinelenen dosyaları kaldırın
+- Eski dosyaları düzenli temizleyin
+
+### Etkili AI Etkileşimi
+
+**Net Talimatlar:**
+- Ne çıkarmak istediğinizi belirtin
+- Odaklanmış sorular sorun
+- Dokümanların belirli bölümlerine referans verin
+- Belirli analiz türleri isteyin
+
+**Takip Soruları:**
+- İlk analize dayalı devam edin
+- Belirli konulara daha derinlemesine inin
+- Diğer dokümanlarla karşılaştırın
+- Ek içgörüler isteyin
+
+Unutmayın: Dosya işleme kalitesi kaynak dosya kalitesi ve netliğine bağlıdır. En iyi sonuçlar için net, iyi formatlanmış dokümanlar ve yüksek kaliteli resimler kullanın.

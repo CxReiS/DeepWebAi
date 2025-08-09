@@ -1,61 +1,13 @@
-import { Lucia, TimeSpan } from "lucia";
-import { NeonHTTPAdapter } from "@lucia-auth/adapter-postgresql";
+// NextAuth.js ile authentication sistemi
+// Auth.js (NextAuth.js) kullanarak kullanıcı kimlik doğrulama ve oturum yönetimi
+import { AuthJSService } from "./authjs-service.js";
+import { auth, signIn, signOut } from "./authjs-service.js";
 import { sql } from "../lib/neon-client.js";
 import { z } from "zod";
 import { Elysia } from "elysia";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+// NextAuth.js sürümünde bcrypt ve jwt artık gerekli değil
 
-// Database adapter for Lucia
-const adapter = new NeonHTTPAdapter(sql, {
-  user: "users",
-  session: "auth_sessions"
-});
-
-// Lucia configuration
-export const lucia = new Lucia(adapter, {
-  sessionCookie: {
-    name: "deepweb_session",
-    expires: false,
-    attributes: {
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      domain: process.env.NODE_ENV === "production" ? process.env.COOKIE_DOMAIN : undefined
-    }
-  },
-  sessionExpiresIn: new TimeSpan(7, "d"), // 7 days
-  getUserAttributes: (attributes) => {
-    return {
-      id: attributes.id,
-      email: attributes.email,
-      username: attributes.username,
-      displayName: attributes.display_name,
-      avatarUrl: attributes.avatar_url,
-      role: attributes.role,
-      isVerified: attributes.is_verified,
-      preferences: attributes.preferences
-    };
-  }
-});
-
-// Type declarations for Lucia
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia;
-    DatabaseUserAttributes: {
-      id: string;
-      email: string;
-      username: string;
-      display_name?: string;
-      avatar_url?: string;
-      role: "user" | "premium" | "admin" | "developer";
-      is_verified: boolean;
-      preferences: Record<string, any>;
-    };
-  }
-}
-
-// Auth schemas
+// Kimlik doğrulama şemaları - NextAuth ile uyumlu
 export const RegisterSchema = z.object({
   email: z.string().email("Invalid email format"),
   username: z.string()
@@ -85,339 +37,98 @@ export type RegisterData = z.infer<typeof RegisterSchema>;
 export type LoginData = z.infer<typeof LoginSchema>;
 export type ChangePasswordData = z.infer<typeof ChangePasswordSchema>;
 
-// Auth service class
+// Auth service class - NextAuth.js wrapper ile uyumlu
 export class AuthService {
-  // Hash password
-  static async hashPassword(password: string): Promise<string> {
-    const saltRounds = parseInt(process.env.BCRYPT_ROUNDS || '12');
-    return bcrypt.hash(password, saltRounds);
+  // Şifre hash işlemi
+  static async hashPassword(password: [REDACTED:password]): Promise<string> {
+    return AuthJSService.hashPassword(password);
   }
 
-  // Verify password
-  static async verifyPassword(password: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(password, hash);
+  // Şifre doğrulama
+  static async verifyPassword(password: [REDACTED:password], hash: string): Promise<boolean> {
+    return AuthJSService.verifyPassword(password, hash);
   }
 
-  // Generate JWT token
-  static generateJWT(userId: string, sessionId: string): string {
-    const payload = {
-      userId,
-      sessionId,
-      iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
-    };
-    
-    return jwt.sign(payload, process.env.JWT_SECRET!);
+  // JWT token oluşturma - NextAuth ile uyumluluk için
+  static generateJWT(userId: string, sessionId?: string): string {
+    return AuthJSService.generateJWT(userId, sessionId);
   }
 
-  // Verify JWT token
-  static verifyJWT(token: string): { userId: string; sessionId: string } | null {
-    try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET!) as any;
-      return {
-        userId: payload.userId,
-        sessionId: payload.sessionId
-      };
-    } catch {
-      return null;
-    }
+  // JWT token doğrulama - NextAuth ile uyumluluk için
+  static verifyJWT(token: string): { userId: string; sessionId?: string } | null {
+    return AuthJSService.verifyJWT(token);
   }
 
-  // Register new user
+  // Yeni kullanıcı kaydı - NextAuth.js kullanılıyor
   static async register(data: RegisterData): Promise<{
     user: any;
     session: any;
     token: string;
   }> {
-    const validated = RegisterSchema.parse(data);
-    
-    // Check if user already exists
-    const existingUser = await sql`
-      SELECT id FROM users 
-      WHERE email = ${validated.email} OR username = ${validated.username}
-    `;
-    
-    if (existingUser.length > 0) {
-      throw new Error("User with this email or username already exists");
-    }
-    
-    // Hash password
-    const passwordHash = await this.hashPassword(validated.password);
-    
-    // Create user
-    const userResult = await sql`
-      INSERT INTO users (
-        email, username, password_hash, display_name, preferences, role
-      ) VALUES (
-        ${validated.email},
-        ${validated.username},
-        ${passwordHash},
-        ${validated.displayName || validated.username},
-        ${JSON.stringify(validated.preferences)},
-        'user'
-      )
-      RETURNING id, email, username, display_name, avatar_url, role, is_verified, preferences, created_at
-    `;
-    
-    const user = userResult[0];
-    
-    // Create session
-    const session = await lucia.createSession(user.id, {});
-    
-    // Generate JWT
-    const token = this.generateJWT(user.id, session.id);
-    
-    // Update last login
-    await sql`
-      UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}
-    `;
-    
-    return {
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        displayName: user.display_name,
-        avatarUrl: user.avatar_url,
-        role: user.role,
-        isVerified: user.is_verified,
-        preferences: user.preferences,
-        createdAt: user.created_at
-      },
-      session,
-      token
-    };
+    return AuthJSService.register(data);
   }
 
-  // Login user
+  // Kullanıcı girişi - NextAuth.js kullanılıyor
   static async login(data: LoginData): Promise<{
     user: any;
     session: any;
     token: string;
   }> {
-    const validated = LoginSchema.parse(data);
-    
-    // Find user
-    const userResult = await sql`
-      SELECT id, email, username, display_name, avatar_url, password_hash, role, is_verified, preferences
-      FROM users 
-      WHERE email = ${validated.email}
-    `;
-    
-    if (userResult.length === 0) {
-      throw new Error("Invalid email or password");
-    }
-    
-    const user = userResult[0];
-    
-    // Verify password
-    const isValidPassword = await this.verifyPassword(validated.password, user.password_hash);
-    
-    if (!isValidPassword) {
-      throw new Error("Invalid email or password");
-    }
-    
-    // Invalidate existing sessions (optional - remove if you want multiple sessions)
-    await lucia.invalidateUserSessions(user.id);
-    
-    // Create new session
-    const session = await lucia.createSession(user.id, {});
-    
-    // Generate JWT
-    const token = this.generateJWT(user.id, session.id);
-    
-    // Update last login
-    await sql`
-      UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}
-    `;
-    
-    return {
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        displayName: user.display_name,
-        avatarUrl: user.avatar_url,
-        role: user.role,
-        isVerified: user.is_verified,
-        preferences: user.preferences
-      },
-      session,
-      token
-    };
+    return AuthJSService.login(data);
   }
 
-  // Logout user
-  static async logout(sessionId: string): Promise<void> {
-    await lucia.invalidateSession(sessionId);
+  // Kullanıcı çıkışı - NextAuth.js kullanılıyor
+  static async logout(): Promise<void> {
+    return AuthJSService.logout();
   }
 
-  // Validate session
-  static async validateSession(sessionId: string): Promise<{
+  // Oturum doğrulama - NextAuth.js kullanılıyor
+  static async validateSession(sessionToken?: string): Promise<{
     user: any;
     session: any;
   } | null> {
-    try {
-      const result = await lucia.validateSession(sessionId);
-      
-      if (!result.user || !result.session) {
-        return null;
-      }
-      
-      return {
-        user: result.user,
-        session: result.session
-      };
-    } catch {
-      return null;
-    }
+    return AuthJSService.validateSession(sessionToken);
   }
 
-  // Get user by ID
+  // Kullanıcı ID ile getirme
   static async getUserById(userId: string): Promise<any | null> {
-    const result = await sql`
-      SELECT id, email, username, display_name, avatar_url, role, is_verified, preferences, created_at, last_login_at
-      FROM users 
-      WHERE id = ${userId}
-    `;
-    
-    if (result.length === 0) {
-      return null;
-    }
-    
-    const user = result[0];
-    return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      displayName: user.display_name,
-      avatarUrl: user.avatar_url,
-      role: user.role,
-      isVerified: user.is_verified,
-      preferences: user.preferences,
-      createdAt: user.created_at,
-      lastLoginAt: user.last_login_at
-    };
+    return AuthJSService.getUserById(userId);
   }
 
-  // Change password
+  // Şifre değiştirme
   static async changePassword(userId: string, data: ChangePasswordData): Promise<void> {
-    const validated = ChangePasswordSchema.parse(data);
-    
-    // Get current password hash
-    const userResult = await sql`
-      SELECT password_hash FROM users WHERE id = ${userId}
-    `;
-    
-    if (userResult.length === 0) {
-      throw new Error("User not found");
-    }
-    
-    // Verify current password
-    const isValidPassword = await this.verifyPassword(validated.currentPassword, userResult[0].password_hash);
-    
-    if (!isValidPassword) {
-      throw new Error("Current password is incorrect");
-    }
-    
-    // Hash new password
-    const newPasswordHash = await this.hashPassword(validated.newPassword);
-    
-    // Update password
-    await sql`
-      UPDATE users 
-      SET password_hash = ${newPasswordHash}, updated_at = NOW()
-      WHERE id = ${userId}
-    `;
-    
-    // Invalidate all sessions to force re-login
-    await lucia.invalidateUserSessions(userId);
+    return AuthJSService.changePassword(userId, data);
   }
 
-  // Update user profile
+  // Kullanıcı profili güncelleme
   static async updateProfile(userId: string, updates: {
     displayName?: string;
     avatarUrl?: string;
     bio?: string;
     preferences?: Record<string, any>;
   }): Promise<any> {
-    const setClause = [];
-    const values = [];
-    
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value !== undefined) {
-        const dbKey = key === 'displayName' ? 'display_name' : 
-                     key === 'avatarUrl' ? 'avatar_url' : key;
-        setClause.push(`${dbKey} = $${values.length + 1}`);
-        values.push(key === 'preferences' ? JSON.stringify(value) : value);
-      }
-    });
-    
-    if (setClause.length === 0) {
-      return this.getUserById(userId);
-    }
-    
-    setClause.push('updated_at = NOW()');
-    
-    const result = await sql.unsafe(`
-      UPDATE users 
-      SET ${setClause.join(', ')}
-      WHERE id = $${values.length + 1}
-      RETURNING id, email, username, display_name, avatar_url, role, is_verified, preferences, updated_at
-    `, [...values, userId]);
-    
-    if (result.length === 0) {
-      throw new Error("User not found");
-    }
-    
-    const user = result[0];
-    return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      displayName: user.display_name,
-      avatarUrl: user.avatar_url,
-      role: user.role,
-      isVerified: user.is_verified,
-      preferences: user.preferences,
-      updatedAt: user.updated_at
-    };
+    return AuthJSService.updateProfile(userId, updates);
   }
 }
 
-// Auth middleware
+// Auth middleware - NextAuth.js oturumları ile çalışır
 export const authMiddleware = new Elysia({ name: 'auth' })
   .derive(async ({ headers, set }) => {
-    // Extract token from Authorization header or cookie
+    // Authorization header veya cookie'den token çıkarma
     const authHeader = headers.authorization;
-    const sessionCookie = headers.cookie?.split(';')
-      .find(c => c.trim().startsWith('deepweb_session='))
-      ?.split('=')[1];
-    
-    let sessionId: string | null = null;
+    let sessionToken: string | undefined;
     
     if (authHeader?.startsWith('Bearer ')) {
-      // JWT token authentication
+      // JWT token kimlik doğrulama
       const token = authHeader.substring(7);
       const jwtPayload = AuthService.verifyJWT(token);
       
       if (jwtPayload) {
-        sessionId = jwtPayload.sessionId;
+        sessionToken = token;
       }
-    } else if (sessionCookie) {
-      // Cookie-based session
-      sessionId = sessionCookie;
     }
     
-    if (!sessionId) {
-      return { 
-        user: null, 
-        session: null,
-        isAuthenticated: false 
-      };
-    }
-    
-    const result = await AuthService.validateSession(sessionId);
+    const result = await AuthService.validateSession(sessionToken);
     
     if (!result) {
       return { 
@@ -434,7 +145,7 @@ export const authMiddleware = new Elysia({ name: 'auth' })
     };
   });
 
-// Require authentication middleware
+// Kimlik doğrulama gerekliliği middleware
 export const requireAuth = new Elysia({ name: 'require-auth' })
   .use(authMiddleware)
   .derive(({ user, set }) => {
@@ -446,7 +157,7 @@ export const requireAuth = new Elysia({ name: 'require-auth' })
     return { user };
   });
 
-// Require specific role middleware
+// Belirli rol gerekliliği middleware
 export const requireRole = (allowedRoles: string[]) => 
   new Elysia({ name: 'require-role' })
     .use(requireAuth)
@@ -460,7 +171,6 @@ export const requireRole = (allowedRoles: string[]) =>
     });
 
 export default {
-  lucia,
   AuthService,
   authMiddleware,
   requireAuth,

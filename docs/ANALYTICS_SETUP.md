@@ -166,15 +166,15 @@ function AdminPanel() {
 ```
 
 Dashboard özellikleri:
-- Provider status monitoring
-- Key metrics overview (page views, users, session duration)
-- Top pages listing
-- Error tracking
-- Real-time data refresh
+- Provider durum izleme
+- Anahtar metrik özeti (sayfa görüntülemeleri, kullanıcılar, oturum süresi)
+- En çok ziyaret edilen sayfalar listesi
+- Hata takibi
+- Gerçek zamanlı veri yenileme
 
-## Privacy & GDPR Compliance
+## Gizlilik ve GDPR Uyumluluğu
 
-### Privacy Features
+### Gizlilik Özellikleri
 
 ```typescript
 const privacyConfig = {
@@ -184,7 +184,7 @@ const privacyConfig = {
 };
 ```
 
-### Sampling Configuration
+### Örnekleme Konfigürasyonu
 
 ```typescript
 const samplingConfig = {
@@ -196,9 +196,9 @@ const samplingConfig = {
 };
 ```
 
-## Provider-Specific Setup
+## Sağlayıcıya Özel Kurulum
 
-### Plausible Analytics Setup
+### Plausible Analytics Kurulumu
 
 1. Plausible hesabı oluşturun: https://plausible.io
 2. Domain'inizi ekleyin
@@ -209,7 +209,7 @@ PLAUSIBLE_DOMAIN=your-domain.com
 VITE_PLAUSIBLE_DOMAIN=your-domain.com
 ```
 
-### Vercel Analytics Setup
+### Vercel Analytics Kurulumu
 
 1. Vercel dashboard'da analytics'i aktif edin
 2. Analytics ID'nizi alın
@@ -219,7 +219,7 @@ VITE_PLAUSIBLE_DOMAIN=your-domain.com
 VERCEL_ANALYTICS_ID=your_analytics_id
 ```
 
-## Testing
+## Test Etme
 
 Analytics sistemini test etmek için:
 
@@ -232,9 +232,9 @@ curl http://localhost:3001/api/analytics/health
 console.log(window.analytics);
 ```
 
-## Troubleshooting
+## Sorun Giderme
 
-### Common Issues
+### Yaygın Sorunlar
 
 1. **Events gönderilmiyor**
    - Environment variables'ları kontrol edin
@@ -246,11 +246,11 @@ console.log(window.analytics);
    - CORS ayarlarını kontrol edin
    - Ad blocker'ları kontrol edin
 
-3. **Performance issues**
+3. **Performans sorunları**
    - Sampling rate'i düşürün
    - Event batching konfigürasyonunu optimize edin
 
-### Debug Mode
+### Debug Modu
 
 Development ortamında debug mode'u aktif edin:
 
@@ -264,7 +264,7 @@ Debug mode'da:
 - Network requests görünür olur
 - Error messages detaylı olur
 
-## Architecture
+## Mimari
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -280,7 +280,7 @@ Debug mode'da:
         └─ Errors               └─ User Journey         └─ Custom Endpoint
 ```
 
-## Next Steps
+## Sonraki Adımlar
 
 1. Production ortamında analytics'i aktif edin
 2. Custom events ekleyin

@@ -8,7 +8,7 @@ Successfully implemented a comprehensive file processing system for the DeepWebA
 ### Core Features
 - **PDF Processing**: Extract text and metadata from PDF files using pdf-parse
 - **DOCX Processing**: Extract text and images from DOCX files using mammoth
-- **OCR Processing**: Image-to-text extraction using Tesseract.js
+- **OCR Processing**: Image-to-text extraction using tesseract.js
 - **Text Cleaning**: Advanced text normalization and cleaning utilities
 - **File Validation**: Comprehensive file type and size validation
 
@@ -16,7 +16,7 @@ Successfully implemented a comprehensive file processing system for the DeepWebA
 - `src/document/pdf_reader.ts` - PDF text extraction and metadata parsing
 - `src/document/docx_reader.ts` - DOCX text and image extraction
 - `src/document/text_cleaner.ts` - Text cleaning and normalization utilities
-- `src/ocr/ocr_processor.ts` - OCR processing with Tesseract.js
+- `src/ocr/ocr_processor.ts` - OCR processing with tesseract.js
 - `src/file-processor.ts` - Main file processing orchestrator
 - `index.ts` - Package exports
 
@@ -80,7 +80,7 @@ Successfully implemented a comprehensive file processing system for the DeepWebA
 
 ### File Processing Package:
 - `pdf-parse@^1.1.1` - PDF text extraction
-- `tesseract.js@^5.0.4` - OCR processing
+- `tesseract.js@^5.1.1` - OCR processing
 - `mammoth@^1.6.0` - DOCX processing
 - `sharp@^0.33.2` - Image preprocessing
 - `mime-types@^2.1.35` - MIME type detection

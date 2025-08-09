@@ -1,21 +1,33 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext",
+    "lib": ["ES2022"],
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": false,
-    "strict": false,
-    "skipLibCheck": true,
-    "noEmit": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noImplicitThis": false
+    "isolatedModules": true,
+    "noEmit": false,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@deepwebai/shared-types": ["../shared-types/src/index"],
+      "@deepwebai/ai-gateway": ["../ai-gateway/src/index"],
+      "@deepwebai/caching": ["../caching/src/index"],
+      "@deepwebai/file-processing": ["../file-processing/src/index"]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "../../libs", "../../observability"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

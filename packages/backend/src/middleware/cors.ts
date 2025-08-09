@@ -31,7 +31,7 @@ export const corsMiddleware = new Elysia({ name: 'cors' })
       'X-Request-ID',
       'Cache-Control'
     ],
-    exposeHeaders: [
+    exposedHeaders: [
       'X-RateLimit-Limit',
       'X-RateLimit-Remaining', 
       'X-RateLimit-Reset',
@@ -57,7 +57,7 @@ export const corsMiddleware = new Elysia({ name: 'cors' })
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, X-User-ID, X-User-Role',
         'Access-Control-Max-Age': '86400'
-      } as any;
+      };
       return new Response(null, { status: 204 });
     }
     

@@ -1,20 +1,21 @@
 import { Elysia } from 'elysia';
-import { analytics, AnalyticsEventType } from '../lib/analytics.js';
+import { analytics, AnalyticsEventType } from '../../../observability/analytics/index.js';
+import { logger } from '../../../libs/error-tracking/custom-logger.js';
 
 // Middleware to automatically track API requests
 export const analyticsMiddleware = (app: Elysia) => 
   app
-    .onRequest(({ request }) => {
+    .onRequest(({ request, headers }) => {
       // Track API request start
       const startTime = Date.now();
-      (request as any).startTime = startTime;
+      request.startTime = startTime;
     })
     
     .onAfterHandle(({ request, headers, response, path }) => {
       try {
-        const startTime = (request as any).startTime || Date.now();
+        const startTime = request.startTime || Date.now();
         const duration = Date.now() - startTime;
-        const statusCode = (response as any)?.status || 200;
+        const statusCode = response.status || 200;
 
         // Skip health checks and other excluded paths
         const excludedPaths = ['/health', '/metrics', '/favicon.ico', '/api/analytics'];

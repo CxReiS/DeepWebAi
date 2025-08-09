@@ -3,7 +3,6 @@
 
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
-import { createServer } from 'http';
 import { developmentConfig, shouldSkipDatabase, isDevelopment } from './config/development.js';
 
 // Colors for console output
@@ -285,10 +284,9 @@ const app = new Elysia()
   
   // Error handler
   .onError(({ error, code }) => {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    log(`❌ Error ${code}: ${errorMessage}`, 'red');
+    log(`❌ Error ${code}: ${error.message}`, 'red');
     return {
-      error: errorMessage,
+      error: error.message,
       code,
       timestamp: new Date().toISOString()
     };
@@ -307,24 +305,10 @@ async function startServer() {
     // Initialize feature flags
     await initializeFeatureFlags();
     
-    // Start the server using Node.js HTTP since Bun is not available
+    // Start the server using Node.js HTTP server
+    import { createServer } from 'http';
     const server = createServer(async (req, res) => {
-      // Get request body for POST/PUT requests
-      let body: string | undefined;
-      if (req.method !== 'GET' && req.method !== 'HEAD') {
-        const chunks: Buffer[] = [];
-        for await (const chunk of req) {
-          chunks.push(chunk);
-        }
-        body = Buffer.concat(chunks).toString();
-      }
-
-      const request = new Request(`http://localhost:${developmentConfig.port}${req.url}`, {
-        method: req.method,
-        headers: req.headers as HeadersInit,
-        body: body
-      });
-      const response = await app.handle(request);
+      const response = await app.handle(req);
       
       // Set response headers
       response.headers.forEach((value, key) => {

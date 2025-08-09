@@ -132,7 +132,7 @@ export function createRateLimiter(config: RateLimitConfig) {
           'X-RateLimit-Remaining': Math.max(0, maxRequests - totalHits).toString(),
           'X-RateLimit-Reset': new Date(Date.now() + timeUntilReset).toISOString(),
           'X-RateLimit-Window': windowMs.toString()
-        } as any;
+        };
         
         // Check if limit exceeded
         if (totalHits > maxRequests) {
