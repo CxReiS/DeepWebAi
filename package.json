@@ -22,21 +22,26 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "clean": "rimraf dist build lib",
-    "db:migrate": "node scripts/migrate.js",
-    "db:seed": "node scripts/seed.js",
+    "db:migrate": "npx tsx scripts/migrate.ts",
+    "db:seed": "npx tsx scripts/seed.ts",
     "db:reset": "node scripts/reset-db.js",
     "test:deepwebai-flag": "node scripts/test-deepwebai-flag.js",
-    "test:growthbook-flag": "node scripts/test-growthbook-flag.js"
+    "test:growthbook-flag": "node scripts/test-growthbook-flag.js",
+    "demo:feature-flags": "npx tsx scripts/demo-feature-flags.ts",
+    "demo:feature-flags:interactive": "npx tsx scripts/demo-feature-flags.ts --interactive"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
     "@types/node": "^22.14.0",
+    "ts-node": "^10.9.1",
+    "tsx": "^4.20.3",
     "turbo": "^2.1.0",
     "typescript": "^5.5.2",
     "vitest": "^2.1.0"
   },
   "dependencies": {
     "@growthbook/growthbook": "^1.6.0",
+    "@neondatabase/serverless": "1.0.1",
     "@types/qrcode": "^1.5.5",
     "@types/speakeasy": "^2.0.10",
     "dotenv": "^16.3.1",

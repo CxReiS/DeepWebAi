@@ -1,9 +1,41 @@
+#!/usr/bin/env ts-node
 /**
  * Demo script showing feature flags in action
  * This simulates real-world usage scenarios
  */
 
-const colors = {
+import { createInterface, Interface } from 'readline';
+
+interface Colors {
+  green: string;
+  red: string;
+  yellow: string;
+  blue: string;
+  magenta: string;
+  cyan: string;
+  reset: string;
+  bold: string;
+}
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  plan: string;
+  role: string;
+  attributes: Record<string, any>;
+}
+
+interface TestUser {
+  id: string;
+  hash: number;
+}
+
+interface FeatureFlags {
+  [key: string]: boolean;
+}
+
+const colors: Colors = {
   green: '\x1b[32m',
   red: '\x1b[31m',
   yellow: '\x1b[33m',
@@ -14,19 +46,19 @@ const colors = {
   bold: '\x1b[1m'
 };
 
-function log(message, color = colors.reset) {
+function log(message: string, color: string = colors.reset): void {
   console.log(`${color}${message}${colors.reset}`);
 }
 
-function delay(ms) {
+function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function demoFeatureFlagsDataFlow() {
+async function demoFeatureFlagsDataFlow(): Promise<void> {
   log('\n🎭 Feature Flags Demo - Real Data Flow Simulation\n', colors.bold);
   
   // Demo user scenarios
-  const users = [
+  const users: User[] = [
     {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Alice (Admin)',
@@ -64,7 +96,7 @@ async function demoFeatureFlagsDataFlow() {
   ];
 
   // Feature flags we're testing
-  const features = [
+  const features: string[] = [
     'new-chat-ui',
     'ai-streaming', 
     'premium-models',
@@ -105,7 +137,7 @@ async function demoFeatureFlagsDataFlow() {
     await delay(300);
     
     // Simulate the response
-    const mockAllFeatures = {};
+    const mockAllFeatures: FeatureFlags = {};
     features.forEach(feature => {
       // Simulate different enabling logic based on user type
       let isEnabled = false;
@@ -190,7 +222,7 @@ async function demoFeatureFlagsDataFlow() {
   log('\n\n🧪 A/B Testing Simulation', colors.bold);
   log('   Feature: new-chat-ui (50% rollout)', colors.cyan);
   
-  const testUsers = Array.from({ length: 10 }, (_, i) => ({
+  const testUsers: TestUser[] = Array.from({ length: 10 }, (_, i) => ({
     id: `test-user-${i}`,
     hash: Math.random() * 100
   }));
@@ -255,14 +287,13 @@ async function demoFeatureFlagsDataFlow() {
 }
 
 // Interactive demo mode
-async function interactiveDemo() {
-  const readline = require('readline');
-  const rl = readline.createInterface({
+async function interactiveDemo(): Promise<void> {
+  const rl: Interface = createInterface({
     input: process.stdin,
     output: process.stdout
   });
 
-  function question(prompt) {
+  function question(prompt: string): Promise<string> {
     return new Promise(resolve => rl.question(prompt, resolve));
   }
 
@@ -276,7 +307,7 @@ async function interactiveDemo() {
     log(`\n👤 Welcome ${userName}!`, colors.green);
     log(`📋 Plan: ${userPlan}, Role: ${userRole}`);
     
-    const mockFeatures = {
+    const mockFeatures: FeatureFlags = {
       'new-chat-ui': true,
       'ai-streaming': userPlan !== 'free',
       'premium-models': userPlan === 'premium' || userPlan === 'enterprise',
@@ -300,13 +331,14 @@ async function interactiveDemo() {
       rl.close();
     }
   } catch (error) {
-    log(`\n❌ Error: ${error.message}`, colors.red);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log(`\n❌ Error: ${errorMessage}`, colors.red);
     rl.close();
   }
 }
 
 // Main execution
-async function main() {
+async function main(): Promise<void> {
   const args = process.argv.slice(2);
   
   if (args.includes('--interactive')) {
@@ -316,6 +348,7 @@ async function main() {
   }
 }
 
-if (require.main === module) {
+// Check if this is the main module (ES modules equivalent)
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }

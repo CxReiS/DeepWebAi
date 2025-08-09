@@ -13,8 +13,8 @@
     "test:coverage": "vitest run --coverage",
     "lint": "tsc --noEmit --skipLibCheck",
     "typecheck": "tsc --noEmit",
-    "db:migrate": "echo 'Running database migrations...'",
-    "db:seed": "echo 'Seeding database...'",
+    "db:migrate": "npx tsx ../../scripts/migrate.ts",
+    "db:seed": "npx tsx ../../scripts/seed.ts",
     "start": "node dist/server.js"
   },
   "dependencies": {
