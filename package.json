@@ -13,8 +13,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "turbo run test",
-    "test:unit": "vitest run tests/unit/",
-    "test:integration": "vitest run tests/integration/",
+    "test:unit": "vitest --config tests/vitest.config.ts run",
+    "test:integration": "vitest --config tests/vitest.config.ts run tests/integration/",
     "test:e2e": "playwright test tests/e2e/",
     "test:auth": "vitest run tests/unit/backend/auth.test.ts tests/unit/backend/mfa.test.ts tests/unit/backend/oauth.test.ts",
     "test:auth-integration": "vitest run tests/integration/auth-mfa-oauth-flow.spec.ts",
@@ -52,5 +52,6 @@
   "workspaces": [
     "packages/*",
     "libs/*"
-  ]
+  ],
+  "license": "Apache-2.0"
 }

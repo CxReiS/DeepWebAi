@@ -299,9 +299,9 @@ We welcome contributions! Please see our [Contributing Guide](./docs/CONTRIBUTIN
 6. **Push to branch**: `git push origin feature/amazing-feature`
 7. **Open Pull Request**
 
-## 📄 License
+## Lisans
 
-This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.
+Bu proje, Apache License 2.0 ile lisanslanmıştır. Ayrıntılar için [LICENSE](./LICENSE) dosyasına bakın.
 
 ## 🛠️ Tech Stack
 
