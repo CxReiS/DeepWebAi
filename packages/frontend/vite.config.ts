@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
@@ -28,7 +29,10 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['@ark-ui/react'],
-          state: ['jotai']
+          state: ['jotai'],
+          router: ['react-router-dom'],
+          motion: ['framer-motion'],
+          utils: ['clsx', 'tailwind-merge', 'class-variance-authority']
         }
       }
     }
@@ -39,17 +43,23 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, 'src'),
       '@components': resolve(__dirname, 'src/components'),
-      '@utils': resolve(__dirname, 'src/utils'),
+      '@lib': resolve(__dirname, 'src/lib'),
       '@hooks': resolve(__dirname, 'src/hooks'),
       '@services': resolve(__dirname, 'src/services'),
       '@store': resolve(__dirname, 'src/store'),
-      '@types': resolve(__dirname, 'src/types')
+      '@types': resolve(__dirname, 'src/types'),
+      '@pages': resolve(__dirname, 'src/pages')
     }
   },
   
   // Environment variables
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0')
+  },
+  
+  // CSS configuration
+  css: {
+    postcss: './postcss.config.js',
   },
   
   // Test configuration

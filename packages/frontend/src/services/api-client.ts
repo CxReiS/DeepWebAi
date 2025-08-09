@@ -21,7 +21,7 @@ async function request<T>(
     "Content-Type": "application/json",
   };
 
-  // NextAuth.js ile giriş sonrası localStorage'a kaydedilen JWT token'ını al.
+  // Lucia Auth ile login sonrası localStorage'a kaydedilen JWT token'ını al.
   // Bu token'ın login işlemi başarılı olduğunda backend tarafından sağlanıp
   // frontend'de (örneğin login sayfasında) localStorage'a kaydedilmesi gerekir.
   const token = localStorage.getItem("authToken");

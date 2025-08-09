@@ -1,15 +1,15 @@
-# DeepWebAI API - Kimlik Doğrulama
+# DeepWebAI API - Authentication
 
-Bu belge, DeepWebAI API'si için kimlik doğrulama sistemini açıklar.
+This document describes the authentication system for the DeepWebAI API.
 
-## Genel Bakış
+## Overview
 
-DeepWebAI, NextAuth.js tarafından desteklenen güvenli oturum tabanlı kimlik doğrulama sistemi kullanır ve şunları destekler:
-- Kullanıcı adı/şifre kimlik doğrulaması
-- Çok faktörlü kimlik doğrulama (MFA)
-- OAuth sağlayıcıları (GitHub, Discord, Google)
-- API erişimi için JWT token'ları
-- Oturum yönetimi
+DeepWebAI uses a secure session-based authentication system powered by Lucia Auth with support for:
+- Username/password authentication
+- Multi-factor authentication (MFA)
+- OAuth providers (GitHub, Discord, Google)
+- JWT tokens for API access
+- Session management
 
 ## Base URL
 
@@ -18,11 +18,11 @@ Production: https://api.deepwebai.com
 Development: http://localhost:8000
 ```
 
-## Kimlik Doğrulama Akışı
+## Authentication Flow
 
-### 1. Kullanıcı Kaydı
+### 1. User Registration
 
-Yeni bir kullanıcı hesabı oluşturun.
+Create a new user account.
 
 **Endpoint:** `POST /api/auth/register`
 
@@ -40,7 +40,7 @@ Yeni bir kullanıcı hesabı oluşturun.
 ```json
 {
   "success": true,
-  "message": "Kayıt başarılı. Lütfen e-postanızı doğrulayın.",
+  "message": "Registration successful. Please verify your email.",
   "user": {
     "id": "user_123",
     "email": "user@example.com",
@@ -56,13 +56,13 @@ Yeni bir kullanıcı hesabı oluşturun.
 ```json
 {
   "error": "EMAIL_ALREADY_EXISTS",
-  "message": "Bu e-posta adresi ile bir hesap zaten mevcut"
+  "message": "An account with this email already exists"
 }
 ```
 
-### 2. E-posta Doğrulaması
+### 2. Email Verification
 
-E-posta ile gönderilen token'ı kullanarak e-posta adresini doğrulayın.
+Verify email address using the token sent via email.
 
 **Endpoint:** `POST /api/auth/verify-email`
 
@@ -77,22 +77,22 @@ E-posta ile gönderilen token'ı kullanarak e-posta adresini doğrulayın.
 ```json
 {
   "success": true,
-  "message": "E-posta başarıyla doğrulandı"
+  "message": "Email verified successfully"
 }
 ```
 
-### 3. Kullanıcı Girişi
+### 3. User Login
 
-E-posta/kullanıcı adı ve şifre ile kimlik doğrulaması yapın.
+Authenticate with email/username and password.
 
 **Endpoint:** `POST /api/auth/login`
 
 **Request Body:**
 ```json
 {
-  "identifier": "user@example.com",  // e-posta veya kullanıcı adı
+  "identifier": "user@example.com",  // email or username
   "password": "securePassword123",
-  "mfaCode": "123456"  // MFA etkinse gerekli
+  "mfaCode": "123456"  // required if MFA is enabled
 }
 ```
 
@@ -117,14 +117,14 @@ E-posta/kullanıcı adı ve şifre ile kimlik doğrulaması yapın.
 {
   "success": false,
   "error": "MFA_REQUIRED",
-  "message": "Çok faktörlü kimlik doğrulama kodu gerekli",
+  "message": "Multi-factor authentication code required",
   "challengeId": "challenge_123"
 }
 ```
 
-### 4. Çok Faktörlü Kimlik Doğrulama
+### 4. Multi-Factor Authentication
 
-#### TOTP MFA Kurulumu
+#### Setup TOTP MFA
 
 **Endpoint:** `POST /api/auth/mfa/setup-totp`
 
@@ -142,12 +142,12 @@ Authorization: Bearer <session_token>
   "backupCodes": [
     "backup-code-1",
     "backup-code-2",
-    // ... 8 adet daha kod
+    // ... 8 more codes
   ]
 }
 ```
 
-#### TOTP Kurulumunu Doğrula
+#### Verify TOTP Setup
 
 **Endpoint:** `POST /api/auth/mfa/verify-totp`
 
@@ -158,7 +158,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-#### SMS MFA Kurulumu
+#### Setup SMS MFA
 
 **Endpoint:** `POST /api/auth/mfa/setup-sms`
 
@@ -173,11 +173,11 @@ Authorization: Bearer <session_token>
 ```json
 {
   "success": true,
-  "message": "SMS doğrulama kodu gönderildi"
+  "message": "SMS verification code sent"
 }
 ```
 
-#### SMS Kurulumunu Doğrula
+#### Verify SMS Setup
 
 **Endpoint:** `POST /api/auth/mfa/verify-sms`
 
@@ -188,9 +188,9 @@ Authorization: Bearer <session_token>
 }
 ```
 
-### 5. Şifre Sıfırlama
+### 5. Password Reset
 
-#### Şifre Sıfırlama Talebi
+#### Request Password Reset
 
 **Endpoint:** `POST /api/auth/forgot-password`
 
@@ -201,7 +201,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-#### Şifre Sıfırlama
+#### Reset Password
 
 **Endpoint:** `POST /api/auth/reset-password`
 
@@ -213,15 +213,15 @@ Authorization: Bearer <session_token>
 }
 ```
 
-### 6. OAuth Kimlik Doğrulama
+### 6. OAuth Authentication
 
-#### OAuth Akışını Başlat
+#### Initiate OAuth Flow
 
 **GitHub:** `GET /api/auth/github`
 **Discord:** `GET /api/auth/discord`  
 **Google:** `GET /api/auth/google`
 
-**Response:** OAuth sağlayıcısına yönlendirir
+**Response:** Redirects to OAuth provider
 
 #### OAuth Callback
 
@@ -229,11 +229,11 @@ Authorization: Bearer <session_token>
 **Discord:** `GET /api/auth/discord/callback?code=...`
 **Google:** `GET /api/auth/google/callback?code=...`
 
-**Response:** Oturum veya hata ile frontend'e yönlendirir
+**Response:** Redirects to frontend with session or error
 
-### 7. Oturum Yönetimi
+### 7. Session Management
 
-#### Mevcut Kullanıcıyı Al
+#### Get Current User
 
 **Endpoint:** `GET /api/auth/me`
 
@@ -260,7 +260,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-#### Profil Güncelleme
+#### Update Profile
 
 **Endpoint:** `PUT /api/auth/profile`
 
@@ -268,7 +268,7 @@ Authorization: Bearer <session_token>
 ```json
 {
   "displayName": "Jane Doe",
-  "bio": "AI meraklısı",
+  "bio": "AI enthusiast",
   "avatarUrl": "https://example.com/avatar.jpg",
   "preferences": {
     "theme": "light",
@@ -277,7 +277,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-#### Şifre Değiştirme
+#### Change Password
 
 **Endpoint:** `PUT /api/auth/change-password`
 
@@ -289,7 +289,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-#### Çıkış
+#### Logout
 
 **Endpoint:** `POST /api/auth/logout`
 
@@ -297,11 +297,11 @@ Authorization: Bearer <session_token>
 ```json
 {
   "success": true,
-  "message": "Başarıyla çıkış yapıldı"
+  "message": "Logged out successfully"
 }
 ```
 
-#### Tüm Oturumlardan Çıkış
+#### Logout All Sessions
 
 **Endpoint:** `POST /api/auth/logout-all`
 
@@ -309,15 +309,15 @@ Authorization: Bearer <session_token>
 ```json
 {
   "success": true,
-  "message": "Tüm oturumlardan çıkış yapıldı"
+  "message": "Logged out from all sessions"
 }
 ```
 
-## JWT Token Kimlik Doğrulaması
+## JWT Token Authentication
 
-API erişimi için oturum çerezleri yerine JWT token'ları kullanabilirsiniz.
+For API access, you can use JWT tokens instead of session cookies.
 
-### JWT Token Al
+### Get JWT Token
 
 **Endpoint:** `POST /api/auth/token`
 
@@ -335,7 +335,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-### JWT Token Yenile
+### Refresh JWT Token
 
 **Endpoint:** `POST /api/auth/refresh`
 
@@ -346,24 +346,24 @@ Authorization: Bearer <session_token>
 }
 ```
 
-### JWT Token'ları Kullanma
+### Using JWT Tokens
 
-JWT token'ını Authorization header'ında dahil edin:
+Include the JWT token in the Authorization header:
 
 ```http
 GET /api/files
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
-## Hata Yönetimi
+## Error Handling
 
-### Yaygın Hata Yanıtları
+### Common Error Responses
 
 #### 400 Bad Request
 ```json
 {
   "error": "INVALID_INPUT",
-  "message": "Geçersiz e-posta formatı",
+  "message": "Invalid email format",
   "details": {
     "field": "email",
     "code": "INVALID_FORMAT"
@@ -375,7 +375,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```json
 {
   "error": "UNAUTHORIZED",
-  "message": "Geçersiz kimlik bilgileri"
+  "message": "Invalid credentials"
 }
 ```
 
@@ -383,7 +383,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```json
 {
   "error": "FORBIDDEN",
-  "message": "Yetersiz izinler"
+  "message": "Insufficient permissions"
 }
 ```
 
@@ -391,37 +391,37 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```json
 {
   "error": "RATE_LIMIT_EXCEEDED",
-  "message": "Çok fazla istek. Lütfen daha sonra tekrar deneyin.",
+  "message": "Too many requests. Please try again later.",
   "retryAfter": 60
 }
 ```
 
-### Hata Kodları
+### Error Codes
 
-| Kod | Açıklama |
+| Code | Description |
 |------|-------------|
-| `INVALID_INPUT` | İstek doğrulaması başarısız |
-| `EMAIL_ALREADY_EXISTS` | E-posta zaten kayıtlı |
-| `USERNAME_TAKEN` | Kullanıcı adı zaten alınmış |
-| `INVALID_CREDENTIALS` | Yanlış e-posta/şifre |
-| `EMAIL_NOT_VERIFIED` | E-posta doğrulaması gerekli |
-| `MFA_REQUIRED` | MFA kodu gerekli |
-| `INVALID_MFA_CODE` | Yanlış MFA kodu |
-| `ACCOUNT_LOCKED` | Hesap geçici olarak kilitli |
-| `SESSION_EXPIRED` | Oturum süresi dolmuş |
-| `TOKEN_EXPIRED` | JWT token süresi dolmuş |
-| `INSUFFICIENT_PERMISSIONS` | Kullanıcı gerekli izinlere sahip değil |
+| `INVALID_INPUT` | Request validation failed |
+| `EMAIL_ALREADY_EXISTS` | Email is already registered |
+| `USERNAME_TAKEN` | Username is already taken |
+| `INVALID_CREDENTIALS` | Wrong email/password |
+| `EMAIL_NOT_VERIFIED` | Email verification required |
+| `MFA_REQUIRED` | MFA code required |
+| `INVALID_MFA_CODE` | Wrong MFA code |
+| `ACCOUNT_LOCKED` | Account temporarily locked |
+| `SESSION_EXPIRED` | Session has expired |
+| `TOKEN_EXPIRED` | JWT token has expired |
+| `INSUFFICIENT_PERMISSIONS` | User lacks required permissions |
 
-## Hız Sınırlama
+## Rate Limiting
 
-Kimlik doğrulama endpoint'leri kötüye kullanımı önlemek için hız sınırlamasına tabidir:
+Authentication endpoints are rate limited to prevent abuse:
 
-- **Giriş denemeleri:** IP başına dakikada 5
-- **Kayıt:** IP başına saatte 3
-- **Şifre sıfırlama:** E-posta başına saatte 3
-- **MFA denemeleri:** Kullanıcı başına dakikada 10
+- **Login attempts:** 5 per minute per IP
+- **Registration:** 3 per hour per IP
+- **Password reset:** 3 per hour per email
+- **MFA attempts:** 10 per minute per user
 
-Hız sınırı header'ları yanıtlara dahil edilir:
+Rate limit headers are included in responses:
 
 ```http
 X-RateLimit-Limit: 5
@@ -430,9 +430,9 @@ X-RateLimit-Reset: 1640995200
 X-RateLimit-Window: 60
 ```
 
-## Güvenlik Header'ları
+## Security Headers
 
-Tüm kimlik doğrulama yanıtları güvenlik header'larını içerir:
+All authentication responses include security headers:
 
 ```http
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -442,27 +442,27 @@ X-XSS-Protection: 1; mode=block
 Content-Security-Policy: default-src 'self'
 ```
 
-## En İyi Uygulamalar
+## Best Practices
 
-### Geliştiriciler İçin
+### For Developers
 
-1. **Her zaman HTTPS kullanın** üretim ortamında
-2. **Token'ları güvenli şekilde saklayın** (httpOnly çerezler veya güvenli depolama)
-3. **Tüm auth durumları için uygun hata yönetimi uygulayın**
-4. **Hız sınırlamasını** exponential backoff ile zarif şekilde yönetin
-5. **Token'ları hem istemci hem sunucu tarafında doğrulayın**
-6. **Çıkış işlevini** düzgün şekilde uygulayın
-7. **Uzun süreli uygulamalar için refresh token'ları kullanın**
+1. **Always use HTTPS** in production
+2. **Store tokens securely** (httpOnly cookies or secure storage)
+3. **Implement proper error handling** for all auth states
+4. **Handle rate limiting** gracefully with exponential backoff
+5. **Validate tokens** on both client and server side
+6. **Implement logout** functionality properly
+7. **Use refresh tokens** for long-lived applications
 
-### Kullanıcılar İçin
+### For Users
 
-1. **Gelişmiş güvenlik için MFA'yı etkinleştirin**
-2. **Güçlü şifreler kullanın** (min 8 karakter, büyük-küçük harf, sayı, sembol)
-3. **Yedek kodları** güvenli ve erişilebilir tutun
-4. **İşiniz bittiğinde çıkış yapın**, özellikle paylaşılan cihazlarda
-5. **Hesap etkinliğini** düzenli olarak izleyin
+1. **Enable MFA** for enhanced security
+2. **Use strong passwords** (min 8 chars, mixed case, numbers, symbols)
+3. **Keep backup codes** safe and accessible
+4. **Log out** when done, especially on shared devices
+5. **Monitor account activity** regularly
 
-## SDK Örnekleri
+## SDK Examples
 
 ### JavaScript/TypeScript
 
@@ -474,16 +474,16 @@ const auth = new DeepWebAIAuth({
   apiKey: 'your-api-key'
 });
 
-// Giriş
+// Login
 const user = await auth.login({
   identifier: 'user@example.com',
   password: 'password123'
 });
 
-// Mevcut kullanıcıyı al
+// Get current user
 const currentUser = await auth.getCurrentUser();
 
-// Çıkış
+// Logout
 await auth.logout();
 ```
 
@@ -497,22 +497,22 @@ auth = DeepWebAIAuth(
     api_key='your-api-key'
 )
 
-# Giriş
+# Login
 user = auth.login(
     identifier='user@example.com',
     password='password123'
 )
 
-# Mevcut kullanıcıyı al
+# Get current user
 current_user = auth.get_current_user()
 
-# Çıkış
+# Logout
 auth.logout()
 ```
 
-## Test
+## Testing
 
-Geliştirme ortamında bu test kimlik bilgilerini kullanın:
+Use these test credentials in development:
 
 ```json
 {
@@ -522,4 +522,4 @@ Geliştirme ortamında bu test kimlik bilgilerini kullanın:
 }
 ```
 
-**Not:** Test kimlik bilgileri sadece geliştirme ortamında çalışır.
+**Note:** Test credentials only work in development environment.

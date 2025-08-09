@@ -175,7 +175,7 @@ ON CONFLICT (key) DO NOTHING;
 
 -- Add helpful comments for future developers
 COMMENT ON TABLE users IS 'User accounts and profiles';
-COMMENT ON TABLE sessions IS 'User authentication sessions managed by NextAuth.js';
+COMMENT ON TABLE sessions IS 'User authentication sessions managed by Lucia';
 COMMENT ON TABLE files IS 'Uploaded files and their metadata';
 COMMENT ON TABLE conversations IS 'AI chat conversations';
 COMMENT ON TABLE messages IS 'Individual messages within conversations';

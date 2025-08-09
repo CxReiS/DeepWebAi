@@ -163,7 +163,7 @@
 │ │ │ ├── 🔄 cors.ts → CORS yönetimi
 │ │ │ ├── 🔒 helmet.ts → Güvenlik başlıkları
 │ │ │ └── ⏱️ rate-limiter.ts → Sağlayıcı bazlı istek sınırlama (token/dakika)
-│ │ ├── 🔐modules/ → NextAuth.js 5.0.0-beta.26 entegre İş mantığı modülleri
+│ │ ├── 🔐modules/ → Lucia Auth 3.2.2 entegre İş mantığı modülleri
 │ │ │ ├── 🤖ai/ → Yapay zeka endpoint yönetimi(streaming chat, model yönlendirme)
 │ │ │ │ ├── 🎮ai.controller.ts → Sadece HTTP isteklerini yönetir (request/response).
 │ │ │ │ ├── 🛣️ai.router.ts
@@ -183,7 +183,7 @@
 │ │ │ ├── chat-events.ts → Mesaj iletim olayları  
 │ │ │ └── user-notifications.ts → Bildirim olayları  
 │ │ ├── 📁 src/
-│ │ │ ├── 🔐auth/ → NextAuth.js 5.0.0-beta.26 ile kimlik yönetimi (NextAuth.js + Web3/OAuth2)
+│ │ │ ├── 🔐auth/ → Lucia Auth 3.2.2 ile kimlik yönetimi (Lucia 3.2.2 + Web3/OAuth2)
 │ │ │ │ └── 🔑 strategies/ → Discord/GitHub/Web3 auth stratejileri
 │ │ │ │ │ ├── 🔗discord.ts
 │ │ │ │ │ └── 🔗github.ts
@@ -469,7 +469,7 @@
 
 # "@neondatabase/serverless": "4.1.0",
 
-# "next-auth": "5.0.0-beta.26",
+# "lucia-auth": "3.2.2",
 
 # "ably": "2.11.0"
 
