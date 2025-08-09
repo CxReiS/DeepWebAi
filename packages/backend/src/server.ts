@@ -155,7 +155,7 @@ app.get("/api", () => ({
   description: "AI-powered conversation and content generation API",
   environment: config.env,
   features: {
-    authentication: "Lucia Auth with JWT",
+    authentication: "OAuth2 (Auth.js / NextAuth) with JWT",
     database: "Neon PostgreSQL",
     realtime: "Ably WebSocket",
     websockets: "/ws/chat, /ws/ai-status",
@@ -199,5 +199,5 @@ createServer(app.fetch as any).listen(port, () => {
   }
   
   console.log(`🔐 Auth endpoints: http://${host}:${port}/api/auth`);
-  console.log(`✅ Backend başlatıldı (Neon + Lucia Auth + CORS + Security)`);
+  console.log(`✅ Backend başlatıldı (Neon + OAuth2 + CORS + Security)`);
 });

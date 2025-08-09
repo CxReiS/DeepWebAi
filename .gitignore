@@ -33,3 +33,5 @@ packages/**/.turbo/
 # Çeşitli
 .vercel/
 
+!.env.example
+.vercel

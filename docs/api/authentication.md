@@ -4,7 +4,7 @@ This document describes the authentication system for the DeepWebAI API.
 
 ## Overview
 
-DeepWebAI uses a secure session-based authentication system powered by Lucia Auth with support for:
+DeepWebAI uses a secure authentication system powered by OAuth2 (Auth.js / NextAuth) with support for:
 - Username/password authentication
 - Multi-factor authentication (MFA)
 - OAuth providers (GitHub, Discord, Google)

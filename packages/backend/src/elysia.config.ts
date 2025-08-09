@@ -29,7 +29,7 @@ const config = {
   
   // Security
   jwtSecret: process.env.JWT_SECRET!,
-  luciaSecret: process.env.LUCIA_SECRET!,
+
   
   // AI Providers
   openaiApiKey: process.env.OPENAI_API_KEY,
@@ -63,7 +63,7 @@ const config = {
 
 // Validate required configuration
 function validateConfig() {
-  const required = ['DATABASE_URL', 'JWT_SECRET', 'LUCIA_SECRET'];
+  const required = ['DATABASE_URL', 'NEXTAUTH_SECRET'];
   const missing = required.filter(key => !process.env[key]);
   
   if (missing.length > 0) {

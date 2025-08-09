@@ -1,74 +1,14 @@
 /*
  * Copyright (c) 2025 [DeepWebXs]
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
-import { Lucia, TimeSpan } from "lucia";
-import { NeonHTTPAdapter } from "@lucia-auth/adapter-postgresql";
 import { sql } from "../lib/neon-client.js";
 import { z } from "zod";
 import { Elysia } from "elysia";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
-// Database adapter for Lucia
-const adapter = new NeonHTTPAdapter(sql, {
-  user: "users",
-  session: "auth_sessions"
-});
-
-// Lucia configuration
-export const lucia = new Lucia(adapter, {
-  sessionCookie: {
-    name: "deepweb_session",
-    expires: false,
-    attributes: {
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      domain: process.env.NODE_ENV === "production" ? process.env.COOKIE_DOMAIN : undefined
-    }
-  },
-  sessionExpiresIn: new TimeSpan(7, "d"), // 7 days
-  getUserAttributes: (attributes) => {
-    return {
-      id: attributes.id,
-      email: attributes.email,
-      username: attributes.username,
-      displayName: attributes.display_name,
-      avatarUrl: attributes.avatar_url,
-      role: attributes.role,
-      isVerified: attributes.is_verified,
-      preferences: attributes.preferences
-    };
-  }
-});
-
-// Type declarations for Lucia
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia;
-    DatabaseUserAttributes: {
-      id: string;
-      email: string;
-      username: string;
-      display_name?: string;
-      avatar_url?: string;
-      role: "user" | "premium" | "admin" | "developer";
-      is_verified: boolean;
-      preferences: Record<string, any>;
-    };
-  }
-}
+import crypto from "crypto";
 
 // Auth schemas
 export const RegisterSchema = z.object({
@@ -100,6 +40,49 @@ export type RegisterData = z.infer<typeof RegisterSchema>;
 export type LoginData = z.infer<typeof LoginSchema>;
 export type ChangePasswordData = z.infer<typeof ChangePasswordSchema>;
 
+// Session helpers (no external auth framework)
+async function createDbSession(userId: string) {
+  const id = crypto.randomUUID();
+  const result = await sql`
+    INSERT INTO auth_sessions (id, user_id, created_at, expires_at)
+    VALUES (${id}, ${userId}, NOW(), NOW() + INTERVAL '7 days')
+    RETURNING id
+  `;
+  return { id: result[0].id };
+}
+
+async function invalidateDbSession(sessionId: string) {
+  await sql`DELETE FROM auth_sessions WHERE id = ${sessionId}`;
+}
+
+async function invalidateUserDbSessions(userId: string) {
+  await sql`DELETE FROM auth_sessions WHERE user_id = ${userId}`;
+}
+
+async function validateDbSession(sessionId: string) {
+  const rows = await sql`
+    SELECT s.id as session_id, u.id, u.email, u.username, u.display_name, u.avatar_url, u.role, u.is_verified, u.preferences
+    FROM auth_sessions s
+    JOIN users u ON u.id = s.user_id
+    WHERE s.id = ${sessionId} AND (s.expires_at IS NULL OR s.expires_at > NOW())
+  `;
+  if (rows.length === 0) return null;
+  const user = rows[0];
+  return {
+    user: {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      displayName: user.display_name,
+      avatarUrl: user.avatar_url,
+      role: user.role,
+      isVerified: user.is_verified,
+      preferences: user.preferences
+    },
+    session: { id: rows[0].session_id }
+  };
+}
+
 // Auth service class
 export class AuthService {
   // Hash password
@@ -113,7 +96,7 @@ export class AuthService {
     return bcrypt.compare(password, hash);
   }
 
-  // Generate JWT token
+  // Generate JWT token (signed with NEXTAUTH_SECRET)
   static generateJWT(userId: string, sessionId: string): string {
     const payload = {
       userId,
@@ -121,14 +104,13 @@ export class AuthService {
       iat: Math.floor(Date.now() / 1000),
       exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
     };
-    
-    return jwt.sign(payload, process.env.JWT_SECRET!);
+    return jwt.sign(payload, process.env.NEXTAUTH_SECRET!);
   }
 
   // Verify JWT token
   static verifyJWT(token: string): { userId: string; sessionId: string } | null {
     try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET!) as any;
+      const payload = jwt.verify(token, process.env.NEXTAUTH_SECRET!) as any;
       return {
         userId: payload.userId,
         sessionId: payload.sessionId
@@ -138,6 +120,23 @@ export class AuthService {
     }
   }
 
+  // Create session
+  static async createSession(userId: string) {
+    return createDbSession(userId);
+  }
+
+  static async invalidateSession(sessionId: string) {
+    return invalidateDbSession(sessionId);
+  }
+
+  static async invalidateUserSessions(userId: string) {
+    return invalidateUserDbSessions(userId);
+  }
+
+  static async validateSession(sessionId: string) {
+    return validateDbSession(sessionId);
+  }
+
   // Register new user
   static async register(data: RegisterData): Promise<{
     user: any;
@@ -145,21 +144,19 @@ export class AuthService {
     token: string;
   }> {
     const validated = RegisterSchema.parse(data);
-    
+
     // Check if user already exists
     const existingUser = await sql`
       SELECT id FROM users 
       WHERE email = ${validated.email} OR username = ${validated.username}
     `;
-    
+
     if (existingUser.length > 0) {
       throw new Error("User with this email or username already exists");
     }
-    
-    // Hash password
+
     const passwordHash = await this.hashPassword(validated.password);
-    
-    // Create user
+
     const userResult = await sql`
       INSERT INTO users (
         email, username, password_hash, display_name, preferences, role
@@ -173,20 +170,13 @@ export class AuthService {
       )
       RETURNING id, email, username, display_name, avatar_url, role, is_verified, preferences, created_at
     `;
-    
+
     const user = userResult[0];
-    
-    // Create session
-    const session = await lucia.createSession(user.id, {});
-    
-    // Generate JWT
+    const session = await this.createSession(user.id);
     const token = this.generateJWT(user.id, session.id);
-    
-    // Update last login
-    await sql`
-      UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}
-    `;
-    
+
+    await sql`UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}`;
+
     return {
       user: {
         id: user.id,
@@ -211,41 +201,29 @@ export class AuthService {
     token: string;
   }> {
     const validated = LoginSchema.parse(data);
-    
-    // Find user
+
     const userResult = await sql`
       SELECT id, email, username, display_name, avatar_url, password_hash, role, is_verified, preferences
       FROM users 
       WHERE email = ${validated.email}
     `;
-    
+
     if (userResult.length === 0) {
       throw new Error("Invalid email or password");
     }
-    
+
     const user = userResult[0];
-    
-    // Verify password
     const isValidPassword = await this.verifyPassword(validated.password, user.password_hash);
-    
     if (!isValidPassword) {
       throw new Error("Invalid email or password");
     }
-    
-    // Invalidate existing sessions (optional - remove if you want multiple sessions)
-    await lucia.invalidateUserSessions(user.id);
-    
-    // Create new session
-    const session = await lucia.createSession(user.id, {});
-    
-    // Generate JWT
+
+    await this.invalidateUserSessions(user.id);
+    const session = await this.createSession(user.id);
     const token = this.generateJWT(user.id, session.id);
-    
-    // Update last login
-    await sql`
-      UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}
-    `;
-    
+
+    await sql`UPDATE users SET last_login_at = NOW() WHERE id = ${user.id}`;
+
     return {
       user: {
         id: user.id,
@@ -262,44 +240,25 @@ export class AuthService {
     };
   }
 
-  // Logout user
   static async logout(sessionId: string): Promise<void> {
-    await lucia.invalidateSession(sessionId);
+    await this.invalidateSession(sessionId);
   }
 
-  // Validate session
-  static async validateSession(sessionId: string): Promise<{
-    user: any;
-    session: any;
-  } | null> {
-    try {
-      const result = await lucia.validateSession(sessionId);
-      
-      if (!result.user || !result.session) {
-        return null;
-      }
-      
-      return {
-        user: result.user,
-        session: result.session
-      };
-    } catch {
-      return null;
-    }
+  static async validateSessionPublic(sessionId: string) {
+    return this.validateSession(sessionId);
   }
 
-  // Get user by ID
   static async getUserById(userId: string): Promise<any | null> {
     const result = await sql`
       SELECT id, email, username, display_name, avatar_url, role, is_verified, preferences, created_at, last_login_at
       FROM users 
       WHERE id = ${userId}
     `;
-    
+
     if (result.length === 0) {
       return null;
     }
-    
+
     const user = result[0];
     return {
       id: user.id,
@@ -315,50 +274,42 @@ export class AuthService {
     };
   }
 
-  // Change password
   static async changePassword(userId: string, data: ChangePasswordData): Promise<void> {
     const validated = ChangePasswordSchema.parse(data);
-    
-    // Get current password hash
+
     const userResult = await sql`
       SELECT password_hash FROM users WHERE id = ${userId}
     `;
-    
+
     if (userResult.length === 0) {
       throw new Error("User not found");
     }
-    
-    // Verify current password
+
     const isValidPassword = await this.verifyPassword(validated.currentPassword, userResult[0].password_hash);
-    
     if (!isValidPassword) {
       throw new Error("Current password is incorrect");
     }
-    
-    // Hash new password
+
     const newPasswordHash = await this.hashPassword(validated.newPassword);
-    
-    // Update password
+
     await sql`
       UPDATE users 
       SET password_hash = ${newPasswordHash}, updated_at = NOW()
       WHERE id = ${userId}
     `;
-    
-    // Invalidate all sessions to force re-login
-    await lucia.invalidateUserSessions(userId);
+
+    await this.invalidateUserSessions(userId);
   }
 
-  // Update user profile
   static async updateProfile(userId: string, updates: {
     displayName?: string;
     avatarUrl?: string;
     bio?: string;
     preferences?: Record<string, any>;
   }): Promise<any> {
-    const setClause = [];
-    const values = [];
-    
+    const setClause: string[] = [];
+    const values: any[] = [];
+
     Object.entries(updates).forEach(([key, value]) => {
       if (value !== undefined) {
         const dbKey = key === 'displayName' ? 'display_name' : 
@@ -367,24 +318,24 @@ export class AuthService {
         values.push(key === 'preferences' ? JSON.stringify(value) : value);
       }
     });
-    
+
     if (setClause.length === 0) {
       return this.getUserById(userId);
     }
-    
+
     setClause.push('updated_at = NOW()');
-    
+
     const result = await sql.unsafe(`
       UPDATE users 
       SET ${setClause.join(', ')}
       WHERE id = $${values.length + 1}
       RETURNING id, email, username, display_name, avatar_url, role, is_verified, preferences, updated_at
     `, [...values, userId]);
-    
+
     if (result.length === 0) {
       throw new Error("User not found");
     }
-    
+
     const user = result[0];
     return {
       id: user.id,
@@ -402,54 +353,36 @@ export class AuthService {
 
 // Auth middleware
 export const authMiddleware = new Elysia({ name: 'auth' })
-  .derive(async ({ headers, set }) => {
-    // Extract token from Authorization header or cookie
+  .derive(async ({ headers }) => {
     const authHeader = headers.authorization;
     const sessionCookie = headers.cookie?.split(';')
       .find(c => c.trim().startsWith('deepweb_session='))
       ?.split('=')[1];
-    
+
     let sessionId: string | null = null;
-    
+
     if (authHeader?.startsWith('Bearer ')) {
-      // JWT token authentication
       const token = authHeader.substring(7);
       const jwtPayload = AuthService.verifyJWT(token);
-      
       if (jwtPayload) {
         sessionId = jwtPayload.sessionId;
       }
     } else if (sessionCookie) {
-      // Cookie-based session
       sessionId = sessionCookie;
     }
-    
+
     if (!sessionId) {
-      return { 
-        user: null, 
-        session: null,
-        isAuthenticated: false 
-      };
+      return { user: null, session: null, isAuthenticated: false };
     }
-    
+
     const result = await AuthService.validateSession(sessionId);
-    
     if (!result) {
-      return { 
-        user: null, 
-        session: null,
-        isAuthenticated: false 
-      };
+      return { user: null, session: null, isAuthenticated: false };
     }
-    
-    return {
-      user: result.user,
-      session: result.session,
-      isAuthenticated: true
-    };
+
+    return { user: result.user, session: result.session, isAuthenticated: true };
   });
 
-// Require authentication middleware
 export const requireAuth = new Elysia({ name: 'require-auth' })
   .use(authMiddleware)
   .derive(({ user, set }) => {
@@ -457,11 +390,9 @@ export const requireAuth = new Elysia({ name: 'require-auth' })
       set.status = 401;
       throw new Error("Authentication required");
     }
-    
     return { user };
   });
 
-// Require specific role middleware
 export const requireRole = (allowedRoles: string[]) => 
   new Elysia({ name: 'require-role' })
     .use(requireAuth)
@@ -470,12 +401,10 @@ export const requireRole = (allowedRoles: string[]) =>
         set.status = 403;
         throw new Error("Insufficient permissions");
       }
-      
       return { user };
     });
 
 export default {
-  lucia,
   AuthService,
   authMiddleware,
   requireAuth,

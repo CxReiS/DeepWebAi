@@ -13,7 +13,7 @@
 - **Packages**: backend (Elysia.js), frontend (React+Vite), ai-core, ai-gateway, shared-types, tema-ui
 - **Database**: Neon serverless PostgreSQL, Prisma ORM (client in node_modules/.prisma)
 - **State**: Jotai for React state management
-- **API**: RESTful with Elysia.js, Zod validation, JWT auth with Lucia
+- **API**: RESTful with Elysia.js, Zod validation, OAuth2 auth (Auth.js / NextAuth)
 - **Real-time**: Ably for websockets/notifications
 
 ## Code Style & Conventions

@@ -283,7 +283,7 @@ export class ConfigurationBackup {
           features: this.extractArrayConfig(ablyContent, 'features') || ['realtime', 'notifications']
         },
         auth: {
-          providers: this.extractArrayConfig(authContent, 'providers') || ['jwt', 'lucia'],
+          providers: this.extractArrayConfig(authContent, 'providers') || ['jwt', 'oauth2'],
           jwt: {
             expiresIn: this.extractStringConfig(authContent, 'expiresIn') || '24h',
             refreshEnabled: this.extractBooleanConfig(authContent, 'refresh') || true
