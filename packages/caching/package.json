@@ -30,5 +30,6 @@
     "typescript": "5.5.2",
     "vitest": "^1.5.0",
     "@vitest/coverage-v8": "^1.5.0"
-  }
+  },
+  "license": "Apache-2.0"
 }
