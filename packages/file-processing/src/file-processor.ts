@@ -10,10 +10,10 @@ import {
   FileProcessingError
 } from '@deepwebai/shared-types';
 
-import { pdfReader } from './document/pdf_reader';
-import { docxReader } from './document/docx_reader';
-import { textCleaner } from './document/text_cleaner';
-import { ocrProcessor, OCRResult } from './ocr/ocr_processor';
+import { pdfReader } from './document/pdf_reader.js';
+import { docxReader } from './document/docx_reader.js';
+import { textCleaner } from './document/text_cleaner.js';
+import { ocrProcessor, OCRResult } from './ocr/ocr_processor.js';
 
 export interface FileProcessingResult {
   content: ProcessedFileContent;

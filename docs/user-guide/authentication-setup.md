@@ -1,298 +1,298 @@
-# Kimlik Doğrulama ve Hesap Kurulumu
+# Authentication and Account Setup
 
-Çok faktörlü kimlik doğrulama (MFA) ve OAuth sağlayıcıları dahil olmak üzere kapsamlı kimlik doğrulama seçenekleriyle DeepWebAI hesabınızı güvence altına alın.
+Secure your DeepWebAI account with comprehensive authentication options including multi-factor authentication (MFA) and OAuth providers.
 
-## Hesap Kaydı
+## Account Registration
 
-### E-posta Kaydı
+### Email Registration
 
-1. **Kayıt Süreci**
+1. **Sign Up Process**
    ```
-   1. Ana sayfada "Sign Up" butonuna tıklayın
-   2. E-posta adresinizi girin
-   3. Güçlü bir parola oluşturun (minimum 8 karakter)
-   4. Parolayı onaylayın
-   5. Hizmet şartlarını kabul edin
-   6. "Create Account" butonuna tıklayın
+   1. Click "Sign Up" on the homepage
+   2. Enter your email address
+   3. Create a strong password (minimum 8 characters)
+   4. Confirm password
+   5. Accept terms of service
+   6. Click "Create Account"
    ```
 
-2. **E-posta Doğrulama**
-   - Gelen kutunuzda doğrulama e-postasını kontrol edin
-   - Doğrulama bağlantısına tıklayın
-   - Hesap otomatik olarak etkinleştirilecektir
+2. **Email Verification**
+   - Check your inbox for verification email
+   - Click the verification link
+   - Account will be activated automatically
 
-### OAuth Kaydı
+### OAuth Registration
 
-Desteklenen OAuth sağlayıcıları:
-- **Google**: Google hesabı ile hızlı kurulum
-- **GitHub**: Geliştirici dostu seçenek
-- **Discord**: Oyun topluluğu entegrasyonu
-- **Twitter**: Sosyal medya bağlantısı
+Supported OAuth providers:
+- **Google**: Quick setup with Google account
+- **GitHub**: Developer-friendly option
+- **Discord**: Gaming community integration
+- **Twitter**: Social media connection
 
-**OAuth Kurulum Adımları:**
-1. Tercih ettiğiniz OAuth sağlayıcısına tıklayın
-2. DeepWebAI erişimini yetkilendirin
-3. Profil bilgilerini tamamlayın
-4. Hesap oluşturulur ve doğrulanır
+**OAuth Setup Steps:**
+1. Click your preferred OAuth provider
+2. Authorize DeepWebAI access
+3. Complete profile information
+4. Account is created and verified
 
-## Çok Faktörlü Kimlik Doğrulama (MFA)
+## Multi-Factor Authentication (MFA)
 
-### MFA'yı Neden Etkinleştirmeli?
+### Why Enable MFA?
 
-- **Gelişmiş Güvenlik**: Parola ihlallerine karşı koruma sağlar
-- **Hesap Koruması**: Yetkisiz erişimi önler
-- **Uyumluluk**: Güvenlik en iyi uygulamalarını karşılar
-- **Gönül Rahatlığı**: Değerli konuşmalarınızı ve verilerinizi güvence altına alır
+- **Enhanced Security**: Protects against password breaches
+- **Account Protection**: Prevents unauthorized access
+- **Compliance**: Meets security best practices
+- **Peace of Mind**: Secure your valuable conversations and data
 
-### MFA Kurulumu
+### Setting Up MFA
 
-1. **Güvenlik Ayarlarına Erişim**
+1. **Access Security Settings**
    ```
    Profile → Settings → Security → Two-Factor Authentication
    ```
 
-2. **MFA'yı Etkinleştirme**
-   - "Enable Two-Factor Authentication" butonuna tıklayın
-   - Kimlik doğrulayıcı uygulamanızı seçin:
-     - Google Authenticator (önerilen)
+2. **Enable MFA**
+   - Click "Enable Two-Factor Authentication"
+   - Choose your authenticator app:
+     - Google Authenticator (recommended)
      - Microsoft Authenticator
      - Authy
      - 1Password
-     - Herhangi bir TOTP uyumlu uygulama
+     - Any TOTP-compatible app
 
-3. **QR Kodunu Tarama**
-   - Kimlik doğrulayıcı uygulamanızı açın
-   - Gösterilen QR kodunu tarayın
-   - Uygulamanızdan 6 haneli kodu girin
-   - Yedek kodlarınızı güvenli bir şekilde kaydedin
+3. **Scan QR Code**
+   - Open your authenticator app
+   - Scan the displayed QR code
+   - Enter the 6-digit code from your app
+   - Save your backup codes securely
 
-4. **Kurulumu Doğrulama**
-   - Çıkış yapın ve tekrar giriş yapın
-   - Parolanızı girin
-   - Uygulamanızdan MFA kodunu sağlayın
-   - Başarıyla kimlik doğrulandı!
+4. **Verify Setup**
+   - Log out and log back in
+   - Enter your password
+   - Provide the MFA code from your app
+   - Successfully authenticated!
 
-### MFA Yedek Kodları
+### MFA Backup Codes
 
-**Önemli**: Bu yedek kodları güvenli bir yerde saklayın!
+**Important**: Save these backup codes in a secure location!
 
-- **Kodları İndirme**: MFA'yı etkinleştirdikten sonra yedek kodları indirin
-- **Güvenli Saklama**: Kodları parola yöneticisinde veya güvenli yerde tutun
-- **Tek Kullanım**: Her yedek kod yalnızca bir kez kullanılabilir
-- **Yeni Oluşturma**: Gerektiğinde yeni yedek kodlar oluşturun
+- **Download Codes**: After enabling MFA, download backup codes
+- **Store Securely**: Keep codes in password manager or secure location
+- **Single Use**: Each backup code can only be used once
+- **Generate New**: Create new backup codes if needed
 
-### MFA Kullanımı
+### Using MFA
 
-**Normal Giriş Süreci:**
-1. E-posta ve parola girin
-2. "Sign In" butonuna tıklayın
-3. Kimlik doğrulayıcı uygulamasını açın
-4. Mevcut 6 haneli kodu girin
-5. Erişim sağlandı!
+**Regular Login Process:**
+1. Enter email and password
+2. Click "Sign In"
+3. Open authenticator app
+4. Enter the current 6-digit code
+5. Access granted!
 
-**Yedek Kodları Kullanma:**
-1. Kimlik doğrulayıcı kullanılamıyorsa, "Use backup code" seçeneğine tıklayın
-2. Kayıtlı yedek kodlarınızdan birini girin
-3. Kullandıktan sonra yeni yedek kodlar oluşturun
+**Using Backup Codes:**
+1. If authenticator unavailable, click "Use backup code"
+2. Enter one of your saved backup codes
+3. Generate new backup codes after use
 
-## Parola Yönetimi
+## Password Management
 
-### Parola Gereksinimleri
+### Password Requirements
 
-- **Minimum 8 karakter**
-- **Büyük ve küçük harflerin karışımı**
-- **En az bir rakam**
-- **Özel karakterler önerilir**
-- **Yaygın parolaları kullanmaktan kaçının**
+- **Minimum 8 characters**
+- **Mix of uppercase and lowercase letters**
+- **At least one number**
+- **Special characters recommended**
+- **Avoid common passwords**
 
-### Parolanızı Değiştirme
+### Changing Your Password
 
-1. **Ayarlara Erişim**
+1. **Access Settings**
    ```
    Profile → Settings → Security → Change Password
    ```
 
-2. **Güncelleme Süreci**
-   - Mevcut parolayı girin
-   - Yeni parolayı girin
-   - Yeni parolayı onaylayın
-   - "Update Password" butonuna tıklayın
+2. **Update Process**
+   - Enter current password
+   - Enter new password
+   - Confirm new password
+   - Click "Update Password"
 
-3. **Güvenlik Bildirimi**
-   - Tüm aktif oturumlar sonlandırılacaktır
-   - Tüm cihazlarda tekrar giriş yapmanız gerekecektir
-   - Etkinse MFA gerekli olacaktır
+3. **Security Notice**
+   - All active sessions will be terminated
+   - You'll need to log in again on all devices
+   - MFA will be required if enabled
 
-### Parola Sıfırlama
+### Password Reset
 
-**Parolanızı Hatırlıyorsanız:**
-- Ayarlardaki parola değiştirme seçeneğini kullanın
+**If You Remember Your Password:**
+- Use the change password option in settings
 
-**Parolanızı Unuttuysanız:**
-1. Giriş sayfasında "Forgot Password" seçeneğine tıklayın
-2. E-posta adresinizi girin
-3. Sıfırlama bağlantısı için e-postanızı kontrol edin
-4. Bağlantıya tıklayın ve yeni parola oluşturun
-5. Yeni kimlik bilgileriyle giriş yapın
+**If You Forgot Your Password:**
+1. Click "Forgot Password" on login page
+2. Enter your email address
+3. Check email for reset link
+4. Click link and create new password
+5. Log in with new credentials
 
-## OAuth Hesap Yönetimi
+## OAuth Account Management
 
-### Bağlı Hesaplar
+### Connected Accounts
 
-OAuth bağlantılarınızı görüntüleyin ve yönetin:
+View and manage your OAuth connections:
 ```
 Profile → Settings → Connected Accounts
 ```
 
-### OAuth Sağlayıcılarını Ekleme
+### Adding OAuth Providers
 
-1. **Ek Sağlayıcıları Bağlama**
-   - İstenen sağlayıcının yanındaki "Connect" seçeneğine tıklayın
-   - Erişimi yetkilendirin
-   - Sağlayıcı hesabınıza bağlanır
+1. **Link Additional Providers**
+   - Click "Connect" next to desired provider
+   - Authorize access
+   - Provider is linked to your account
 
-2. **Birden Fazla Sağlayıcının Faydaları**
-   - Alternatif giriş yöntemleri
-   - Hesap kurtarma seçenekleri
-   - Kolaylık ve esneklik
+2. **Benefits of Multiple Providers**
+   - Alternative login methods
+   - Account recovery options
+   - Convenience and flexibility
 
-### OAuth Sağlayıcılarını Kaldırma
+### Removing OAuth Providers
 
-1. **Sağlayıcı Bağlantısını Kesme**
-   - Sağlayıcının yanındaki "Disconnect" seçeneğine tıklayın
-   - Kaldırmayı onaylayın
-   - Sağlayıcı erişimi iptal edilir
+1. **Disconnect Provider**
+   - Click "Disconnect" next to provider
+   - Confirm removal
+   - Provider access is revoked
 
-**⚠️ Uyarı**: Sağlayıcıların bağlantısını kesmeden önce alternatif giriş yöntemleriniz olduğundan emin olun!
+**⚠️ Warning**: Ensure you have alternative login methods before disconnecting providers!
 
-## Oturum Yönetimi
+## Session Management
 
-### Aktif Oturumlar
+### Active Sessions
 
-Hesap erişiminizi izleyin:
+Monitor your account access:
 ```
 Profile → Settings → Security → Active Sessions
 ```
 
-**Oturum Bilgileri:**
-- Cihaz türü ve tarayıcı
-- IP adresi ve konum
-- Son etkinlik zaman damgası
-- Mevcut oturum göstergesi
+**Session Information:**
+- Device type and browser
+- IP address and location
+- Last activity timestamp
+- Current session indicator
 
-### Oturumları Yönetme
+### Managing Sessions
 
-1. **Tüm Oturumları Görüntüleme**
-   - Tüm aktif girişleri görün
-   - Şüpheli etkinlikleri belirleyin
+1. **View All Sessions**
+   - See all active logins
+   - Identify suspicious activity
 
-2. **Oturumları Sonlandırma**
-   - Belirli oturumda "Sign Out" seçeneğine tıklayın
-   - Veya güvenlik için "Sign Out All Devices" seçeneğini kullanın
+2. **Terminate Sessions**
+   - Click "Sign Out" on specific session
+   - Or "Sign Out All Devices" for security
 
-3. **Oturum Güvenliği**
-   - Oturumlar 7 gün hareketsizlikten sonra sona erer
-   - Parola değişikliğinde otomatik çıkış
-   - Yeni oturumlar için MFA gereklidir
+3. **Session Security**
+   - Sessions expire after 7 days of inactivity
+   - Automatic logout on password change
+   - MFA required for new sessions
 
-## Hesap Güvenliği En İyi Uygulamaları
+## Account Security Best Practices
 
-### Güçlü Kimlik Doğrulama
+### Strong Authentication
 
-1. **Benzersiz Parolalar Kullanın**
-   - DeepWebAI için farklı parola
-   - Parola yöneticisi kullanmayı düşünün
-   - Düzenli parola güncellemeleri
+1. **Use Unique Passwords**
+   - Different password for DeepWebAI
+   - Consider password manager
+   - Regular password updates
 
-2. **MFA'yı Etkinleştirin**
-   - Mevcut olduğunda her zaman etkinleştirin
-   - Güvenilir kimlik doğrulayıcı uygulamaları kullanın
-   - Yedek kodları güvende tutun
+2. **Enable MFA**
+   - Always enable when available
+   - Use reputable authenticator apps
+   - Keep backup codes secure
 
-3. **Hesap Etkinliğini İzleyin**
-   - Aktif oturumları düzenli olarak gözden geçirin
-   - Şüpheli etkinlikleri kontrol edin
-   - Güvenlik endişelerini derhal bildirin
+3. **Monitor Account Activity**
+   - Review active sessions regularly
+   - Check for suspicious activity
+   - Report security concerns immediately
 
-### Güvenli Kullanım
+### Secure Usage
 
-1. **Güvenli Tarama**
-   - Paylaşılan bilgisayarlarda her zaman çıkış yapın
-   - Gerektiğinde özel/gizli mod kullanın
-   - Hassas etkinlikler için halka açık Wi-Fi'dan kaçının
+1. **Safe Browsing**
+   - Always log out on shared computers
+   - Use private/incognito mode when necessary
+   - Avoid public Wi-Fi for sensitive activities
 
-2. **E-posta Güvenliği**
-   - E-posta hesabınızı MFA ile güvence altına alın
-   - Parola sıfırlama e-postalarını doğrulayın
-   - Kimlik avı girişimlerini bildirin
+2. **Email Security**
+   - Secure your email account with MFA
+   - Verify password reset emails
+   - Report phishing attempts
 
-## Kimlik Doğrulama Sorun Giderme
+## Troubleshooting Authentication
 
-### Yaygın Sorunlar
+### Common Issues
 
-**Kimlik Doğrulayıcı Uygulamasına Erişilemiyor:**
-- Acil erişim için yedek kodları kullanın
-- Gerekirse MFA sıfırlaması için destek ile iletişime geçin
+**Cannot Access Authenticator App:**
+- Use backup codes for emergency access
+- Contact support for MFA reset if needed
 
-**OAuth Giriş Başarısız:**
-- OAuth sağlayıcı hesap durumunu kontrol edin
-- Tarayıcı önbelleğini ve çerezleri temizleyin
-- Farklı tarayıcı veya gizli mod deneyin
+**OAuth Login Failed:**
+- Check OAuth provider account status
+- Clear browser cache and cookies
+- Try different browser or incognito mode
 
-**Parola Sıfırlama Çalışmıyor:**
-- Spam/gereksiz klasörünü e-posta için kontrol edin
-- E-posta adresinin doğru olduğundan emin olun
-- Kalıcı sorunlar için destek ile iletişime geçin
+**Password Reset Not Working:**
+- Check spam/junk folder for email
+- Ensure email address is correct
+- Contact support if persistent issues
 
-**Hesap Kilitli:**
-- Otomatik kilit açılması için bekleyin (genellikle 15 dakika)
-- Hesap kurtarma seçeneklerini kullanın
-- Yardım için destek ile iletişime geçin
+**Account Locked:**
+- Wait for automatic unlock (usually 15 minutes)
+- Use account recovery options
+- Contact support for assistance
 
-### Yardım Alma
+### Getting Help
 
-**Destek Seçenekleri:**
-- **Help Center**: Kendi kendine sorun giderme
-- **Contact Support**: Doğrudan yardım
-- **Community Forum**: Kullanıcıdan kullanıcıya yardım
-- **Emergency Support**: Kritik güvenlik sorunları
+**Support Options:**
+- **Help Center**: Self-service troubleshooting
+- **Contact Support**: Direct assistance
+- **Community Forum**: User-to-user help
+- **Emergency Support**: Critical security issues
 
-**İletişim Bilgileri:**
-- Destek e-postası: Help Center'da mevcuttur
-- Yanıt süresi: Tipik olarak 24-48 saat
-- Acil güvenlik: Anında yanıt
+**Contact Information:**
+- Support email: Available in Help Center
+- Response time: 24-48 hours typical
+- Emergency security: Immediate response
 
-## Hesap Kurtarma
+## Account Recovery
 
-### Kurtarma Seçenekleri
+### Recovery Options
 
-1. **E-posta Kurtarma**
-   - Parola sıfırlama için birincil yöntem
-   - E-posta erişimini düzenli olarak doğrulayın
+1. **Email Recovery**
+   - Primary method for password reset
+   - Verify email access regularly
 
-2. **MFA Yedek Kodları**
-   - MFA etkin hesaplar için gereklidir
-   - Güvenli bir şekilde saklayın ve gerektiğinde erişin
+2. **MFA Backup Codes**
+   - Essential for MFA-enabled accounts
+   - Store securely and access when needed
 
-3. **OAuth Sağlayıcıları**
-   - Alternatif giriş yöntemleri
-   - Mevcut olduğunda hesap kurtarma
+3. **OAuth Providers**
+   - Alternative login methods
+   - Account recovery when available
 
-### Kurtarma Süreci
+### Recovery Process
 
-1. **Mevcut Seçenekleri Belirleme**
-   - E-posta erişimini kontrol edin
-   - Yedek kodları bulun
-   - OAuth sağlayıcı erişimini doğrulayın
+1. **Identify Available Options**
+   - Check email access
+   - Locate backup codes
+   - Verify OAuth provider access
 
-2. **Kurtarma Adımlarını Takip Etme**
-   - En uygun yöntemi kullanın
-   - Güvenlik istemlerini takip edin
-   - Kurtarmadan sonra kimlik bilgilerini güncelleyin
+2. **Follow Recovery Steps**
+   - Use most convenient method
+   - Follow security prompts
+   - Update credentials after recovery
 
-3. **Hesabı Güvence Altına Alma**
-   - Tehlikeye girerse parolaları değiştirin
-   - Güvenlik ayarlarını gözden geçirin ve güncelleyin
-   - Yeni MFA yedek kodları oluşturun
+3. **Secure Account**
+   - Change passwords if compromised
+   - Review and update security settings
+   - Generate new MFA backup codes
 
-Unutmayın: Güvenlik paylaşılan bir sorumluluktur. Hesap bilgilerinizi güvende tutun ve şüpheli etkinlikleri derhal bildirin!
+Remember: Security is a shared responsibility. Keep your account information safe and report any suspicious activity immediately!

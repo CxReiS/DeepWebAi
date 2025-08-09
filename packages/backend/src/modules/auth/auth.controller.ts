@@ -18,7 +18,7 @@ export const authController = new Elysia({ prefix: '/auth', name: 'auth-controll
         set.headers = {
           ...set.headers,
           'Set-Cookie': `deepweb_session=${result.session.id}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${7 * 24 * 60 * 60}${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`
-        };
+        } as any;
       }
       
       set.status = 201;
@@ -107,7 +107,7 @@ export const authController = new Elysia({ prefix: '/auth', name: 'auth-controll
         set.headers = {
           ...set.headers,
           'Set-Cookie': `deepweb_session=${result.session.id}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${7 * 24 * 60 * 60}${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`
-        };
+        } as any;
       }
       
       return {
@@ -195,7 +195,7 @@ export const authController = new Elysia({ prefix: '/auth', name: 'auth-controll
       set.headers = {
         ...set.headers,
         'Set-Cookie': 'deepweb_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'
-      };
+      } as any;
       
       return {
         success: true,
@@ -208,7 +208,7 @@ export const authController = new Elysia({ prefix: '/auth', name: 'auth-controll
       set.headers = {
         ...set.headers,
         'Set-Cookie': 'deepweb_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'
-      };
+      } as any;
       
       return {
         success: true,

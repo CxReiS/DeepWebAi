@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { AuthJSService } from '../../packages/backend/src/auth/index.js';
+import { AuthService } from '../../packages/backend/src/auth/index.js';
 import { MFAService, MFAType } from '../../packages/backend/src/auth/mfa.js';
 import { OAuthService, OAuthProvider } from '../../packages/backend/src/auth/oauth.js';
 import { sql } from '../../packages/backend/lib/neon-client.js';
@@ -15,10 +15,7 @@ vi.mock('qrcode', () => ({
   }
 }));
 
-// NextAuth.js + MFA + OAuth entegrasyon test akÄ±ÅŸÄ±
-// NextAuth.js 5.0.0-beta.26 kullanÄ±lÄ±yor
-// API uyumluluÄŸu korunarak kimlik doÄŸrulama, MFA ve OAuth akÄ±ÅŸlarÄ± test ediliyor
-describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
+describe('Auth + MFA + OAuth Integration Flow', () => {
   beforeEach(async () => {
     // Clean up all test data
     await sql`DELETE FROM mfa_challenges WHERE 1=1`;
@@ -43,7 +40,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
 
   describe('Complete User Registration with MFA Setup', () => {
     it('should complete full user registration with TOTP setup', async () => {
-      // 1. KullanÄ±cÄ± kaydÄ± - NextAuth.js ile kayÄ±t iÅŸlemi
+      // 1. Register user
       const userData = {
         email: 'integrationtest@test.com',
         username: 'integrationtest',
@@ -51,7 +48,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         displayName: 'Integration Test User'
       };
 
-      const registerResult = await AuthJSService.register(userData);
+      const registerResult = await AuthService.register(userData);
       expect(registerResult.user.email).toBe(userData.email);
       expect(registerResult.token).toBeDefined();
 
@@ -157,7 +154,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         password: 'TestPassword123!'
       };
 
-      testUser = await AuthJSService.register(userData);
+      testUser = await AuthService.register(userData);
 
       // Enable TOTP
       const secretResult = await MFAService.generateTOTPSecret(testUser.user.id);
@@ -181,7 +178,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         password: 'TestPassword123!'
       };
 
-      const loginResult = await AuthJSService.login(loginData);
+      const loginResult = await AuthService.login(loginData);
       expect(loginResult.user.id).toBe(testUser.user.id);
 
       // 2. Check if user requires MFA
@@ -214,15 +211,15 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
       expect(challengeResult.userId).toBe(testUser.user.id);
       expect(challengeResult.sessionId).toBe(loginResult.session.id);
 
-      // 5. NextAuth.js session doğrulama - token ile
-      const sessionValidation = await AuthJSService.validateSession(loginResult.token);
+      // 5. Validate session is now fully authenticated
+      const sessionValidation = await AuthService.validateSession(loginResult.session.id);
       expect(sessionValidation).not.toBeNull();
       expect(sessionValidation!.user.id).toBe(testUser.user.id);
     });
 
     it('should handle MFA challenge with backup code', async () => {
       // 1. Login user
-      const loginResult = await AuthJSService.login({
+      const loginResult = await AuthService.login({
         email: 'mfalogintest@test.com',
         password: 'TestPassword123!'
       });
@@ -261,7 +258,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
 
     it('should reject expired MFA challenge', async () => {
       // 1. Login and create MFA challenge
-      const loginResult = await AuthJSService.login({
+      const loginResult = await AuthService.login({
         email: 'mfalogintest@test.com',
         password: 'TestPassword123!'
       });
@@ -410,7 +407,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         password: 'TestPassword123!'
       };
 
-      passwordUser = await AuthJSService.register(userData);
+      passwordUser = await AuthService.register(userData);
 
       // Enable MFA
       const secretResult = await MFAService.generateTOTPSecret(passwordUser.user.id);
@@ -513,7 +510,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
       expect(remainingAccounts).toHaveLength(0);
 
       // 5. Verify MFA still works with password auth
-      const loginResult = await AuthJSService.login({
+      const loginResult = await AuthService.login({
         email: 'linkingtest@test.com',
         password: 'TestPassword123!'
       });
@@ -550,7 +547,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         password: 'TestPassword123!'
       };
 
-      testUser = await AuthJSService.register(userData);
+      testUser = await AuthService.register(userData);
 
       const secretResult = await MFAService.generateTOTPSecret(testUser.user.id);
       const token = speakeasy.totp({
@@ -581,7 +578,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
       expect(mfaStatus.methods).toHaveLength(0);
 
       // 4. Verify normal login works without MFA
-      const loginResult = await AuthJSService.login({
+      const loginResult = await AuthService.login({
         email: 'recoverytest@test.com',
         password: 'TestPassword123!'
       });
@@ -591,7 +588,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
       expect(loginResult.token).toBeDefined();
 
       // 5. Verify session is immediately valid (no MFA challenge needed)
-      const sessionValidation = await AuthJSService.validateSession(loginResult.session.id);
+      const sessionValidation = await AuthService.validateSession(loginResult.session.id);
       expect(sessionValidation).not.toBeNull();
     });
 
@@ -625,7 +622,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         password: 'TestPassword123!'
       };
 
-      const testUser = await AuthJSService.register(userData);
+      const testUser = await AuthService.register(userData);
       const secretResult = await MFAService.generateTOTPSecret(testUser.user.id);
       const token = speakeasy.totp({
         secret: secretResult.secret,
@@ -634,12 +631,12 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
       await MFAService.enableTOTP({ userId: testUser.user.id, token });
 
       // 2. Login and create multiple sessions
-      const login1 = await AuthJSService.login({
+      const login1 = await AuthService.login({
         email: 'concurrenttest@test.com',
         password: 'TestPassword123!'
       });
 
-      const login2 = await AuthJSService.login({
+      const login2 = await AuthService.login({
         email: 'concurrenttest@test.com',
         password: 'TestPassword123!'
       });
@@ -714,7 +711,7 @@ describe('NextAuth.js + MFA + OAuth Integration Flow', () => {
         password: 'TestPassword123!'
       };
 
-      const testUser = await AuthJSService.register(userData);
+      const testUser = await AuthService.register(userData);
 
       // Setup MFA
       const secretResult = await MFAService.generateTOTPSecret(testUser.user.id);

@@ -29,7 +29,7 @@
 
 - **Multi-Factor Authentication**: TOTP, SMS, backup codes
 - **OAuth Integration**: GitHub, Discord, Google sign-in
-- **Session Management**: Secure session handling with NextAuth.js
+- **Session Management**: Secure session handling with Lucia Auth
 - **Rate Limiting**: Protection against abuse and attacks
 - **Security Headers**: CSRF, XSS, and injection protection
 
@@ -198,7 +198,7 @@ DATABASE_URL="postgresql://username:password@host/database?sslmode=require"
 
 # Authentication
 JWT_SECRET="your-jwt-secret-256-bit"
-NEXTAUTH_SECRET="your-nextauth-secret-256-bit"
+LUCIA_SECRET="your-lucia-secret-256-bit"
 
 # AI Providers (at least one required)
 OPENAI_API_KEY="sk-..."
@@ -308,7 +308,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 ### Backend
 
 - **[Elysia.js](https://elysiajs.com/)** - High-performance TypeScript web framework
-- **[NextAuth.js](https://next-auth.js.org/)** - Complete authentication solution
+- **[Lucia Auth](https://lucia-auth.com/)** - Secure authentication library
 - **[Neon](https://neon.tech/)** - Serverless PostgreSQL
 - **[Redis](https://redis.io/)** - In-memory caching and sessions
 
@@ -322,7 +322,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 ### AI & Processing
 
 - **Multiple AI Providers** - OpenAI, Anthropic, Google, DeepSeek
-- **[tesseract.js](https://tesseract.projectnaptha.com/)** - OCR processing
+- **[Tesseract.js](https://tesseract.projectnaptha.com/)** - OCR processing
 - **[pdf-parse](https://www.npmjs.com/package/pdf-parse)** - PDF text extraction
 
 ### Infrastructure
