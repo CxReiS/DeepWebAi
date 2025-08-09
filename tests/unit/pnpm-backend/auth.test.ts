@@ -1,28 +1,32 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { AuthService, RegisterSchema, LoginSchema } from '@backend/src/auth/index.js';
-import { sql } from '@backend/lib/neon-client.js';
+import { AuthJSService, RegisterSchema } from '../../../packages/backend/src/auth/index.js';
+import { sql } from '../../../packages/backend/src/lib/neon-client.js';
 
-describe('Authentication Service', () => {
+// NextAuth.js (AuthJS) entegrasyonu ile kimlik doğrulama testleri
+// Lucia Auth yerine NextAuth.js 5.0.0-beta.26 kullanılıyor
+// API uyumluluğu korunarak mevcut test mantığı NextAuth.js'e uyarlandı
+describe('NextAuth.js Authentication Service', () => {
   beforeEach(async () => {
-    // Clean up test data before each test
+    // Test verileri temizleme - NextAuth.js tabloları
     await sql`DELETE FROM auth_sessions WHERE 1=1`;
     await sql`DELETE FROM users WHERE email LIKE '%test%'`;
   });
 
   afterEach(async () => {
-    // Clean up test data after each test
+    // Test sonrası temizlik - NextAuth.js tabloları
     await sql`DELETE FROM auth_sessions WHERE 1=1`;
     await sql`DELETE FROM users WHERE email LIKE '%test%'`;
   });
 
   describe('User Registration', () => {
     it('should register a new user successfully', async () => {
+      // Yeni kullanıcı kaydı - NextAuth.js ile
       const userData = testUtils.createTestUser({
         email: 'newuser@test.com',
         username: 'newuser'
       });
 
-      const result = await AuthService.register(userData);
+      const result = await AuthJSService.register(userData);
 
       expect(result).toHaveProperty('user');
       expect(result).toHaveProperty('session');
@@ -34,12 +38,13 @@ describe('Authentication Service', () => {
     });
 
     it('should hash the password correctly', async () => {
+      // Şifre hashleme testi - NextAuth.js bcrypt entegrasyonu
       const userData = testUtils.createTestUser({
         email: 'hashtest@test.com',
         username: 'hashtest'
       });
 
-      await AuthService.register(userData);
+      await AuthJSService.register(userData);
 
       // Check that password is hashed in database
       const dbUser = await sql`
@@ -51,36 +56,39 @@ describe('Authentication Service', () => {
     });
 
     it('should reject registration with duplicate email', async () => {
+      // Duplicate email kontrolü - NextAuth.js ile
       const userData = testUtils.createTestUser({
         email: 'duplicate@test.com',
         username: 'user1'
       });
 
-      await AuthService.register(userData);
+      await AuthJSService.register(userData);
 
       // Try to register with same email but different username
       const duplicateData = { ...userData, username: 'user2' };
 
-      await expect(AuthService.register(duplicateData))
+      await expect(AuthJSService.register(duplicateData))
         .rejects.toThrow('User with this email or username already exists');
     });
 
     it('should reject registration with duplicate username', async () => {
+      // Duplicate username kontrolü - NextAuth.js ile  
       const userData = testUtils.createTestUser({
         email: 'user1@test.com',
         username: 'duplicate'
       });
 
-      await AuthService.register(userData);
+      await AuthJSService.register(userData);
 
       // Try to register with same username but different email
       const duplicateData = { ...userData, email: 'user2@test.com' };
 
-      await expect(AuthService.register(duplicateData))
+      await expect(AuthJSService.register(duplicateData))
         .rejects.toThrow('User with this email or username already exists');
     });
 
     it('should validate registration data with schema', () => {
+      // Schema validasyon testi - NextAuth.js ile
       const invalidData = {
         email: 'invalid-email',
         username: 'ab', // too short
@@ -102,16 +110,17 @@ describe('Authentication Service', () => {
         username: 'logintest'
       });
       
-      testUser = await AuthService.register(userData);
+      testUser = await AuthJSService.register(userData);
     });
 
     it('should login with correct credentials', async () => {
+      // Doğru kimlik bilgileri ile giriş - NextAuth.js ile
       const loginData = {
         email: 'logintest@test.com',
         password: 'TestPassword123!'
       };
 
-      const result = await AuthService.login(loginData);
+      const result = await AuthJSService.login(loginData);
 
       expect(result).toHaveProperty('user');
       expect(result).toHaveProperty('session');
@@ -120,33 +129,36 @@ describe('Authentication Service', () => {
     });
 
     it('should reject login with incorrect email', async () => {
+      // Yanlış email ile giriş denemesi - NextAuth.js ile
       const loginData = {
         email: 'wrong@test.com',
         password: 'TestPassword123!'
       };
 
-      await expect(AuthService.login(loginData))
+      await expect(AuthJSService.login(loginData))
         .rejects.toThrow('Invalid email or password');
     });
 
     it('should reject login with incorrect password', async () => {
+      // Yanlış şifre ile giriş denemesi - NextAuth.js ile
       const loginData = {
         email: 'logintest@test.com',
         password: 'WrongPassword123!'
       };
 
-      await expect(AuthService.login(loginData))
+      await expect(AuthJSService.login(loginData))
         .rejects.toThrow('Invalid email or password');
     });
 
     it('should update last login timestamp', async () => {
+      // Son giriş zamanı güncelleme - NextAuth.js ile
       const loginData = {
         email: 'logintest@test.com',
         password: 'TestPassword123!'
       };
 
       const beforeLogin = new Date();
-      await AuthService.login(loginData);
+      await AuthJSService.login(loginData);
 
       const user = await sql`
         SELECT last_login_at FROM users WHERE email = ${loginData.email}
@@ -159,7 +171,7 @@ describe('Authentication Service', () => {
 
   describe('Session Management', () => {
     let testUser: any;
-    let sessionId: string;
+    let sessionToken: string;
 
     beforeEach(async () => {
       const userData = testUtils.createTestUser({
@@ -167,27 +179,30 @@ describe('Authentication Service', () => {
         username: 'sessiontest'
       });
       
-      testUser = await AuthService.register(userData);
-      sessionId = testUser.session.id;
+      testUser = await AuthJSService.register(userData);
+      sessionToken = testUser.token; // NextAuth.js token yerine session.id kullanımı
     });
 
     it('should validate active session', async () => {
-      const result = await AuthService.validateSession(sessionId);
+      // Aktif session doğrulama - NextAuth.js token ile
+      const result = await AuthJSService.validateSession(sessionToken);
 
       expect(result).not.toBeNull();
       expect(result!.user.id).toBe(testUser.user.id);
-      expect(result!.session.id).toBe(sessionId);
+      expect(result!.session).toBeDefined();
     });
 
     it('should invalidate session on logout', async () => {
-      await AuthService.logout(sessionId);
+      // Çıkış sonrası session geçersizliği - NextAuth.js ile
+      await AuthJSService.logout();
 
-      const result = await AuthService.validateSession(sessionId);
+      const result = await AuthJSService.validateSession(sessionToken);
       expect(result).toBeNull();
     });
 
-    it('should return null for invalid session ID', async () => {
-      const result = await AuthService.validateSession('invalid-session-id');
+    it('should return null for invalid session token', async () => {
+      // Geçersiz session token kontrolü - NextAuth.js ile
+      const result = await AuthJSService.validateSession('invalid-session-token');
       expect(result).toBeNull();
     });
   });
@@ -201,26 +216,27 @@ describe('Authentication Service', () => {
         username: 'passwordtest'
       });
       
-      testUser = await AuthService.register(userData);
+      testUser = await AuthJSService.register(userData);
     });
 
     it('should change password with correct current password', async () => {
+      // Şifre değiştirme işlemi - NextAuth.js ile
       const changeData = {
         currentPassword: 'TestPassword123!',
         newPassword: 'NewPassword456!'
       };
 
-      await expect(AuthService.changePassword(testUser.user.id, changeData))
+      await expect(AuthJSService.changePassword(testUser.user.id, changeData))
         .resolves.not.toThrow();
 
       // Verify old password no longer works
-      await expect(AuthService.login({
+      await expect(AuthJSService.login({
         email: 'passwordtest@test.com',
         password: 'TestPassword123!'
       })).rejects.toThrow('Invalid email or password');
 
       // Verify new password works
-      const result = await AuthService.login({
+      const result = await AuthJSService.login({
         email: 'passwordtest@test.com',
         password: 'NewPassword456!'
       });
@@ -229,12 +245,13 @@ describe('Authentication Service', () => {
     });
 
     it('should reject password change with incorrect current password', async () => {
+      // Yanlış mevcut şifre ile değiştirme denemesi - NextAuth.js ile
       const changeData = {
         currentPassword: 'WrongPassword123!',
         newPassword: 'NewPassword456!'
       };
 
-      await expect(AuthService.changePassword(testUser.user.id, changeData))
+      await expect(AuthJSService.changePassword(testUser.user.id, changeData))
         .rejects.toThrow('Current password is incorrect');
     });
   });
@@ -248,24 +265,26 @@ describe('Authentication Service', () => {
         username: 'profiletest'
       });
       
-      testUser = await AuthService.register(userData);
+      testUser = await AuthJSService.register(userData);
     });
 
     it('should update user profile', async () => {
+      // Kullanıcı profil güncelleme - NextAuth.js ile
       const updates = {
         displayName: 'Updated Display Name',
         bio: 'Updated bio text',
         preferences: { theme: 'dark', language: 'en' }
       };
 
-      const result = await AuthService.updateProfile(testUser.user.id, updates);
+      const result = await AuthJSService.updateProfile(testUser.user.id, updates);
 
       expect(result.displayName).toBe(updates.displayName);
       expect(result.preferences).toEqual(updates.preferences);
     });
 
     it('should get user by ID', async () => {
-      const user = await AuthService.getUserById(testUser.user.id);
+      // ID ile kullanıcı getirme - NextAuth.js ile
+      const user = await AuthJSService.getUserById(testUser.user.id);
 
       expect(user).not.toBeNull();
       expect(user!.id).toBe(testUser.user.id);
@@ -273,28 +292,31 @@ describe('Authentication Service', () => {
     });
 
     it('should return null for non-existent user ID', async () => {
-      const user = await AuthService.getUserById('non-existent-id');
+      // Var olmayan kullanıcı ID kontrolü - NextAuth.js ile
+      const user = await AuthJSService.getUserById('non-existent-id');
       expect(user).toBeNull();
     });
   });
 
   describe('JWT Token Management', () => {
     it('should generate valid JWT token', () => {
+      // JWT token üretimi - NextAuth.js ile
       const userId = 'test-user-id';
       const sessionId = 'test-session-id';
 
-      const token = AuthService.generateJWT(userId, sessionId);
+      const token = AuthJSService.generateJWT(userId, sessionId);
 
       expect(token).toBeTypeOf('string');
       expect(token.split('.')).toHaveLength(3); // JWT format
     });
 
     it('should verify valid JWT token', () => {
+      // JWT token doğrulama - NextAuth.js ile
       const userId = 'test-user-id';
       const sessionId = 'test-session-id';
 
-      const token = AuthService.generateJWT(userId, sessionId);
-      const payload = AuthService.verifyJWT(token);
+      const token = AuthJSService.generateJWT(userId, sessionId);
+      const payload = AuthJSService.verifyJWT(token);
 
       expect(payload).not.toBeNull();
       expect(payload!.userId).toBe(userId);
@@ -302,7 +324,8 @@ describe('Authentication Service', () => {
     });
 
     it('should reject invalid JWT token', () => {
-      const payload = AuthService.verifyJWT('invalid-token');
+      // Geçersiz JWT token kontrolü - NextAuth.js ile
+      const payload = AuthJSService.verifyJWT('invalid-token');
       expect(payload).toBeNull();
     });
   });

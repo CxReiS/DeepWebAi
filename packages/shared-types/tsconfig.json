@@ -3,20 +3,19 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-        "declaration": true,
-    "declarationMap": true,
-    "outDir": "./dist",
+    "noEmit": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist", "**/*.js", "**/*.d.ts"]
+  "exclude": ["node_modules"]
 }

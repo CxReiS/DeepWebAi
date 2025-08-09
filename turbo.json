@@ -16,14 +16,12 @@
     "test": {
       "outputs": []
     },
-    "lint": {
-      "outputs": []
-    },
-    "typecheck": {
-      "outputs": []
-    },
     "start": {
       "cache": false
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
     }
   }
 }

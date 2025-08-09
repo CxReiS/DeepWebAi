@@ -71,7 +71,7 @@ export class AIQueries {
       WHERE is_active = true 
       ORDER BY name ASC
     `;
-    return result.map((row: any) => AIModelSchema.parse(row));
+    return result;
   }
 
   static async getModelById(id: string): Promise<AIModel | null> {

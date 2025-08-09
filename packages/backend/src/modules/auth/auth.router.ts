@@ -107,7 +107,7 @@ export const userProfileRouter = new Elysia({ prefix: '/user', name: 'user-profi
       set.headers = {
         ...set.headers,
         'Set-Cookie': 'deepweb_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'
-      } as any;
+      };
       
       return {
         success: true,
@@ -149,7 +149,7 @@ export const oauthRouter = new Elysia({ prefix: '/oauth', name: 'oauth' })
     set.headers = {
       ...set.headers,
       'Location': githubUrl
-    } as any;
+    };
     
     return { redirect: githubUrl };
   })

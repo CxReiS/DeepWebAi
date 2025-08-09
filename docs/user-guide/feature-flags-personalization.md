@@ -1,484 +1,484 @@
-# Feature Flags and Personalization
+# Özellik Bayrakları ve Kişiselleştirme
 
-Customize your DeepWebAI experience with feature flags, personalized settings, and experimental features that enhance your productivity and workflow.
+Özellik bayrakları, kişiselleştirilmiş ayarlar ve üretkenliğinizi ve iş akışınızı geliştiren deneysel özelliklerle DeepWebAI deneyiminizi özelleştirin.
 
-## Understanding Feature Flags
+## Özellik Bayraklarını Anlama
 
-### What Are Feature Flags?
+### Özellik Bayrakları Nedir?
 
-Feature flags are toggles that enable or disable specific functionality in your DeepWebAI experience. They allow you to:
+Özellik bayrakları, DeepWebAI deneyiminizde belirli işlevleri etkinleştiren veya devre dışı bırakan açma/kapama düğmeleridir. Bunlar şunları yapmanıza olanak sağlar:
 
-- **🧪 Try experimental features** before they're fully released
-- **⚙️ Customize interface behavior** to match your preferences  
-- **🎯 Access role-specific features** based on your subscription tier
-- **🔄 Participate in A/B tests** to help improve the platform
+- **🧪 Deneysel özellikleri deneme** tamamen yayınlanmadan önce
+- **⚙️ Arayüz davranışını özelleştirme** tercihlerinize uygun şekilde  
+- **🎯 Role özel özelliklere erişim** abonelik seviyenize göre
+- **🔄 A/B testlerine katılma** platformu geliştirmeye yardım etmek için
 
-### Types of Feature Flags
+### Özellik Bayrağı Türleri
 
-**User Preference Flags:**
+**Kullanıcı Tercihi Bayrakları:**
 ```
-✅ Dark/Light theme toggle
-✅ Advanced UI options
-✅ Keyboard shortcut customizations
-✅ Notification preferences
-✅ Auto-save behaviors
-```
-
-**Experimental Features:**
-```
-🧪 Beta AI models
-🧪 New conversation interfaces
-🧪 Advanced file processing
-🧪 Enhanced analytics
-🧪 Preview features
+✅ Koyu/Açık tema geçişi
+✅ Gelişmiş UI seçenekleri
+✅ Klavye kısayolu özelleştirmeleri
+✅ Bildirim tercihleri
+✅ Otomatik kayıt davranışları
 ```
 
-**Tier-Based Features:**
+**Deneysel Özellikler:**
 ```
-🎖️ Free: Basic feature set
-🎖️ Premium: Enhanced capabilities
-🎖️ Developer: Advanced tools
-🎖️ Admin: Management features
-```
-
-## Accessing Feature Flags
-
-### Feature Flags Settings
-
-**Navigation Path:**
-```
-Profile → Settings → Features → Feature Flags
+🧪 Beta AI modelleri
+🧪 Yeni konuşma arayüzleri
+🧪 Gelişmiş dosya işleme
+🧪 Geliştirilmiş analitik
+🧪 Önizleme özellikleri
 ```
 
-**Settings Interface:**
+**Seviye Tabanlı Özellikler:**
 ```
-🚩 Available Features
-├── 🌙 Dark Mode (Enabled)
-├── 🧪 Beta AI Models (Disabled)
-├── ⚡ Fast Response Mode (Enabled)
-├── 📊 Advanced Analytics (Premium)
-└── 🔧 Developer Tools (Developer Tier)
+🎖️ Ücretsiz: Temel özellik seti
+🎖️ Premium: Gelişmiş yetenekler
+🎖️ Developer: Gelişmiş araçlar
+🎖️ Admin: Yönetim özellikleri
 ```
 
-### Feature Categories
+## Özellik Bayraklarına Erişim
 
-**Interface Customization:**
-- Theme and appearance options
-- Layout preferences
-- Accessibility features
-- Keyboard shortcuts
+### Özellik Bayrakları Ayarları
 
-**AI Enhancement Features:**
-- Beta model access
-- Advanced conversation modes
-- Experimental AI capabilities
-- Performance optimizations
-
-**Productivity Features:**
-- Advanced file processing
-- Workflow automations
-- Enhanced search capabilities
-- Collaboration tools
-
-## Available Feature Flags
-
-### Interface & Experience
-
-**Dark Mode**
+**Navigasyon Yolu:**
 ```
-Description: Switch between light and dark themes
-Status: Stable
-Access: All users
-Impact: Visual appearance only
+Profil → Ayarlar → Özellikler → Özellik Bayrakları
 ```
 
-**Compact Interface**
+**Ayarlar Arayüzü:**
 ```
-Description: Reduce spacing for more content on screen
-Status: Stable  
-Access: All users
-Impact: Layout density
-```
-
-**Advanced Keyboard Shortcuts**
-```
-Description: Enable additional hotkeys for power users
-Status: Beta
-Access: Premium and above
-Impact: Navigation efficiency
+🚩 Mevcut Özellikler
+├── 🌙 Koyu Mod (Etkin)
+├── 🧪 Beta AI Modelleri (Devre dışı)
+├── ⚡ Hızlı Yanıt Modu (Etkin)
+├── 📊 Gelişmiş Analitik (Premium)
+└── 🔧 Developer Araçları (Developer Seviye)
 ```
 
-### AI & Conversation Features
+### Özellik Kategorileri
 
-**Beta AI Models**
+**Arayüz Özelleştirme:**
+- Tema ve görünüm seçenekleri
+- Düzen tercihleri
+- Erişilebilirlik özellikleri
+- Klavye kısayolları
+
+**AI Geliştirme Özellikleri:**
+- Beta model erişimi
+- Gelişmiş konuşma modları
+- Deneysel AI yetenekleri
+- Performans optimizasyonları
+
+**Üretkenlik Özellikleri:**
+- Gelişmiş dosya işleme
+- İş akışı otomasyonları
+- Gelişmiş arama yetenekleri
+- İşbirliği araçları
+
+## Mevcut Özellik Bayrakları
+
+### Arayüz ve Deneyim
+
+**Koyu Mod**
 ```
-Description: Access to experimental AI models
-Status: Experimental
-Access: Premium and above
-Impact: New conversation capabilities
-Risk: Potential instability
+Açıklama: Açık ve koyu temalar arasında geçiş
+Durum: Kararlı
+Erişim: Tüm kullanıcılar
+Etki: Sadece görsel görünüm
+```
+
+**Kompakt Arayüz**
+```
+Açıklama: Ekranda daha fazla içerik için boşlukları azaltma
+Durum: Kararlı  
+Erişim: Tüm kullanıcılar
+Etki: Düzen yoğunluğu
+```
+
+**Gelişmiş Klavye Kısayolları**
+```
+Açıklama: Güç kullanıcıları için ek hotkey'ler etkinleştirme
+Durum: Beta
+Erişim: Premium ve üstü
+Etki: Navigasyon verimliliği
+```
+
+### AI ve Konuşma Özellikleri
+
+**Beta AI Modelleri**
+```
+Açıklama: Deneysel AI modellerine erişim
+Durum: Deneysel
+Erişim: Premium ve üstü
+Etki: Yeni konuşma yetenekleri
+Risk: Potansiyel kararsızlık
 ```
 
 **Streaming Plus**
 ```
-Description: Enhanced real-time response streaming
-Status: Beta
-Access: All users
-Impact: Faster response perception
+Açıklama: Gelişmiş gerçek zamanlı yanıt akışı
+Durum: Beta
+Erişim: Tüm kullanıcılar
+Etki: Daha hızlı yanıt algısı
 ```
 
-**Multi-Model Conversations**
+**Çoklu Model Konuşmaları**
 ```
-Description: Switch AI providers within single conversation
-Status: Beta
-Access: Developer tier
-Impact: Enhanced flexibility
-```
-
-**Advanced Context Memory**
-```
-Description: Extended conversation memory across sessions
-Status: Experimental
-Access: Premium and above
-Impact: Better long-term conversations
+Açıklama: Tek konuşma içinde AI sağlayıcıları arasında geçiş
+Durum: Beta
+Erişim: Developer seviye
+Etki: Gelişmiş esneklik
 ```
 
-### File Processing Enhancements
-
-**Advanced OCR**
+**Gelişmiş Bağlam Hafızası**
 ```
-Description: Enhanced text recognition with more languages
-Status: Beta
-Access: Premium and above
-Impact: Better file processing accuracy
+Açıklama: Oturumlar arası genişletilmiş konuşma hafızası
+Durum: Deneysel
+Erişim: Premium ve üstü
+Etki: Daha iyi uzun vadeli konuşmalar
 ```
 
-**Batch File Processing**
-```
-Description: Process multiple files simultaneously
-Status: Experimental
-Access: Developer tier
-Impact: Improved workflow efficiency
-```
+### Dosya İşleme Geliştirmeleri
 
-**Real-time File Analysis**
+**Gelişmiş OCR**
 ```
-Description: Instant analysis as files upload
-Status: Beta
-Access: All users
-Impact: Faster file processing feedback
+Açıklama: Daha fazla dil ile gelişmiş metin tanıma
+Durum: Beta
+Erişim: Premium ve üstü
+Etki: Daha iyi dosya işleme doğruluğu
 ```
 
-### Analytics & Insights
-
-**Usage Analytics**
+**Toplu Dosya İşleme**
 ```
-Description: Detailed usage statistics and insights
-Status: Stable
-Access: Premium and above
-Impact: Better usage understanding
+Açıklama: Birden fazla dosyayı aynı anda işleme
+Durum: Deneysel
+Erişim: Developer seviye
+Etki: Gelişmiş iş akışı verimliliği
 ```
 
-**Conversation Analytics**
+**Gerçek Zamanlı Dosya Analizi**
 ```
-Description: AI interaction patterns and effectiveness metrics
-Status: Beta
-Access: Developer tier
-Impact: Conversation optimization insights
-```
-
-**Performance Monitoring**
-```
-Description: Real-time performance metrics display
-Status: Experimental
-Access: Developer tier
-Impact: Technical performance visibility
+Açıklama: Dosyalar yüklenirken anında analiz
+Durum: Beta
+Erişim: Tüm kullanıcılar
+Etki: Daha hızlı dosya işleme geri bildirimi
 ```
 
-## Feature Flag Management
+### Analitik ve İçgörüler
 
-### Enabling Features
-
-**Standard Process:**
-1. Navigate to Feature Flags settings
-2. Find desired feature in list
-3. Toggle switch to "Enabled"
-4. Refresh browser if prompted
-5. Feature becomes active immediately
-
-**Experimental Features:**
+**Kullanım Analitiği**
 ```
-⚠️ Warning: Experimental features may:
-- Cause unexpected behavior
-- Impact performance
-- Change without notice
-- Require feedback submission
+Açıklama: Detaylı kullanım istatistikleri ve içgörüler
+Durum: Kararlı
+Erişim: Premium ve üstü
+Etki: Daha iyi kullanım anlayışı
 ```
 
-**Confirmation Required:**
-- Some experimental features require confirmation
-- Read feature description carefully
-- Understand potential risks
-- Provide feedback if issues occur
-
-### Disabling Features
-
-**Quick Disable:**
-1. Return to Feature Flags settings
-2. Toggle feature to "Disabled"
-3. Changes take effect immediately
-4. Previous settings preserved
-
-**Automatic Disable:**
-- Some experimental features auto-disable
-- When feature graduates to stable
-- If feature causes critical issues
-- During maintenance periods
-
-### Feature Gradual Rollouts
-
-**Percentage-Based Rollouts:**
+**Konuşma Analitiği**
 ```
-Feature Availability:
-- 0%: Feature development
-- 10%: Internal testing
-- 25%: Beta users
-- 50%: Premium users
-- 75%: All paid users
-- 100%: All users
+Açıklama: AI etkileşim kalıpları ve etkililik metrikleri
+Durum: Beta
+Erişim: Developer seviye
+Etki: Konuşma optimizasyon içgörüleri
 ```
 
-**Your Rollout Status:**
-- Check eligibility in settings
-- Wait for rollout completion
-- Request early access (Developer tier)
-- Provide feedback to influence rollout
-
-## Personalization Options
-
-### Profile Customization
-
-**Personal Information:**
+**Performans İzleme**
 ```
-Settings → Profile → Personal Details
+Açıklama: Gerçek zamanlı performans metriklerini görüntüleme
+Durum: Deneysel
+Erişim: Developer seviye
+Etki: Teknik performans görünürlüğü
 ```
 
-**Available Options:**
-- Display name and avatar
-- Time zone and language
-- Communication preferences
-- Professional information
+## Özellik Bayrağı Yönetimi
 
-**Privacy Controls:**
-- Profile visibility settings
-- Data sharing preferences
-- Analytics participation
-- Feature experiment opt-in/out
+### Özellikleri Etkinleştirme
 
-### Interface Preferences
+**Standart Süreç:**
+1. Özellik Bayrakları ayarlarına gidin
+2. Listede istenen özelliği bulun
+3. Anahtarı "Etkin" konumuna getirin
+4. İstenirse tarayıcıyı yenileyin
+5. Özellik hemen aktif hale gelir
 
-**Theme and Appearance:**
+**Deneysel Özellikler:**
 ```
-Options:
-🌞 Light theme
-🌙 Dark theme  
-🎨 Custom themes (Premium)
-🎭 High contrast mode
+⚠️ Uyarı: Deneysel özellikler şunlara neden olabilir:
+- Beklenmeyen davranışlara
+- Performansı etkileme
+- Haber vermeden değişiklik
+- Geri bildirim gönderimi gerektirme
 ```
 
-**Layout Preferences:**
+**Onay Gerekli:**
+- Bazı deneysel özellikler onay gerektirir
+- Özellik açıklamasını dikkatli okuyun
+- Potansiyel riskleri anlayın
+- Sorun oluşursa geri bildirim sağlayın
+
+### Özellikleri Devre Dışı Bırakma
+
+**Hızlı Devre Dışı:**
+1. Özellik Bayrakları ayarlarına dönün
+2. Özelliği "Devre dışı"ya getirin
+3. Değişiklikler hemen etkili olur
+4. Önceki ayarlar korunur
+
+**Otomatik Devre Dışı:**
+- Bazı deneysel özellikler otomatik devre dışı kalır
+- Özellik kararlı hale geldiğinde
+- Özellik kritik sorunlara neden olursa
+- Bakım dönemlerinde
+
+### Özellik Aşamalı Kullanıma Alma
+
+**Yüzde Tabanlı Kullanıma Alma:**
 ```
-Options:
-📱 Compact layout
-📺 Spacious layout
-📋 Sidebar position
-🖱️ Click behaviors
-```
-
-**Accessibility Settings:**
-```
-Options:
-🔤 Font size adjustment
-⌨️ Keyboard navigation
-🔊 Screen reader support
-⚡ Reduced motion
-```
-
-### Workflow Customization
-
-**AI Provider Preferences:**
-- Default AI model selection
-- Fallback provider order
-- Performance vs. quality preferences
-- Cost optimization settings
-
-**Conversation Settings:**
-- Auto-save frequency
-- Message history retention
-- Conversation organization
-- Export format preferences
-
-**Notification Preferences:**
-- Real-time notifications
-- Email digest frequency
-- Mobile push notifications
-- Important update alerts
-
-## A/B Testing Participation
-
-### Understanding A/B Tests
-
-**Purpose:**
-- Test new features with real users
-- Compare different interface designs
-- Optimize AI model performance
-- Improve user experience
-
-**Your Role:**
-- Use platform normally
-- Provide feedback when prompted
-- Report issues or improvements
-- Help shape future development
-
-### Current A/B Tests
-
-**Interface Tests:**
-```
-Test: New conversation layout
-Duration: 30 days
-Participants: 50% of Premium users
-Goal: Improve conversation readability
+Özellik Kullanılabilirliği:
+- %0: Özellik geliştirme
+- %10: İç test
+- %25: Beta kullanıcıları
+- %50: Premium kullanıcılar
+- %75: Tüm ücretli kullanıcılar
+- %100: Tüm kullanıcılar
 ```
 
-**AI Model Tests:**
-```
-Test: Response quality optimization
-Duration: 60 days  
-Participants: 25% of all users
-Goal: Enhance AI response accuracy
-```
+**Kullanıma Alma Durumunuz:**
+- Ayarlarda uygunluğu kontrol edin
+- Kullanıma alma tamamlanmasını bekleyin
+- Erken erişim isteyin (Developer seviye)
+- Kullanıma almayı etkilemek için geri bildirim sağlayın
 
-**Feature Tests:**
-```
-Test: Advanced file processing
-Duration: 45 days
-Participants: Developer tier users
-Goal: Validate new processing pipeline
-```
+## Kişiselleştirme Seçenekleri
 
-### A/B Test Settings
+### Profil Özelleştirme
 
-**Participation Control:**
+**Kişisel Bilgiler:**
 ```
-Settings → Features → Experiments
+Ayarlar → Profil → Kişisel Detaylar
 ```
 
-**Options:**
-- ✅ **Participate in all tests** (Recommended)
-- 🎯 **Interface tests only**
-- 🤖 **AI feature tests only**  
-- ❌ **Opt out of all testing**
+**Mevcut Seçenekler:**
+- Görünen ad ve avatar
+- Zaman dilimi ve dil
+- İletişim tercihleri
+- Profesyonel bilgiler
 
-**Benefits of Participation:**
-- Early access to improvements
-- Influence product direction
-- Enhanced user experience
-- Priority support for issues
+**Gizlilik Kontrolleri:**
+- Profil görünürlük ayarları
+- Veri paylaşım tercihleri
+- Analitik katılımı
+- Özellik deneyi kabul etme/reddetme
 
-## Advanced Personalization
+### Arayüz Tercihleri
 
-### API Integration (Developer Tier)
+**Tema ve Görünüm:**
+```
+Seçenekler:
+🌞 Açık tema
+🌙 Koyu tema  
+🎨 Özel temalar (Premium)
+🎭 Yüksek kontrast modu
+```
 
-**Custom Integrations:**
-- Personal API endpoints
-- Webhook configurations
-- Custom data sources
-- Third-party service connections
+**Düzen Tercihleri:**
+```
+Seçenekler:
+📱 Kompakt düzen
+📺 Geniş düzen
+📋 Kenar çubuğu konumu
+🖱️ Tıklama davranışları
+```
 
-**Automation Rules:**
-- Trigger-based actions
-- Scheduled operations
-- Conditional processing
-- Workflow automation
+**Erişilebilirlik Ayarları:**
+```
+Seçenekler:
+🔤 Font boyutu ayarı
+⌨️ Klavye navigasyonu
+🔊 Ekran okuyucu desteği
+⚡ Azaltılmış hareket
+```
 
-### Enterprise Features (Admin Users)
+### İş Akışı Özelleştirme
 
-**Organization Settings:**
-- Company-wide feature flags
-- User group management
-- Policy enforcement
-- Compliance controls
+**AI Sağlayıcı Tercihleri:**
+- Varsayılan AI model seçimi
+- Yedek sağlayıcı sırası
+- Performans vs. kalite tercihleri
+- Maliyet optimizasyon ayarları
 
-**Advanced Analytics:**
-- Organization usage patterns
-- Feature adoption metrics
-- Performance monitoring
-- Cost optimization insights
+**Konuşma Ayarları:**
+- Otomatik kayıt sıklığı
+- Mesaj geçmişi saklama
+- Konuşma organizasyonu
+- Dışa aktarma format tercihleri
 
-## Troubleshooting Feature Flags
+**Bildirim Tercihleri:**
+- Gerçek zamanlı bildirimler
+- E-posta özet sıklığı
+- Mobil push bildirimleri
+- Önemli güncelleme uyarıları
 
-### Common Issues
+## A/B Test Katılımı
 
-**Feature Not Appearing:**
-1. Check your subscription tier
-2. Verify feature rollout status
-3. Clear browser cache
-4. Check for browser compatibility
+### A/B Testlerini Anlama
 
-**Feature Not Working:**
-1. Disable and re-enable feature
-2. Refresh browser completely
-3. Check for conflicts with other features
-4. Report issue with details
+**Amaç:**
+- Yeni özellikleri gerçek kullanıcılarla test etme
+- Farklı arayüz tasarımlarını karşılaştırma
+- AI model performansını optimize etme
+- Kullanıcı deneyimini geliştirme
 
-**Performance Issues:**
-1. Disable experimental features temporarily
-2. Monitor system performance
-3. Report performance impacts
-4. Consider feature combinations
+**Rolünüz:**
+- Platformu normal şekilde kullanın
+- İstendiğinde geri bildirim sağlayın
+- Sorunları veya iyileştirmeleri bildirin
+- Gelecek geliştirmeleri şekillendirmeye yardım edin
 
-### Getting Help
+### Mevcut A/B Testleri
 
-**Support Resources:**
-- 📖 Feature documentation
-- 💬 Community discussions
-- 📧 Technical support
-- 🐛 Bug reporting system
+**Arayüz Testleri:**
+```
+Test: Yeni konuşma düzeni
+Süre: 30 gün
+Katılımcılar: Premium kullanıcıların %50'si
+Hedef: Konuşma okunabilirliğini geliştirme
+```
 
-**Feedback Channels:**
-- In-app feedback forms
-- Feature request submissions
-- User experience surveys
-- Beta testing feedback
+**AI Model Testleri:**
+```
+Test: Yanıt kalitesi optimizasyonu
+Süre: 60 gün  
+Katılımcılar: Tüm kullanıcıların %25'i
+Hedef: AI yanıt doğruluğunu artırma
+```
 
-## Best Practices
+**Özellik Testleri:**
+```
+Test: Gelişmiş dosya işleme
+Süre: 45 gün
+Katılımcılar: Developer seviye kullanıcılar
+Hedef: Yeni işleme pipeline'ını doğrulama
+```
 
-### Feature Flag Strategy
+### A/B Test Ayarları
 
-**Gradual Adoption:**
-1. Enable stable features first
-2. Try beta features one at a time
-3. Test experimental features carefully
-4. Provide feedback actively
+**Katılım Kontrolü:**
+```
+Ayarlar → Özellikler → Deneyler
+```
 
-**Risk Management:**
-- Keep experimental features minimal
-- Know how to disable quickly
-- Document any issues encountered
-- Maintain backup workflows
+**Seçenekler:**
+- ✅ **Tüm testlere katıl** (Önerilen)
+- 🎯 **Sadece arayüz testleri**
+- 🤖 **Sadece AI özellik testleri**  
+- ❌ **Tüm testlerden çık**
 
-### Optimization Tips
+**Katılım Faydaları:**
+- İyileştirmelere erken erişim
+- Ürün yönünü etkileme
+- Gelişmiş kullanıcı deneyimi
+- Sorunlar için öncelikli destek
 
-**Performance Focus:**
-- Monitor system performance with new features
-- Disable unused features
-- Balance features with system resources
-- Regular settings review
+## Gelişmiş Kişiselleştirme
 
-**Productivity Enhancement:**
-- Customize interface for your workflow
-- Use analytics to understand usage patterns
-- Automate repetitive tasks where possible
-- Regularly review and adjust settings
+### API Entegrasyonu (Developer Seviye)
 
-Remember: Feature flags are powerful tools for customization, but use them thoughtfully. Start with stable features and gradually experiment with beta options based on your comfort level and needs.
+**Özel Entegrasyonlar:**
+- Kişisel API uç noktaları
+- Webhook konfigürasyonları
+- Özel veri kaynakları
+- Üçüncü taraf servis bağlantıları
+
+**Otomasyon Kuralları:**
+- Tetikleyici tabanlı eylemler
+- Zamanlı operasyonlar
+- Koşullu işleme
+- İş akışı otomasyonu
+
+### Kurumsal Özellikler (Admin Kullanıcılar)
+
+**Organizasyon Ayarları:**
+- Şirket çapında özellik bayrakları
+- Kullanıcı grubu yönetimi
+- Politika uygulama
+- Uyumluluk kontrolleri
+
+**Gelişmiş Analitik:**
+- Organizasyon kullanım kalıpları
+- Özellik benimseme metrikleri
+- Performans izleme
+- Maliyet optimizasyon içgörüleri
+
+## Özellik Bayrakları Sorun Giderme
+
+### Yaygın Sorunlar
+
+**Özellik Görünmüyor:**
+1. Abonelik seviyenizi kontrol edin
+2. Özellik kullanıma alma durumunu doğrulayın
+3. Tarayıcı önbelleğini temizleyin
+4. Tarayıcı uyumluluğunu kontrol edin
+
+**Özellik Çalışmıyor:**
+1. Özelliği devre dışı bırakın ve tekrar etkinleştirin
+2. Tarayıcıyı tamamen yenileyin
+3. Diğer özelliklerle çakışmaları kontrol edin
+4. Detaylarla sorun bildirin
+
+**Performans Sorunları:**
+1. Deneysel özellikleri geçici olarak devre dışı bırakın
+2. Sistem performansını izleyin
+3. Performans etkilerini bildirin
+4. Özellik kombinasyonlarını değerlendirin
+
+### Yardım Alma
+
+**Destek Kaynakları:**
+- 📖 Özellik dokümantasyonu
+- 💬 Topluluk tartışmaları
+- 📧 Teknik destek
+- 🐛 Hata bildirme sistemi
+
+**Geri Bildirim Kanalları:**
+- Uygulama içi geri bildirim formları
+- Özellik istek gönderileri
+- Kullanıcı deneyimi anketleri
+- Beta test geri bildirimi
+
+## En İyi Uygulamalar
+
+### Özellik Bayrağı Stratejisi
+
+**Aşamalı Benimseme:**
+1. Önce kararlı özellikleri etkinleştirin
+2. Beta özellikleri teker teker deneyin
+3. Deneysel özellikleri dikkatli test edin
+4. Aktif olarak geri bildirim sağlayın
+
+**Risk Yönetimi:**
+- Deneysel özellikleri minimal tutun
+- Hızlıca nasıl devre dışı bırakacağınızı bilin
+- Karşılaştığınız sorunları belgeleyin
+- Yedek iş akışlarını koruyun
+
+### Optimizasyon İpuçları
+
+**Performans Odağı:**
+- Yeni özelliklerle sistem performansını izleyin
+- Kullanılmayan özellikleri devre dışı bırakın
+- Özellikleri sistem kaynaklarıyla dengeleyin
+- Düzenli ayar incelemesi yapın
+
+**Üretkenlik Artırma:**
+- Arayüzü iş akışınıza göre özelleştirin
+- Kullanım kalıplarını anlamak için analitiği kullanın
+- Mümkün olduğunda tekrarlayan görevleri otomatikleştirin
+- Ayarları düzenli olarak gözden geçirin ve ayarlayın
+
+Unutmayın: Özellik bayrakları özelleştirme için güçlü araçlardır, ancak bunları düşünceli bir şekilde kullanın. Kararlı özelliklerle başlayın ve konfor seviyenize ve ihtiyaçlarınıza göre beta seçeneklerini aşamalı olarak deneyin.

@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { helmet } from "elysia-helmet";
+import helmet from "elysia-helmet";
 
 // Security headers configuration
 export const securityHeaders = {
@@ -91,7 +91,7 @@ export const securityMiddleware = new Elysia({ name: 'security' })
   .use(helmet(securityHeaders))
   .derive(({ set, request }) => {
     // Additional security headers
-    (set.headers as any) = {
+    set.headers = {
       ...set.headers,
       
       // Hide server information
@@ -120,7 +120,7 @@ export const securityMiddleware = new Elysia({ name: 'security' })
       'Pragma': 'no-cache',
       'Expires': '0',
       'Surrogate-Control': 'no-store'
-    } as any;
+    };
 
     // Add CORS headers if enabled
     if (process.env.CORS_ENABLED === 'true') {
@@ -132,7 +132,7 @@ export const securityMiddleware = new Elysia({ name: 'security' })
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, X-User-ID, X-User-Role',
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Max-Age': '86400' // 24 hours
-      } as any;
+      };
     }
 
     // Security logging
@@ -169,7 +169,7 @@ export const apiSecurityMiddleware = new Elysia({ name: 'api-security' })
       'Content-Type': 'application/json',
       'X-API-Version': '1.0.0',
       'X-Request-ID': crypto.randomUUID()
-    } as any;
+    };
 
     // Prevent caching of sensitive endpoints
     if (path.includes('/auth') || path.includes('/api/user') || path.includes('/api/admin')) {
@@ -178,7 +178,7 @@ export const apiSecurityMiddleware = new Elysia({ name: 'api-security' })
         'Cache-Control': 'no-store, no-cache, must-revalidate, private',
         'Pragma': 'no-cache',
         'Expires': '0'
-      } as any;
+      };
     }
 
     return {};
@@ -250,7 +250,7 @@ export const authSecurityMiddleware = new Elysia({ name: 'auth-security' })
       ...set.headers,
       'X-Auth-Required': 'true',
       'WWW-Authenticate': 'Bearer realm="DeepWebAI API"'
-    } as any;
+    };
 
     return {
       authAttempt: {

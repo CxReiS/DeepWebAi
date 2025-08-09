@@ -1,432 +1,432 @@
-# AI Assistant Usage Guide
+# AI Asistan Kullanım Rehberi
 
-Master the powerful AI capabilities of DeepWebAI with multiple provider options, advanced features, and intelligent conversation management.
+Birden fazla sağlayıcı seçeneği, gelişmiş özellikler ve akıllı konuşma yönetimi ile DeepWebAI'ın güçlü AI yeteneklerinde uzmanlaşın.
 
-## AI Provider Overview
+## AI Sağlayıcı Genel Bakış
 
-### Available AI Models
+### Mevcut AI Modelleri
 
 **OpenAI GPT**
 - **Models**: GPT-4, GPT-4 Turbo, GPT-3.5 Turbo
-- **Best For**: General conversations, creative writing, code assistance
-- **Strengths**: Versatile, well-trained, reliable responses
-- **Use Cases**: General Q&A, brainstorming, content creation
+- **En İyi Kullanım**: Genel konuşmalar, yaratıcı yazım, kod yardımı
+- **Güçlü Yanları**: Çok yönlü, iyi eğitilmiş, güvenilir yanıtlar
+- **Kullanım Alanları**: Genel soru-cevap, beyin fırtınası, içerik oluşturma
 
 **Anthropic Claude**
 - **Models**: Claude-3 Opus, Claude-3 Sonnet, Claude-3 Haiku
-- **Best For**: Analysis, reasoning, ethical discussions
-- **Strengths**: Careful reasoning, nuanced understanding
-- **Use Cases**: Complex analysis, research, detailed explanations
+- **En İyi Kullanım**: Analiz, mantık yürütme, etik tartışmalar
+- **Güçlü Yanları**: Dikkatli mantık yürütme, nüanslı anlayış
+- **Kullanım Alanları**: Karmaşık analiz, araştırma, ayrıntılı açıklamalar
 
 **Google Gemini**
 - **Models**: Gemini Pro, Gemini Flash
-- **Best For**: Multimodal tasks, image analysis, fast responses
-- **Strengths**: Image understanding, speed, integration
-- **Use Cases**: Image analysis, quick responses, visual content
+- **En İyi Kullanım**: Çok modlu görevler, görüntü analizi, hızlı yanıtlar
+- **Güçlü Yanları**: Görüntü anlama, hız, entegrasyon
+- **Kullanım Alanları**: Görüntü analizi, hızlı yanıtlar, görsel içerik
 
 **DeepSeek**
 - **Models**: DeepSeek Chat, DeepSeek Coder
-- **Best For**: Cost-effective conversations, coding tasks
-- **Strengths**: Efficient, specialized coding model available
-- **Use Cases**: Budget-conscious usage, programming assistance
+- **En İyi Kullanım**: Uygun maliyetli konuşmalar, kodlama görevleri
+- **Güçlü Yanları**: Verimli, özelleşmiş kodlama modeli mevcut
+- **Kullanım Alanları**: Bütçe dostu kullanım, programlama yardımı
 
 **Local Llama**
-- **Models**: Self-hosted Llama models
-- **Best For**: Privacy-focused conversations, offline usage
-- **Strengths**: Complete privacy, customizable, no external API
-- **Use Cases**: Sensitive data, offline scenarios, custom training
+- **Models**: Kendi sunucunuzda barındırılan Llama modelleri
+- **En İyi Kullanım**: Gizlilik odaklı konuşmalar, çevrimdışı kullanım
+- **Güçlü Yanları**: Tam gizlilik, özelleştirilebilir, harici API yok
+- **Kullanım Alanları**: Hassas veriler, çevrimdışı senaryolar, özel eğitim
 
-### Provider Selection
+### Sağlayıcı Seçimi
 
-**Automatic Selection:**
-- Platform intelligently chooses best provider
-- Based on query type and current availability
-- Seamless failover if provider unavailable
-- Optimized for speed and accuracy
+**Otomatik Seçim:**
+- Platform akıllıca en iyi sağlayıcıyı seçer
+- Sorgu türü ve mevcut kullanılabilirliğe göre
+- Sağlayıcı kullanılamıyorsa sorunsuz geçiş
+- Hız ve doğruluk için optimize edilmiş
 
-**Manual Selection:**
+**Manuel Seçim:**
 ```
-1. Click the AI provider dropdown
-2. Choose your preferred model
-3. Provider remains selected for session
-4. Switch anytime during conversation
-```
-
-## Starting Conversations
-
-### Basic Chat Interface
-
-**Message Input:**
-- Type your message in the text box
-- Press Enter to send
-- Shift+Enter for new line without sending
-- Message history preserved automatically
-
-**Conversation Flow:**
-```
-You: How does machine learning work?
-AI: Machine learning is a subset of artificial intelligence...
-You: Can you give me a practical example?
-AI: Certainly! Here's a practical example...
+1. AI sağlayıcı açılır menüsüne tıklayın
+2. Tercih ettiğiniz modeli seçin
+3. Sağlayıcı oturum boyunca seçili kalır
+4. Konuşma sırasında istediğiniz zaman değiştirin
 ```
 
-### Advanced Input Options
+## Konuşma Başlatma
 
-**Multiline Messages:**
-- Use Shift+Enter for line breaks
-- Format code blocks with backticks
-- Structure complex questions clearly
-- Include context and specifics
+### Temel Sohbet Arayüzü
 
-**Message Formatting:**
+**Mesaj Girişi:**
+- Mesajınızı metin kutusuna yazın
+- Göndermek için Enter tuşuna basın
+- Yeni satır eklemek için Shift+Enter (gönderme olmadan)
+- Mesaj geçmişi otomatik olarak korunur
+
+**Konuşma Akışı:**
+```
+Siz: Makine öğrenmesi nasıl çalışır?
+AI: Makine öğrenmesi, yapay zekanın bir alt kümesidir...
+Siz: Bana pratik bir örnek verebilir misiniz?
+AI: Tabii ki! İşte pratik bir örnek...
+```
+
+### Gelişmiş Giriş Seçenekleri
+
+**Çok Satırlı Mesajlar:**
+- Satır sonları için Shift+Enter kullanın
+- Kod blokları için backtick kullanın
+- Karmaşık soruları açık bir şekilde yapılandırın
+- Bağlam ve ayrıntıları dahil edin
+
+**Mesaj Formatı:**
 ```markdown
-**Bold text** for emphasis
-*Italic text* for subtle emphasis
-`code snippets` for technical terms
-- Bullet points for lists
-1. Numbered lists for sequences
+**Kalın metin** vurgu için
+*İtalik metin* hafif vurgu için
+`kod parçacıkları` teknik terimler için
+- Listeler için madde işaretleri
+1. Sıralar için numaralı listeler
 ```
 
-### Context Management
+### Bağlam Yönetimi
 
-**Conversation Memory:**
-- AI remembers entire conversation history
-- Reference previous messages naturally
-- Build complex discussions over time
-- Context preserved across sessions
+**Konuşma Hafızası:**
+- AI tüm konuşma geçmişini hatırlar
+- Önceki mesajlara doğal olarak referans verin
+- Zaman içinde karmaşık tartışmalar geliştirin
+- Bağlam oturumlar arasında korunur
 
-**File Context:**
-- Uploaded files available throughout chat
-- Reference documents by name
-- AI analyzes files in conversation context
-- Combine multiple file insights
+**Dosya Bağlamı:**
+- Yüklenen dosyalar sohbet boyunca kullanılabilir
+- Belgelere isimle referans verin
+- AI dosyaları konuşma bağlamında analiz eder
+- Birden fazla dosya içgörüsünü birleştirin
 
-## Conversation Types
+## Konuşma Türleri
 
-### General Q&A
+### Genel Soru-Cevap
 
-**Information Requests:**
+**Bilgi Talepleri:**
 ```
-Examples:
-"Explain quantum computing in simple terms"
-"What are the benefits of renewable energy?"
-"How do I start learning Python programming?"
-```
-
-**Research Assistance:**
-```
-Examples:
-"Compare different project management methodologies"
-"What are the latest trends in AI development?"
-"Analyze the pros and cons of remote work"
+Örnekler:
+"Kuantum bilişimi basit terimlerle açıkla"
+"Yenilenebilir enerjinin faydaları nelerdir?"
+"Python programlama öğrenmeye nasıl başlarım?"
 ```
 
-### Technical Assistance
-
-**Programming Help:**
+**Araştırma Yardımı:**
 ```
-Examples:
-"Debug this JavaScript function"
-"Explain this Python error message"
-"Design a database schema for an e-commerce site"
+Örnekler:
+"Farklı proje yönetimi metodolojilerini karşılaştır"
+"AI geliştirmesindeki en son trendler nelerdir?"
+"Uzaktan çalışmanın artı ve eksilerini analiz et"
 ```
 
-**Problem Solving:**
-```
-Examples:
-"Help me optimize this algorithm"
-"Review my code for security issues"
-"Suggest improvements for this architecture"
-```
+### Teknik Yardım
 
-### Creative Tasks
-
-**Content Creation:**
+**Programlama Yardımı:**
 ```
-Examples:
-"Write a blog post about sustainable technology"
-"Create a story outline for a sci-fi novel"
-"Generate marketing copy for a new product"
+Örnekler:
+"Bu JavaScript fonksiyonunu debug et"
+"Bu Python hata mesajını açıkla"
+"Bir e-ticaret sitesi için veritabanı şeması tasarla"
 ```
 
-**Brainstorming:**
+**Problem Çözme:**
 ```
-Examples:
-"Help me brainstorm app features"
-"Generate business name ideas"
-"Suggest creative solutions for team building"
-```
-
-### Document Analysis
-
-**File-Based Conversations:**
-```
-Examples:
-"Summarize this research paper"
-"Extract key metrics from this report"
-"What are the main arguments in this document?"
+Örnekler:
+"Bu algoritmayı optimize etmeme yardım et"
+"Kodumu güvenlik açıkları için incele"
+"Bu mimari için iyileştirmeler öner"
 ```
 
-**Multi-File Analysis:**
+### Yaratıcı Görevler
+
+**İçerik Oluşturma:**
 ```
-Examples:
-"Compare these two proposals"
-"Find common themes across these documents"
-"Identify inconsistencies between reports"
-```
-
-## Advanced Features
-
-### Streaming Responses
-
-**Real-Time Output:**
-- Responses appear word-by-word
-- See AI thinking process
-- Interrupt if response goes off-track
-- Natural conversation flow
-
-**Benefits:**
-- Faster perceived response time
-- Interactive experience
-- Better engagement
-- Immediate feedback available
-
-### Rate Limiting & Quotas
-
-**Usage Limits:**
-```
-Free Tier:
-- 50 messages per day
-- 10,000 tokens per message
-- Basic models only
-
-Premium Tier:
-- 500 messages per day
-- 50,000 tokens per message
-- All models available
-
-Developer Tier:
-- Unlimited messages
-- 100,000 tokens per message
-- Priority access
+Örnekler:
+"Sürdürülebilir teknoloji hakkında blog yazısı yaz"
+"Bilim kurgu romanı için hikaye taslağı oluştur"
+"Yeni ürün için pazarlama metni üret"
 ```
 
-**Managing Usage:**
-- Monitor usage in settings
-- Upgrade plan for more capacity
-- Optimize message efficiency
-- Use appropriate model for task
-
-### Error Handling
-
-**Automatic Failover:**
-- Switch to backup provider if primary fails
-- Seamless user experience
-- No interruption to conversation
-- Transparent error recovery
-
-**Manual Recovery:**
-- Retry failed messages
-- Switch providers manually
-- Report persistent issues
-- Alternative phrasing suggestions
-
-## Conversation Management
-
-### Saving Conversations
-
-**Automatic Saving:**
-- All conversations saved automatically
-- No manual action required
-- Persistent across browser sessions
-- Secure cloud storage
-
-**Manual Management:**
+**Beyin Fırtınası:**
 ```
-Options:
-- Star important conversations
-- Add custom titles
-- Archive old conversations
-- Delete unwanted chats
+Örnekler:
+"Uygulama özelliklerini beyin fırtınası yapmama yardım et"
+"İşletme ismi fikirleri üret"
+"Takım oluşturma için yaratıcı çözümler öner"
 ```
 
-### Organizing Chats
+### Belge Analizi
 
-**Conversation List:**
+**Dosya Tabanlı Konuşmalar:**
 ```
-📚 Recent Conversations
-├── ⭐ Machine Learning Tutorial
-├── 📄 Document Analysis - Q1 Report
-├── 💻 Python Code Review
-├── 🧠 Creative Writing Session
-└── 📊 Data Analysis Help
+Örnekler:
+"Bu araştırma makalesini özetle"
+"Bu rapordan anahtar metrikleri çıkar"
+"Bu belgede ana argümanlar nelerdir?"
 ```
 
-**Filtering Options:**
-- Filter by date range
-- Search by keywords
-- Filter by AI provider
-- Sort by relevance
-
-### Search and History
-
-**Finding Past Conversations:**
+**Çoklu Dosya Analizi:**
 ```
-Search Features:
-- Full-text search across all messages
-- Filter by participant (AI model)
-- Date range filtering
-- Tag-based organization
+Örnekler:
+"Bu iki teklifi karşılaştır"
+"Bu belgeler arasında ortak temaları bul"
+"Raporlar arasındaki tutarsızlıkları belirle"
 ```
 
-**Search Tips:**
-- Use specific keywords
-- Include AI provider in search
-- Search file names for document chats
-- Use quotes for exact phrases
+## Gelişmiş Özellikler
 
-## Optimization Tips
+### Akış Yanıtları
 
-### Writing Effective Prompts
+**Gerçek Zamanlı Çıktı:**
+- Yanıtlar kelime kelime görünür
+- AI'ın düşünce sürecini görün
+- Yanıt yoldan çıkarsa müdahale edin
+- Doğal konuşma akışı
 
-**Be Specific:**
-```
-❌ "Help with coding"
-✅ "Debug this Python function that's throwing a TypeError"
-```
+**Faydalar:**
+- Daha hızlı algılanan yanıt süresi
+- Etkileşimli deneyim
+- Daha iyi katılım
+- Anında geri bildirim mevcut
 
-**Provide Context:**
-```
-❌ "Analyze this"
-✅ "Analyze this quarterly sales report focusing on regional performance trends"
-```
+### Hız Sınırları ve Kotalar
 
-**Ask Follow-up Questions:**
+**Kullanım Limitleri:**
 ```
-Examples:
-"Can you elaborate on point 3?"
-"What are the implications of this approach?"
-"How would this work in practice?"
-```
+Ücretsiz Seviye:
+- Günde 50 mesaj
+- Mesaj başına 10.000 token
+- Sadece temel modeller
 
-### Choosing the Right AI
+Premium Seviye:
+- Günde 500 mesaj
+- Mesaj başına 50.000 token
+- Tüm modeller mevcut
 
-**Task-Based Selection:**
-```
-Creative Writing: OpenAI GPT
-Deep Analysis: Anthropic Claude
-Image Tasks: Google Gemini
-Coding: DeepSeek Coder
-Privacy: Local Llama
+Geliştirici Seviyesi:
+- Sınırsız mesaj
+- Mesaj başına 100.000 token
+- Öncelikli erişim
 ```
 
-**Performance Considerations:**
-- Speed vs. quality trade-offs
-- Cost vs. capability balance
-- Availability and reliability
-- Specific model strengths
+**Kullanımı Yönetme:**
+- Ayarlarda kullanımı izleyin
+- Daha fazla kapasite için planı yükseltin
+- Mesaj verimliliğini optimize edin
+- Görev için uygun model kullanın
 
-### Managing Token Usage
+### Hata İşleme
 
-**Efficient Messaging:**
-- Keep messages focused
-- Avoid unnecessary repetition
-- Use clear, concise language
-- Break complex queries into parts
+**Otomatik Yedek Geçiş:**
+- Birincil başarısız olursa yedek sağlayıcıya geç
+- Sorunsuz kullanıcı deneyimi
+- Konuşmada kesinti yok
+- Şeffaf hata kurtarma
 
-**Token Awareness:**
+**Manuel Kurtarma:**
+- Başarısız mesajları yeniden deneyin
+- Sağlayıcıları manuel olarak değiştirin
+- Kalıcı sorunları bildirin
+- Alternatif ifade önerileri
+
+## Konuşma Yönetimi
+
+### Konuşmaları Kaydetme
+
+**Otomatik Kaydetme:**
+- Tüm konuşmalar otomatik olarak kaydedilir
+- Manuel işlem gerekmez
+- Tarayıcı oturumları arasında kalıcı
+- Güvenli bulut depolama
+
+**Manuel Yönetim:**
 ```
-Approximate Token Counts:
-- 1 token ≈ 4 characters
-- Average word ≈ 1.3 tokens
-- Long messages use more tokens
-- File content adds to token count
+Seçenekler:
+- Önemli konuşmaları yıldızla
+- Özel başlıklar ekle
+- Eski konuşmaları arşivle
+- İstenmeyen sohbetleri sil
 ```
 
-## Troubleshooting
+### Sohbetleri Organize Etme
 
-### Common Issues
+**Konuşma Listesi:**
+```
+📚 Son Konuşmalar
+├── ⭐ Makine Öğrenmesi Öğreticisi
+├── 📄 Belge Analizi - Q1 Raporu
+├── 💻 Python Kod İncelemesi
+├── 🧠 Yaratıcı Yazım Oturumu
+└── 📊 Veri Analizi Yardımı
+```
 
-**AI Not Responding:**
-1. Check internet connection
-2. Verify rate limit status
-3. Try different AI provider
-4. Refresh browser if persistent
+**Filtreleme Seçenekleri:**
+- Tarih aralığına göre filtrele
+- Anahtar kelimelere göre ara
+- AI sağlayıcıya göre filtrele
+- Önem sırasına göre sırala
 
-**Slow Responses:**
-1. Check server status
-2. Try during off-peak hours
-3. Use faster model (Gemini Flash)
-4. Reduce message complexity
+### Arama ve Geçmiş
 
-**Unexpected Responses:**
-1. Provide more context
-2. Rephrase your question
-3. Try different AI provider
-4. Break complex queries into steps
+**Geçmiş Konuşmaları Bulma:**
+```
+Arama Özellikleri:
+- Tüm mesajlarda tam metin arama
+- Katılımcıya (AI modeli) göre filtrele
+- Tarih aralığı filtreleme
+- Etiket tabanlı organizasyon
+```
 
-### Error Messages
+**Arama İpuçları:**
+- Belirli anahtar kelimeler kullanın
+- Aramaya AI sağlayıcıyı dahil edin
+- Belge sohbetleri için dosya isimlerini arayın
+- Tam ifadeler için tırnak kullanın
 
-**Rate Limit Exceeded:**
-- Wait for quota reset
-- Upgrade to higher tier
-- Use more efficient messaging
-- Spread usage throughout day
+## Optimizasyon İpuçları
 
-**Provider Unavailable:**
-- Automatic failover activated
-- Manual provider selection
-- Retry in few minutes
-- Check status page for updates
+### Etkili İstemler Yazma
 
-**Invalid Input:**
-- Check message formatting
-- Verify file types if uploading
-- Reduce message length
-- Remove special characters
+**Spesifik Olun:**
+```
+❌ "Kodlama yardımı"
+✅ "TypeError veren bu Python fonksiyonunu debug et"
+```
 
-## Best Practices
+**Bağlam Sağlayın:**
+```
+❌ "Bunu analiz et"
+✅ "Bu çeyreklik satış raporunu bölgesel performans trendlerine odaklanarak analiz et"
+```
 
-### Conversation Etiquette
+**Takip Soruları Sorun:**
+```
+Örnekler:
+"3. noktayı detaylandırabilir misiniz?"
+"Bu yaklaşımın sonuçları neler olurdu?"
+"Bu pratikte nasıl çalışır?"
+```
 
-**Clear Communication:**
-- Be specific about what you need
-- Provide relevant context
-- Ask one question at a time
-- Follow up for clarification
+### Doğru AI'ı Seçme
 
-**Effective Collaboration:**
-- Build on previous responses
-- Reference specific parts of AI answers
-- Correct misunderstandings promptly
-- Maintain conversation thread
+**Görev Tabanlı Seçim:**
+```
+Yaratıcı Yazım: OpenAI GPT
+Derin Analiz: Anthropic Claude
+Görüntü Görevleri: Google Gemini
+Kodlama: DeepSeek Coder
+Gizlilik: Local Llama
+```
 
-### Privacy and Security
+**Performans Değerlendirmeleri:**
+- Hız vs. kalite ödünleşimleri
+- Maliyet vs. yetenek dengesi
+- Kullanılabilirlik ve güvenilirlik
+- Belirli model güçlü yanları
 
-**Sensitive Information:**
-- Avoid sharing personal data
-- Don't include passwords or keys
-- Consider using Local Llama for sensitive content
-- Review conversation before sharing
+### Token Kullanımını Yönetme
 
-**Data Handling:**
-- Conversations are encrypted
-- Files processed securely
-- No data shared with unauthorized parties
-- Retention policies applied automatically
+**Verimli Mesajlaşma:**
+- Mesajları odaklı tutun
+- Gereksiz tekrardan kaçının
+- Açık, kısa dil kullanın
+- Karmaşık sorguları parçalara bölün
 
-### Maximizing AI Value
+**Token Farkındalığı:**
+```
+Yaklaşık Token Sayıları:
+- 1 token ≈ 4 karakter
+- Ortalama kelime ≈ 1.3 token
+- Uzun mesajlar daha fazla token kullanır
+- Dosya içeriği token sayısına eklenir
+```
 
-**Learning Approach:**
-- Experiment with different providers
-- Learn each model's strengths
-- Build complex conversations gradually
-- Take notes on effective prompting
+## Sorun Giderme
 
-**Productivity Tips:**
-- Save useful conversation templates
-- Reuse effective prompting patterns
-- Organize conversations by project
-- Regular cleanup of old chats
+### Yaygın Sorunlar
 
-Remember: The AI assistant is a powerful tool that becomes more effective with practice. Experiment with different approaches and providers to find what works best for your specific needs!
+**AI Yanıt Vermiyor:**
+1. İnternet bağlantısını kontrol edin
+2. Hız sınırı durumunu doğrulayın
+3. Farklı AI sağlayıcı deneyin
+4. Kalıcıysa tarayıcıyı yenileyin
+
+**Yavaş Yanıtlar:**
+1. Sunucu durumunu kontrol edin
+2. Yoğun olmayan saatlerde deneyin
+3. Daha hızlı model kullanın (Gemini Flash)
+4. Mesaj karmaşıklığını azaltın
+
+**Beklenmeyen Yanıtlar:**
+1. Daha fazla bağlam sağlayın
+2. Sorunuzu yeniden ifade edin
+3. Farklı AI sağlayıcı deneyin
+4. Karmaşık sorguları adımlara bölün
+
+### Hata Mesajları
+
+**Hız Sınırı Aşıldı:**
+- Kota sıfırlanması için bekleyin
+- Daha yüksek seviyeye yükseltin
+- Daha verimli mesajlaşma kullanın
+- Kullanımı gün boyunca yayın
+
+**Sağlayıcı Kullanılamıyor:**
+- Otomatik yedek geçiş etkinleştirildi
+- Manuel sağlayıcı seçimi
+- Birkaç dakika sonra yeniden deneyin
+- Güncellemeler için durum sayfasını kontrol edin
+
+**Geçersiz Giriş:**
+- Mesaj formatını kontrol edin
+- Yükleme yapıyorsanız dosya türlerini doğrulayın
+- Mesaj uzunluğunu azaltın
+- Özel karakterleri kaldırın
+
+## En İyi Uygulamalar
+
+### Konuşma Nezaketi
+
+**Açık İletişim:**
+- Neye ihtiyacınız olduğu konusunda spesifik olun
+- İlgili bağlamı sağlayın
+- Seferde bir soru sorun
+- Açıklama için takip edin
+
+**Etkili İşbirliği:**
+- Önceki yanıtlar üzerine inşa edin
+- AI yanıtlarının belirli bölümlerine referans verin
+- Yanlış anlamaları hızla düzeltin
+- Konuşma dizisini sürdürün
+
+### Gizlilik ve Güvenlik
+
+**Hassas Bilgiler:**
+- Kişisel verileri paylaşmaktan kaçının
+- Parolaları veya anahtarları dahil etmeyin
+- Hassas içerik için Local Llama kullanmayı düşünün
+- Paylaşmadan önce konuşmayı gözden geçirin
+
+**Veri İşleme:**
+- Konuşmalar şifrelenir
+- Dosyalar güvenli bir şekilde işlenir
+- Veriler yetkisiz taraflarla paylaşılmaz
+- Saklama politikaları otomatik olarak uygulanır
+
+### AI Değerini Maksimize Etme
+
+**Öğrenme Yaklaşımı:**
+- Farklı sağlayıcılarla deneyim yapın
+- Her modelin güçlü yanlarını öğrenin
+- Karmaşık konuşmaları kademeli olarak geliştirin
+- Etkili istem yazma konusunda notlar alın
+
+**Verimlilik İpuçları:**
+- Faydalı konuşma şablonlarını kaydedin
+- Etkili istem kalıplarını yeniden kullanın
+- Konuşmaları proje bazında organize edin
+- Eski sohbetleri düzenli olarak temizleyin
+
+Unutmayın: AI asistanı, pratikte daha etkili hale gelen güçlü bir araçtır. Özel ihtiyaçlarınız için en uygun olanı bulmak için farklı yaklaşımlar ve sağlayıcılarla deneyim yapın!
