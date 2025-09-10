@@ -322,7 +322,7 @@ export class OAuthService {
       }
       
       // Create session
-      const session = await AuthService.lucia.createSession(userId, {});
+      const session = await AuthService.createSession(userId);
       const token = AuthService.generateJWT(userId, session.id);
       
       // Update last login
@@ -355,7 +355,7 @@ export class OAuthService {
       });
       
       const user = await AuthService.getUserById(userId);
-      const session = await AuthService.lucia.createSession(userId, {});
+      const session = await AuthService.createSession(userId);
       const token = AuthService.generateJWT(userId, session.id);
       
       await sql`
@@ -425,7 +425,7 @@ export class OAuthService {
     });
     
     // Create session
-    const session = await AuthService.lucia.createSession(user.id, {});
+    const session = await AuthService.createSession(user.id);
     const token = AuthService.generateJWT(user.id, session.id);
     
     // Update last login

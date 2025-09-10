@@ -29,7 +29,7 @@
 
 - **Multi-Factor Authentication**: TOTP, SMS, backup codes
 - **OAuth Integration**: GitHub, Discord, Google sign-in
-- **Session Management**: Secure session handling with Lucia Auth
+- **Session Management**: Secure authentication with OAuth2 (Auth.js / NextAuth)
 - **Rate Limiting**: Protection against abuse and attacks
 - **Security Headers**: CSRF, XSS, and injection protection
 
@@ -198,7 +198,7 @@ DATABASE_URL="postgresql://username:password@host/database?sslmode=require"
 
 # Authentication
 JWT_SECRET="your-jwt-secret-256-bit"
-LUCIA_SECRET="your-lucia-secret-256-bit"
+NEXTAUTH_SECRET="your-nextauth-secret-256-bit"
 
 # AI Providers (at least one required)
 OPENAI_API_KEY="sk-..."
@@ -269,13 +269,13 @@ cd packages/frontend && pnpm preview
 
 ```bash
 # Database backup (Windows)
-.\scripts\backup\database-backup.ps1
+.\\scripts\\backup\\database-backup.ps1
 
 # Database backup (Unix/Linux)
 ./scripts/backup/database-backup.sh
 
 # Restore from backup
-.\scripts\recovery\database-recovery.ps1 -BackupFile "backup.sql"
+.\\scripts\\recovery\\database-recovery.ps1 -BackupFile "backup.sql"
 ```
 
 ### Backup Features
@@ -308,7 +308,7 @@ Bu proje, Apache License 2.0 ile lisanslanmıştır. Ayrıntılar için [LICENSE
 ### Backend
 
 - **[Elysia.js](https://elysiajs.com/)** - High-performance TypeScript web framework
-- **[Lucia Auth](https://lucia-auth.com/)** - Secure authentication library
+- **[Auth.js (NextAuth)](https://authjs.dev/)** - OAuth2 authentication
 - **[Neon](https://neon.tech/)** - Serverless PostgreSQL
 - **[Redis](https://redis.io/)** - In-memory caching and sessions
 
@@ -342,3 +342,8 @@ Bu proje, Apache License 2.0 ile lisanslanmıştır. Ayrıntılar için [LICENSE
 ---
 
 **Built with ❤️ by the DeepWebAI team**
+
+## Çevre Değişkeni Akışı
+- Lokal: .env.local → (ilk çalıştırmada) .env kopyalanır, asla ezilmez.
+- Vercel: `pnpm env:push` ile Dashboard’a, `pnpm env:pull` ile `.env.local`’a çekilir.
+- .env ve .env.* git’e dahil edilmez; sadece .env.example commit edilir.

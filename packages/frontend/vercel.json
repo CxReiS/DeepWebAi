@@ -1,0 +1,6 @@
+{
+  "framework": "vite",
+  "installCommand": "pnpm i",
+  "buildCommand": "pnpm -w turbo run build --filter=frontend",
+  "outputDirectory": "packages/frontend/dist"
+}

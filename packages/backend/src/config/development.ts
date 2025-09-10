@@ -37,7 +37,7 @@ export const developmentConfig = {
   
   // Default secrets for development
   jwtSecret: process.env.JWT_SECRET || 'development-jwt-secret-32-characters-long',
-  luciaSecret: process.env.LUCIA_SECRET || 'development-lucia-secret-32-characters-long',
+  nextAuthSecret: process.env.NEXTAUTH_SECRET || 'development-nextauth-secret-32-characters-long',
   
   // Mock API keys
   openaiApiKey: process.env.OPENAI_API_KEY || 'sk-mock-openai-key-for-development',

@@ -49,7 +49,7 @@ NEON_DATABASE_URL="postgresql://username:password@host/database?sslmode=require"
 ```env
 # JWT Secrets
 JWT_SECRET="your-jwt-secret-here"
-LUCIA_SECRET="your-lucia-secret-here"
+NEXTAUTH_SECRET="your-nextauth-secret-here"
 
 # Session Configuration
 SESSION_COOKIE_NAME="deepwebai-session"
