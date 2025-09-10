@@ -34,7 +34,7 @@
   "chat.agent.enabled": true,
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.tabSizing": "fixed",
-  "workbench.editor.closeOnFileDelete": true,
+  "workbench.editor.closeOnFileDelete": false,
   "window.zoomLevel": 0,
   "window.density.editorTabHeight": "compact",
   "workbench.sideBar.location": "left",

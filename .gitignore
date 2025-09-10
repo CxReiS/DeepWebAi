@@ -3,6 +3,8 @@ node_modules/
 dist/
 build/
 coverage/
+.tmp/
+venv/
 *.log
 *.log.*
 npm-debug.log*
