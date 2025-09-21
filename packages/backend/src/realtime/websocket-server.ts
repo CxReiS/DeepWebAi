@@ -19,25 +19,25 @@ import { publishMessage, channels, getAblyStatus } from './ably-integration.js';
 // WebSocket plugin for Elysia
 export const websocketPlugin = new Elysia({ name: 'websocket' })
   .ws('/ws/chat', {
-    message(ws, message) {
+    message(ws: any, message: any) {
       // Broadcast chat message to all clients
       publishMessage(channels.CHAT, 'message', {
-        userId: ws.data.userId || 'anonymous',
+        userId: ws.data?.userId || 'anonymous',
         message,
         timestamp: new Date().toISOString(),
       });
     },
-    open(ws) {
+    open(ws: any) {
       console.log('WebSocket connection opened');
       publishMessage(channels.USER_PRESENCE, 'user_joined', {
-        userId: ws.data.userId || 'anonymous',
+        userId: ws.data?.userId || 'anonymous',
         timestamp: new Date().toISOString(),
       });
     },
-    close(ws) {
+    close(ws: any) {
       console.log('WebSocket connection closed');
       publishMessage(channels.USER_PRESENCE, 'user_left', {
-        userId: ws.data.userId || 'anonymous',
+        userId: ws.data?.userId || 'anonymous',
         timestamp: new Date().toISOString(),
       });
     },

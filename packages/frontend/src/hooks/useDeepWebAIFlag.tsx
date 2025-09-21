@@ -17,7 +17,7 @@
 // GrowthBook "DeepWebAi-Flag" feature flag'ini React'te kullanmak için
 
 import { useState, useEffect, useCallback } from 'react';
-import { useFeatureFlag } from './useFeatureFlag';
+import { useFeatureFlag } from './useFeatureFlags';
 
 interface DeepWebAIFlagState {
   isEnabled: boolean;
@@ -48,9 +48,8 @@ export const useDeepWebAIFlag = () => {
   // Temel feature flag hook'unu kullan
   const { 
     isEnabled: baseFlagEnabled, 
-    isLoading: baseFlagLoading, 
-    error: baseFlagError,
-    value: baseFlagValue 
+    loading: baseFlagLoading, 
+    error: baseFlagError
   } = useFeatureFlag('DeepWebAi-Flag');
 
   // Flag durumunu güncelle
@@ -59,11 +58,11 @@ export const useDeepWebAIFlag = () => {
       ...prev,
       isEnabled: baseFlagEnabled,
       isLoading: baseFlagLoading,
-      error: baseFlagError,
-      flagValue: baseFlagValue,
+      error: baseFlagError ? baseFlagError.message : null,
+      flagValue: null,
       features: baseFlagEnabled ? getDeepWebAIFeatures() : null
     }));
-  }, [baseFlagEnabled, baseFlagLoading, baseFlagError, baseFlagValue]);
+  }, [baseFlagEnabled, baseFlagLoading, baseFlagError]);
 
   // DeepWebAI özelliklerini al
   const getDeepWebAIFeatures = useCallback((): DeepWebAIFeatures => {

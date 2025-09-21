@@ -65,23 +65,24 @@ export const monitoringMiddleware = new Elysia({ name: 'monitoring' })
     const startTime = Date.now();
     const method = request.method;
     const url = new URL(request.url).pathname;
-    
+
     return {
       monitoring: {
         startTime,
         method,
         url,
-        logRequest: (statusCode: number, error?: Error) => {
+        logRequest: (statusCode: number, error?: unknown) => {
           const duration = Date.now() - startTime;
-          
-          if (error) {
-            logger.error(`${method} ${url} ${statusCode} - ${duration}ms`, error);
+
+          const err = error instanceof Error ? error : undefined;
+          if (err) {
+            logger.error(`${method} ${url} ${statusCode} - ${duration}ms`, err);
             analytics.track('api_error', {
               method,
               url,
               statusCode,
               duration,
-              error: error.message
+              error: err.message
             });
           } else {
             logger.info(`${method} ${url} ${statusCode} - ${duration}ms`);
@@ -96,15 +97,17 @@ export const monitoringMiddleware = new Elysia({ name: 'monitoring' })
       }
     };
   })
-  .onResponse(({ monitoring, set }) => {
-    monitoring.logRequest(set.status || 200);
+  // Türkçe Açıklama: Elysia v1.3.x ile 'onResponse' yerine 'onAfterResponse' kullanılmalıdır.
+  .onAfterResponse(({ monitoring, set }) => {
+    const s = typeof set.status === 'number' ? set.status : 200;
+    monitoring.logRequest(s);
   })
   .onError(({ error, monitoring, set }) => {
-    const statusCode = set.status || 500;
+    const statusCode = typeof set.status === 'number' ? set.status : 500;
     monitoring.logRequest(statusCode, error);
     return {
       error: 'Internal Server Error',
-      message: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong',
+      message: process.env.NODE_ENV === 'development' && error instanceof Error ? error.message : 'Something went wrong',
       timestamp: new Date().toISOString()
     };
   });
@@ -112,14 +115,14 @@ export const monitoringMiddleware = new Elysia({ name: 'monitoring' })
 // Health check with monitoring
 export const healthCheck = new Elysia({ name: 'health' })
   .get('/health', async () => {
-    const health = {
+    const health: { status: 'ok' | 'degraded'; timestamp: string; environment: string; uptime: number; memory: NodeJS.MemoryUsage; database?: string } = {
       status: 'ok',
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV || 'development',
       uptime: process.uptime(),
       memory: process.memoryUsage()
     };
-    
+
     // Basic database health check
     try {
       const { sql } = await import('./lib/neon-client.js');
@@ -130,7 +133,7 @@ export const healthCheck = new Elysia({ name: 'health' })
       health.status = 'degraded';
       logger.error('Database health check failed', error as Error);
     }
-    
+
     return health;
   });
 

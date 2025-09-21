@@ -19,9 +19,7 @@ import Joyride, {
   CallBackProps, 
   STATUS, 
   Step,
-  Styles,
-  ACTIONS,
-  EVENTS
+  Styles
 } from "react-joyride"
 import { useTheme } from "@/hooks/use-theme"
 
@@ -122,14 +120,19 @@ export function WelcomeTour({ isOpen, onClose }: WelcomeTourProps) {
   const { isDark } = useTheme()
 
   const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status, type } = data
+    const { status } = data // 'type' kullanılmıyor
 
-    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+    // STATUS karşılaştırmasını includes yerine açık karşılaştırma ile yapıyoruz
+    // Use explicit comparisons to avoid union type issues
+    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
       onClose()
     }
   }
 
-  const joyrideStyles: Styles = {
+  // Joyride Styles tipinde tüm alanlar zorunlu; burada kısmi bir stil nesnesi kullandığımız için
+  // Partial<Styles> + as Styles ile tip dönüşümü yapıyoruz.
+  // Joyride expects a full Styles object; we provide a partial and cast for flexibility.
+  const joyrideStyles = {
     options: {
       primaryColor: isDark ? "#ffffff" : "#000000",
       backgroundColor: isDark ? "#1a1a1a" : "#ffffff",
@@ -193,7 +196,7 @@ export function WelcomeTour({ isOpen, onClose }: WelcomeTourProps) {
     beacon: {
       borderRadius: "50%",
     },
-  }
+  } as Styles
 
   React.useEffect(() => {
     // Rehber açıldığında sayfa tour attr'larını ekle

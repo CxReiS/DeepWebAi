@@ -32,7 +32,7 @@
   "continue.telemetry": false,
   "security.workspace.trust.enabled": false,
   "chat.agent.enabled": true,
-  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.colorTheme": "Solarized Dark",
   "workbench.editor.tabSizing": "fixed",
   "workbench.editor.closeOnFileDelete": false,
   "window.zoomLevel": 0,

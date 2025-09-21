@@ -175,38 +175,31 @@ export class AIQueries {
     id: string, 
     updates: Partial<Omit<Conversation, 'id' | 'user_id' | 'created_at' | 'updated_at'>>
   ): Promise<Conversation | null> {
-    const setClause = [];
-    const values = [];
-    
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value !== undefined) {
-        setClause.push(`${key} = $${values.length + 1}`);
-        values.push(key === 'metadata' ? JSON.stringify(value) : value);
-      }
-    });
-    
-    if (setClause.length === 0) {
-      return this.getConversationById(id);
-    }
-    
-    setClause.push('updated_at = NOW()');
-    
-    const result = await sql.unsafe(`
+    // Türkçe Açıklama: Dinamik SET cümlesi yerine güvenli tagged template ile COALESCE kullanıyoruz.
+    const result = await sql`
       UPDATE conversations 
-      SET ${setClause.join(', ')}
-      WHERE id = $${values.length + 1}
+      SET 
+        title = COALESCE(${updates.title ?? null}, title),
+        model_id = COALESCE(${updates.model_id ?? null}, model_id),
+        system_prompt = COALESCE(${updates.system_prompt ?? null}, system_prompt),
+        metadata = COALESCE(${updates.metadata ? JSON.stringify(updates.metadata) : null}, metadata),
+        is_archived = COALESCE(${updates.is_archived ?? null}, is_archived),
+        updated_at = NOW()
+      WHERE id = ${id}
       RETURNING *
-    `, [...values, id]);
-    
+    `;
+
     return result[0] || null;
   }
 
   static async deleteConversation(id: string): Promise<boolean> {
+    // Türkçe Açıklama: DELETE dönüşünde etkilenen satır sayısı yerine RETURNING kullanarak güvenli kontrol.
     const result = await sql`
       DELETE FROM conversations 
       WHERE id = ${id}
+      RETURNING id
     `;
-    return result.count > 0;
+    return Array.isArray(result) && result.length > 0;
   }
 
   // Message management
@@ -241,22 +234,15 @@ export class AIQueries {
     options: { limit?: number; offset?: number; since?: Date } = {}
   ): Promise<Message[]> {
     const { limit = 50, offset = 0, since } = options;
-    
-    let whereClause = 'conversation_id = $1';
-    const values = [conversationId];
-    
-    if (since) {
-      whereClause += ` AND created_at > $${values.length + 1}`;
-      values.push(since.toISOString());
-    }
-    
-    const result = await sql.unsafe(`
+
+    const result = await sql`
       SELECT * FROM messages 
-      WHERE ${whereClause}
+      WHERE conversation_id = ${conversationId}
+      ${since ? sql`AND created_at > ${since.toISOString()}` : sql``}
       ORDER BY created_at ASC
-      LIMIT $${values.length + 1} OFFSET $${values.length + 2}
-    `, [...values, limit, offset]);
-    
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+
     return result;
   }
 
@@ -286,12 +272,17 @@ export class AIQueries {
       return this.getMessageById(id);
     }
     
-    const result = await sql.unsafe(`
+    // Türkçe Açıklama: sql.unsafe yerine COALESCE ile güvenli güncelleme
+    const result = await sql`
       UPDATE messages 
-      SET ${setClause.join(', ')}
-      WHERE id = $${values.length + 1}
+      SET 
+        role = COALESCE(${updates.role ?? null}, role),
+        content = COALESCE(${updates.content ?? null}, content),
+        metadata = COALESCE(${updates.metadata ? JSON.stringify(updates.metadata) : null}, metadata),
+        token_count = COALESCE(${updates.token_count ?? null}, token_count)
+      WHERE id = ${id}
       RETURNING *
-    `, [...values, id]);
+    `;
     
     return result[0] || null;
   }
@@ -300,8 +291,9 @@ export class AIQueries {
     const result = await sql`
       DELETE FROM messages 
       WHERE id = ${id}
+      RETURNING id
     `;
-    return result.count > 0;
+    return Array.isArray(result) && result.length > 0;
   }
 
   // API Usage tracking
@@ -380,43 +372,41 @@ export class AIQueries {
     }
     
     // Get usage records
-    const usage = await sql.unsafe(`
+    const usage = await sql`
       SELECT au.*, am.name as model_name, am.provider as model_provider
       FROM api_usage au
       LEFT JOIN ai_models am ON au.model_id = am.id
-      WHERE ${whereClause}
+      WHERE user_id = ${userId}
+      ${from ? sql`AND created_at >= ${from.toISOString()}` : sql``}
+      ${to ? sql`AND created_at <= ${to.toISOString()}` : sql``}
+      ${model_id ? sql`AND model_id = ${model_id}` : sql``}
       ORDER BY au.created_at DESC
-      LIMIT $${values.length + 1} OFFSET $${values.length + 2}
-    `, [...values, limit, offset]);
+      LIMIT ${limit} OFFSET ${offset}
+    `;
     
     // Get statistics
-    const statsResult = await sql.unsafe(`
+    const statsResult = await sql`
       SELECT 
         COUNT(*) as total_requests,
         COALESCE(SUM(tokens_used), 0) as total_tokens,
         COALESCE(SUM(cost_usd), 0) as total_cost,
         COALESCE(AVG(response_time_ms), 0) as avg_response_time
       FROM api_usage
-      WHERE ${whereClause}
-    `, values);
+      WHERE user_id = ${userId}
+      ${from ? sql`AND created_at >= ${from.toISOString()}` : sql``}
+      ${to ? sql`AND created_at <= ${to.toISOString()}` : sql``}
+      ${model_id ? sql`AND model_id = ${model_id}` : sql``}
+    `;
     
     return {
       usage,
-      stats: statsResult[0]
+      stats: statsResult[0] as any
     };
   }
 
   // Model performance analytics
   static async getModelPerformanceStats(modelId?: string): Promise<any[]> {
-    let whereClause = '1=1';
-    const values = [];
-    
-    if (modelId) {
-      whereClause = 'au.model_id = $1';
-      values.push(modelId);
-    }
-    
-    const result = await sql.unsafe(`
+    const result = await sql`
       SELECT 
         am.id,
         am.name,
@@ -426,14 +416,14 @@ export class AIQueries {
         AVG(au.tokens_used) as avg_tokens_per_request,
         SUM(au.cost_usd) as total_cost,
         COUNT(CASE WHEN au.status_code >= 400 THEN 1 END) as error_count,
-        (COUNT(CASE WHEN au.status_code >= 400 THEN 1 END)::FLOAT / COUNT(au.id) * 100) as error_rate
+        (COUNT(CASE WHEN au.status_code >= 400 THEN 1 END)::FLOAT / NULLIF(COUNT(au.id), 0) * 100) as error_rate
       FROM ai_models am
       LEFT JOIN api_usage au ON am.id = au.model_id
-      WHERE ${whereClause}
+      WHERE ${modelId ? sql`au.model_id = ${modelId}` : sql`1=1`}
         AND au.created_at >= NOW() - INTERVAL '7 days'
       GROUP BY am.id, am.name, am.provider
       ORDER BY total_requests DESC
-    `, values);
+    `;
     
     return result;
   }

@@ -14,7 +14,7 @@
  */
 
 // Analytics module for tracking events
-import { logger } from '../../libs/error-tracking/custom-logger.js';
+import { logger } from '../libs/error-tracking/custom-logger';
 
 export enum AnalyticsEventType {
   PAGE_VIEW = 'page_view',

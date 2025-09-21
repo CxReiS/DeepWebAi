@@ -15,8 +15,8 @@
 
 // UI bileşenleri için test dosyası
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { EmptyState } from '@/components/ui/empty-state'
 import { describe, it, expect, vi } from 'vitest'

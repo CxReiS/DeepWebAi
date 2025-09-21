@@ -102,30 +102,22 @@ export class UserQueries {
   // Update user
   static async update(id: string, userData: UpdateUser): Promise<User | null> {
     const validated = UpdateUserSchema.parse(userData);
-    
-    const setClause = [];
-    const values = [];
-    
-    Object.entries(validated).forEach(([key, value]) => {
-      if (value !== undefined) {
-        setClause.push(`${key} = $${values.length + 1}`);
-        values.push(key === 'preferences' ? JSON.stringify(value) : value);
-      }
-    });
-    
-    if (setClause.length === 0) {
-      return this.findById(id);
-    }
-    
-    setClause.push('updated_at = NOW()');
-    
-    const result = await sql.unsafe(`
+
+    // Türkçe Açıklama: Dinamik SET yerine COALESCE ile güvenli tagged template kullanımı.
+    const result = await sql`
       UPDATE users 
-      SET ${setClause.join(', ')}
-      WHERE id = $${values.length + 1}
+      SET 
+        username = COALESCE(${validated.username ?? null}, username),
+        display_name = COALESCE(${validated.display_name ?? null}, display_name),
+        avatar_url = COALESCE(${validated.avatar_url ?? null}, avatar_url),
+        bio = COALESCE(${validated.bio ?? null}, bio),
+        role = COALESCE(${validated.role ?? null}, role),
+        preferences = COALESCE(${validated.preferences ? JSON.stringify(validated.preferences) : null}, preferences),
+        updated_at = NOW()
+      WHERE id = ${id}
       RETURNING *
-    `, [...values, id]);
-    
+    `;
+
     return result[0] || null;
   }
 
@@ -135,9 +127,10 @@ export class UserQueries {
       UPDATE users 
       SET updated_at = NOW(), role = 'inactive'
       WHERE id = ${id}
+      RETURNING id
     `;
     
-    return result.count > 0;
+    return Array.isArray(result) && result.length > 0;
   }
 
   // Update last login
@@ -157,40 +150,29 @@ export class UserQueries {
     search?: string;
   } = {}): Promise<{ users: User[]; total: number }> {
     const { limit = 20, offset = 0, role, search } = options;
-    
-    let whereConditions = ['1=1'];
-    const values = [];
-    
-    if (role) {
-      whereConditions.push(`role = $${values.length + 1}`);
-      values.push(role);
-    }
-    
-    if (search) {
-      whereConditions.push(`(username ILIKE $${values.length + 1} OR display_name ILIKE $${values.length + 1} OR email ILIKE $${values.length + 1})`);
-      values.push(`%${search}%`);
-    }
-    
-    const whereClause = whereConditions.join(' AND ');
-    
+
     // Get total count
-    const countResult = await sql.unsafe(`
+    const countResult = await sql`
       SELECT COUNT(*) as total FROM users 
-      WHERE ${whereClause}
-    `, values);
-    
+      WHERE 1=1
+      ${role ? sql`AND role = ${role}` : sql``}
+      ${search ? sql`AND (username ILIKE ${'%' + search + '%'} OR display_name ILIKE ${'%' + search + '%'} OR email ILIKE ${'%' + search + '%'})` : sql``}
+    `;
+
     // Get users
-    const users = await sql.unsafe(`
+    const users = await sql`
       SELECT * FROM users 
-      WHERE ${whereClause}
+      WHERE 1=1
+      ${role ? sql`AND role = ${role}` : sql``}
+      ${search ? sql`AND (username ILIKE ${'%' + search + '%'} OR display_name ILIKE ${'%' + search + '%'} OR email ILIKE ${'%' + search + '%'})` : sql``}
       ORDER BY created_at DESC
-      LIMIT $${values.length + 1} OFFSET $${values.length + 2}
-    `, [...values, limit, offset]);
-    
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+
     return {
       users,
       total: parseInt(countResult[0].total)
-    };
+    } as any;
   }
 
   // Get user statistics
@@ -231,12 +213,12 @@ export class UserQueries {
       WHERE u.id = ${userId}
     `;
     
-    return result[0] || {
+    return (result[0] as any) || {
       totalConversations: 0,
       totalMessages: 0,
       totalTokensUsed: 0,
       totalCost: 0
-    };
+    } as any;
   }
 
   // Get user with OAuth accounts

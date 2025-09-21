@@ -14,7 +14,7 @@
  */
 
 import { createServer } from "http";
-import dotenv from "dotenv";
+// dotenv is managed via dotenv-flow in env.ts
 import {
   createBaseApp,
   addSecurityMiddleware,
@@ -43,8 +43,7 @@ import {
   metricsEndpoint 
 } from "./monitoring.js";
 
-// Load environment variables
-dotenv.config();
+// Env is loaded during import in env.ts
 
 // Initialize monitoring systems
 logger.info('Initializing monitoring systems...');
@@ -55,8 +54,10 @@ featureFlagService.initialize()
   .catch((error) => logger.error('Failed to initialize feature flags:', error as Error));
 
 // Initialize Sentry for error tracking
+import { ENV } from './env.js'
+
 initSentry({
-  dsn: process.env.SENTRY_DSN,
+  dsn: ENV.SENTRY_DSN,
   environment: config.env,
   release: process.env.npm_package_version || '1.0.0',
   sampleRate: config.env === 'production' ? 0.1 : 1.0,

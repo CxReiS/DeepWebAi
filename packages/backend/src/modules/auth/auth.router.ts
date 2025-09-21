@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Elysia } from "elysia";
+import { Elysia, type InferContext } from "elysia";
 import { authController } from "./auth.controller.js";
 import { authMiddleware, requireAuth } from "../../auth/index.js";
 import { AuthService } from "../../auth/index.js";
@@ -23,7 +23,7 @@ export const userProfileRouter = new Elysia({ prefix: '/user', name: 'user-profi
   .use(authMiddleware)
   
   // Get user profile (requires auth)
-  .get('/profile', async ({ user, set }) => {
+  .get('/profile', async ({ user, set }: InferContext<typeof authMiddleware>) => {
     if (!user) {
       set.status = 401;
       return {
@@ -63,7 +63,7 @@ export const userProfileRouter = new Elysia({ prefix: '/user', name: 'user-profi
   })
   
   // Update user profile (requires auth)
-  .patch('/profile', async ({ user, body, set }) => {
+  .patch('/profile', async ({ user, body, set }: InferContext<typeof authMiddleware>) => {
     if (!user) {
       set.status = 401;
       return {
@@ -95,7 +95,7 @@ export const userProfileRouter = new Elysia({ prefix: '/user', name: 'user-profi
   })
   
   // Delete user account (requires auth)
-  .delete('/account', async ({ user, headers, set }) => {
+  .delete('/account', async ({ user, headers, set }: InferContext<typeof authMiddleware>) => {
     if (!user) {
       set.status = 401;
       return {
@@ -121,7 +121,7 @@ export const userProfileRouter = new Elysia({ prefix: '/user', name: 'user-profi
       // Clear session cookie
       set.headers = {
         ...set.headers,
-        'Set-Cookie': 'deepweb_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'
+        'set-cookie': 'deepweb_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'
       } as any;
       
       return {
@@ -163,7 +163,7 @@ export const oauthRouter = new Elysia({ prefix: '/oauth', name: 'oauth' })
     set.status = 302;
     set.headers = {
       ...set.headers,
-      'Location': githubUrl
+      'location': githubUrl
     } as any;
     
     return { redirect: githubUrl };
@@ -220,8 +220,8 @@ export const oauthRouter = new Elysia({ prefix: '/oauth', name: 'oauth' })
     set.status = 302;
     set.headers = {
       ...set.headers,
-      'Location': discordUrl
-    };
+      'location': discordUrl
+    } as any;
     
     return { redirect: discordUrl };
   })
@@ -259,7 +259,7 @@ export const oauthRouter = new Elysia({ prefix: '/oauth', name: 'oauth' })
 // Admin routes (requires admin role)
 export const adminAuthRouter = new Elysia({ prefix: '/admin', name: 'admin-auth' })
   .use(requireAuth)
-  .derive(({ user, set }) => {
+  .derive(({ user, set }: any) => {
     if (user.role !== 'admin' && user.role !== 'developer') {
       set.status = 403;
       throw new Error("Admin access required");

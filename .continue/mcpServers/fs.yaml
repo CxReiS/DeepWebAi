@@ -1,0 +1,12 @@
+name: Filesystem MCP
+version: 0.0.1
+schema: v1
+
+mcpServers:
+  - name: fs
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-filesystem"
+      - /home/cxteam1/apps/DeepwebXai # SADECE dizin, bayrak yok
+    env: {}

@@ -469,9 +469,9 @@ export class SecurityService {
 
 // Security middleware for brute force protection
 export const bruteForceMiddleware = new Elysia({ name: 'brute-force-protection' })
-  .derive(({ request, set }) => {
-    const ip = request.headers['x-forwarded-for'] || 
-               request.headers['x-real-ip'] || 
+  .derive(({ headers, set }) => {
+    const ip = headers['x-forwarded-for'] || 
+               headers['x-real-ip'] || 
                'unknown';
     
     if (bruteForceProtection.isBlocked(ip)) {
@@ -480,8 +480,8 @@ export const bruteForceMiddleware = new Elysia({ name: 'brute-force-protection' 
       set.status = 429;
       set.headers = {
         ...set.headers,
-        'Retry-After': Math.ceil(remainingTime / 1000).toString()
-      };
+        'retry-after': Math.ceil(remainingTime / 1000).toString()
+      } as any;
       
       throw new Error(`Too many failed attempts. Try again in ${Math.ceil(remainingTime / 60000)} minutes.`);
     }

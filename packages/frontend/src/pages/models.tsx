@@ -16,13 +16,15 @@
 // AI modelleri sayfası - Kullanılabilir modellerin yönetimi ve seçimi
 import * as React from "react"
 import { motion } from "framer-motion"
-import { Bot, Zap, Settings, Play, Pause, Info } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Bot, Play, Pause, Info } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
-import { Tooltip } from "@/components/ui/tooltip"
+import { Tooltip } from "@/components/ui/Tooltip"
 import { cn } from "@/lib/utils"
 import toast from "react-hot-toast"
+import { Input } from "@/components/ui/Input"
+import { CLIENT_KEYS_ENABLED, getEnvKey, getKey, saveKey, clearKey, type ProviderId } from "@/stores/apiKeys"
 
 interface AIModel {
   id: string
@@ -82,6 +84,16 @@ const mockModels: AIModel[] = [
     capabilities: ["Açık kaynak", "Özelleştirme", "Yerel çalıştırma"],
     performance: { speed: 70, accuracy: 85, cost: 30 },
     usage: { requests: 234, tokens: 28000 }
+  },
+  {
+    id: "deepseek-chat",
+    name: "DeepSeek Chat",
+    description: "Hızlı ve ekonomik kod-dostu sohbet modeli.",
+    provider: "DeepSeek",
+    status: "inactive",
+    capabilities: ["Metin üretimi", "Kod yardımcı"],
+    performance: { speed: 88, accuracy: 86, cost: 25 },
+    usage: { requests: 0, tokens: 0 }
   }
 ]
 
@@ -198,6 +210,15 @@ interface ModelCardProps {
   disabled: boolean
 }
 
+function providerToId(provider: string): ProviderId | null {
+  const p = provider.toLowerCase()
+  if (p.includes('openai')) return 'openai'
+  if (p.includes('anthropic')) return 'anthropic'
+  if (p.includes('google') || p.includes('gemini')) return 'google'
+  if (p.includes('deepseek')) return 'deepseek'
+  return null
+}
+
 function ModelCard({ model, index, onToggle, disabled }: ModelCardProps) {
   const isActive = model.status === "active"
   const isLoading = model.status === "loading"
@@ -280,6 +301,9 @@ function ModelCard({ model, index, onToggle, disabled }: ModelCardProps) {
             </div>
           </div>
 
+          {/* API Key alanı (OpenAI/Anthropic/Google/DeepSeek) */}
+          <ApiKeyField providerLabel={model.provider} />
+
           {/* Performans metrikleri */}
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Performans</h4>
@@ -333,6 +357,86 @@ function PerformanceBar({ label, value, color, inverted }: PerformanceBarProps) 
         />
       </div>
       <span className="text-xs w-10 text-right">{value}%</span>
+    </div>
+  )
+}
+
+function ApiKeyField({ providerLabel }: { providerLabel: string }) {
+  const provider = providerToId(providerLabel)
+  const [value, setValue] = React.useState('')
+  const [show, setShow] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    let active = true
+    ;(async () => {
+      if (!provider) return
+      try {
+        const existing = await getKey(provider)
+        if (active && existing) setValue(existing)
+      } catch {
+        // noop
+      } finally {
+        if (active) setLoading(false)
+      }
+    })()
+    return () => {
+      active = false
+    }
+  }, [provider])
+
+  if (!provider) return null
+
+  const envKey = getEnvKey(provider)
+  const readOnly = envKey ? true : !CLIENT_KEYS_ENABLED
+
+  return (
+    <div className="space-y-2">
+      <h4 className="text-sm font-medium">API Key</h4>
+      {readOnly && (
+        <p className="text-xs text-muted-foreground">
+          {envKey ? 'Çevre değişkeninden okutuldu (readonly)' : 'Prod ortamında anahtarlar sunucu tarafında saklanır.'}
+        </p>
+      )}
+      <div className="flex gap-2 items-center">
+        <Input
+          type={show ? 'text' : 'password'}
+          placeholder={`${providerLabel} API Key`}
+          value={envKey ? envKey : value}
+          onChange={(e) => setValue(e.target.value)}
+          disabled={readOnly || loading}
+          className="flex-1"
+        />
+        <Button variant="outline" onClick={() => setShow(s => !s)}>{show ? 'Gizle' : 'Göster'}</Button>
+        <Button
+          onClick={async () => {
+            try {
+              if (!value || value.trim().length < 10) {
+                toast.error('Anahtar çok kısa')
+                return
+              }
+              await saveKey(provider, value.trim())
+              toast.success('Kaydedildi / Saved')
+            } catch (e: any) {
+              toast.error(e?.message || 'Kaydedilemedi')
+            }
+          }}
+          disabled={readOnly || loading}
+        >Kaydet</Button>
+        <Button
+          variant="ghost"
+          onClick={async () => {
+            try {
+              await clearKey(provider)
+              setValue('')
+              toast.success('Temizlendi / Cleared')
+            } catch (e: any) {
+              toast.error(e?.message || 'Temizlenemedi')
+            }
+          }}
+          disabled={readOnly || loading}
+        >Temizle</Button>
+      </div>
     </div>
   )
 }

@@ -16,7 +16,7 @@
 // DeepWebAI Features Router
 // GrowthBook "DeepWebAi-Flag" ile kontrol edilen özel özellikler
 
-import { Elysia } from 'elysia';
+import { Elysia, type InferContext } from 'elysia';
 import { deepWebAIFlagMiddleware, requireDeepWebAIFlag, withDeepWebAIFlag } from '../../middleware/deepwebai-flag.middleware';
 import { z } from 'zod';
 
@@ -24,7 +24,7 @@ export const deepWebAIFeaturesRouter = new Elysia({ name: 'deepwebai-features' }
   .use(deepWebAIFlagMiddleware)
 
   // Public endpoint - Flag durumunu kontrol et
-  .get('/api/deepwebai/status', ({ isDeepWebAIFlagEnabled, deepWebAIFlagValue, userContext }) => {
+  .get('/api/deepwebai/status', ({ isDeepWebAIFlagEnabled, deepWebAIFlagValue, userContext }: any) => {
     return {
       flagEnabled: isDeepWebAIFlagEnabled,
       flagValue: deepWebAIFlagValue,
@@ -37,7 +37,7 @@ export const deepWebAIFeaturesRouter = new Elysia({ name: 'deepwebai-features' }
   })
 
   // Conditional endpoint - Flag'e göre farklı response
-  .get('/api/deepwebai/dashboard', ({ isDeepWebAIFlagEnabled, userContext }) => {
+  .get('/api/deepwebai/dashboard', ({ isDeepWebAIFlagEnabled, userContext }: any) => {
     const basicDashboard = {
       type: 'basic',
       features: ['chat', 'file-upload', 'basic-analytics'],
@@ -72,7 +72,7 @@ export const deepWebAIFeaturesRouter = new Elysia({ name: 'deepwebai-features' }
 
   // Protected endpoint - Sadece flag aktifse erişilebilir
   .use(requireDeepWebAIFlag)
-  .get('/api/deepwebai/premium-features', ({ userContext }) => {
+  .get('/api/deepwebai/premium-features', ({ userContext }: any) => {
     console.log('🎉 Premium features accessed by user:', userContext.id);
     
     return {
@@ -104,7 +104,7 @@ export const deepWebAIFeaturesRouter = new Elysia({ name: 'deepwebai-features' }
   })
 
   // Premium AI Chat endpoint - Flag gerekli
-  .post('/api/deepwebai/premium-chat', async ({ body, userContext }) => {
+  .post('/api/deepwebai/premium-chat', async ({ body, userContext }: any) => {
     const chatSchema = z.object({
       message: z.string().min(1),
       model: z.enum(['gpt-4-turbo', 'claude-3-opus', 'gemini-ultra']).optional().default('gpt-4-turbo'),
@@ -152,7 +152,7 @@ export const deepWebAIFeaturesRouter = new Elysia({ name: 'deepwebai-features' }
   })
 
   // Analytics endpoint - Premium analytics
-  .get('/api/deepwebai/premium-analytics', ({ userContext, query }) => {
+  .get('/api/deepwebai/premium-analytics', ({ userContext, query }: any) => {
     const timeRange = query.timeRange as string || '7d';
     
     console.log('📊 Premium analytics accessed:', {
@@ -186,7 +186,7 @@ export const deepWebAIFeaturesRouter = new Elysia({ name: 'deepwebai-features' }
   })
 
   // Feature feedback endpoint
-  .post('/api/deepwebai/feedback', async ({ body, userContext }) => {
+  .post('/api/deepwebai/feedback', async ({ body, userContext }: any) => {
     const feedbackSchema = z.object({
       feature: z.string(),
       rating: z.number().min(1).max(5),

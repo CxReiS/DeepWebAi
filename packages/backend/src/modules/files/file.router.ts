@@ -102,7 +102,7 @@ const OCRResultSchema = t.Object({
 });
 
 export const fileRouter = new Elysia({ prefix: '/api/files' })
-  .post('/upload', async (context) => fileController.uploadFile(context), {
+  .post('/upload', async (context) => fileController.uploadFile(context as any), {
     body: t.File(),
     response: {
       201: FileUploadResponseSchema,
@@ -118,7 +118,7 @@ export const fileRouter = new Elysia({ prefix: '/api/files' })
     }
   })
 
-  .post('/:id/process', async (context) => fileController.processFile(context), {
+  .post('/:id/process', async (context) => fileController.processFile(context as any), {
     params: t.Object({
       id: t.String({ description: 'File ID' })
     }),
@@ -144,7 +144,7 @@ export const fileRouter = new Elysia({ prefix: '/api/files' })
     }
   })
 
-  .get('/:id/status', async (context) => fileController.getProcessingStatus(context), {
+  .get('/:id/status', async (context) => fileController.getProcessingStatus(context as any), {
     params: t.Object({
       id: t.String({ description: 'File ID' })
     }),
@@ -161,7 +161,7 @@ export const fileRouter = new Elysia({ prefix: '/api/files' })
     }
   })
 
-  .get('/:id/content', async (context) => fileController.getFileContent(context), {
+  .get('/:id/content', async (context) => fileController.getFileContent(context as any), {
     params: t.Object({
       id: t.String({ description: 'File ID' })
     }),
@@ -178,7 +178,7 @@ export const fileRouter = new Elysia({ prefix: '/api/files' })
     }
   })
 
-  .get('/:id/download', async (context) => fileController.downloadFile(context), {
+  .get('/:id/download', async (context) => fileController.downloadFile(context as any), {
     params: t.Object({
       id: t.String({ description: 'File ID' })
     }),

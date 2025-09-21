@@ -16,25 +16,27 @@
 // Sohbet sayfası - AI asistanı ile gerçek zamanlı mesajlaşma arayüzü
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useMutation } from "@tanstack/react-query"
 import { 
   Send, 
   Bot, 
   User, 
-  MoreVertical,
   Copy,
-  RefreshCw,
   Trash2,
   Plus
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Combobox } from "@ark-ui/react"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import { Card, CardContent } from "@/components/ui/Card"
+import { Avatar, AvatarFallback } from "@/components/ui/Avatar"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { ChatEmptyState } from "@/components/ui/empty-state"
-import { Tooltip } from "@/components/ui/tooltip"
+import { Tooltip } from "@/components/ui/Tooltip"
 import { cn, formatRelativeTime, generateId } from "@/lib/utils"
 import toast from "react-hot-toast"
+import { apiClient } from "@/services/api-client"
+import { PROVIDERS, LMSTUDIO_MODELS, useSelectedProvider, useProviderModel } from "@/lib/ai/providers"
 
 interface Message {
   id: string
@@ -77,21 +79,44 @@ export function Chat() {
   const [sessions, setSessions] = React.useState<ChatSession[]>(initialSessions)
   const [activeSessionId, setActiveSessionId] = React.useState<string | null>(sessions[0]?.id || null)
   const [message, setMessage] = React.useState("")
-  const [isLoading, setIsLoading] = React.useState(false)
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
+  const [provider, setProvider] = useSelectedProvider()
+  const [modelName, setModelName] = useProviderModel(provider)
+
+  // useMutation: API'ye mesaj göndermek için kullanılır. Başarılı olduğunda onSuccess,
+  // hata olduğunda onError tetiklenir.
+  // useMutation: Used to send the message to the API. onSuccess runs on success, onError when the request fails.
+  const chatMutation = useMutation({
+    mutationFn: async (userText: string) => {
+      // Mesajı backend'e gönderir. Eğer backend'deki doğru endpoint farklıysa burada güncelleyin.
+      // Sends the user's message to the backend. Update the endpoint here if your backend differs.
+      return apiClient.post<{ content?: string; message?: string }>("/api/chat", { message: userText })
+    },
+    onError: (error: Error) => {
+      toast.error(error?.message || "AI isteği başarısız oldu")
+    }
+  })
 
   const activeSession = sessions.find(s => s.id === activeSessionId)
 
+  // Boş ekran hatasını önlemek için 'activeSession' verisinin varlığı kontrol edildi.
+  // Eğer aktif oturum yoksa ve listede en az bir oturum varsa ilkini seç.
+  React.useEffect(() => {
+     if (!activeSessionId && sessions[0]?.id) {
+      setActiveSessionId(sessions[0].id)
+  }
+  }, [sessions, activeSessionId])
+ 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
-
+ 
   React.useEffect(() => {
     scrollToBottom()
   }, [activeSession?.messages])
 
   const sendMessage = async () => {
-    if (!message.trim() || isLoading) return
+    if (!message.trim() || chatMutation.isPending) return
 
     const userMessage: Message = {
       id: generateId(),
@@ -99,6 +124,9 @@ export function Chat() {
       role: "user",
       timestamp: new Date()
     }
+
+    // Hedef session'ı belirle (varsa mevcut, yoksa yeni oluşturulacak)
+    let targetSessionId = activeSessionId as string | null
 
     if (activeSessionId) {
       // Mevcut session'a mesaj ekle
@@ -121,42 +149,45 @@ export function Chat() {
       }
       setSessions(prev => [newSession, ...prev])
       setActiveSessionId(newSession.id)
+      targetSessionId = newSession.id
     }
 
     setMessage("")
-    setIsLoading(true)
 
-    // AI yanıtını simüle et
-    setTimeout(() => {
-      const aiMessage: Message = {
-        id: generateId(),
-        content: generateAIResponse(userMessage.content),
-        role: "assistant",
-        timestamp: new Date()
+    // useMutation ile API'ye mesaj gönder
+    // Send the message to the API using useMutation
+    chatMutation.mutate(userMessage.content, {
+      onSuccess: (data) => {
+        // onSuccess: Backend'den başarılı yanıt geldiğinde çalışır.
+        // onSuccess: Runs when the backend returns a successful response.
+        const aiText = (data as any)?.content ?? (data as any)?.message ?? ""
+
+        const aiMessage: Message = {
+          id: generateId(),
+          content: aiText,
+          role: "assistant",
+          timestamp: new Date()
+        }
+
+        setSessions(prev => prev.map(session =>
+          session.id === (targetSessionId || prev[0]?.id)
+            ? {
+                ...session,
+                messages: [...session.messages, aiMessage],
+                lastMessage: new Date()
+              }
+            : session
+        ))
+      },
+      onError: (err: any) => {
+        // onError: İstek hata ile sonuçlandığında çalışır.
+        // onError: Triggered when the request fails.
+        toast.error(err?.message || 'AI isteği başarısız oldu')
       }
-
-      setSessions(prev => prev.map(session =>
-        session.id === (activeSessionId || sessions[0]?.id)
-          ? {
-              ...session,
-              messages: [...session.messages, aiMessage],
-              lastMessage: new Date()
-            }
-          : session
-      ))
-      setIsLoading(false)
-    }, 1500)
+    })
   }
 
-  const generateAIResponse = (userMessage: string): string => {
-    const responses = [
-      "Bu çok ilginç bir soru! Size detaylı bir açıklama yapabilirim.",
-      "Anlıyorum. Bu konuda size yardımcı olmaktan memnuniyet duyarım.",
-      "Harika bir yaklaşım! İşte benim önerilerim:",
-      "Bu konuda birkaç farklı seçeneğiniz var. Hepsini açıklayayım:"
-    ]
-    return responses[Math.floor(Math.random() * responses.length)]
-  }
+  // Legacy mock yanıt fonksiyonu kaldırıldı
 
   const createNewChat = () => {
     setActiveSessionId(null)
@@ -169,10 +200,14 @@ export function Chat() {
   }
 
   const deleteSession = (sessionId: string) => {
-    setSessions(prev => prev.filter(s => s.id !== sessionId))
-    if (activeSessionId === sessionId) {
-      setActiveSessionId(sessions[0]?.id || null)
-    }
+    // Boş ekran hatasını önlemek için silme sonrası aktif oturumu, yeni listeye göre güvenli şekilde güncelle.
+    setSessions(prev => {
+      const next = prev.filter(s => s.id !== sessionId)
+      if (activeSessionId === sessionId) {
+        setActiveSessionId(next[0]?.id || null)
+      }
+      return next
+    })
     toast.success("Sohbet silindi")
   }
 
@@ -185,8 +220,55 @@ export function Chat() {
         transition={{ duration: 0.5 }}
         className="w-80 border-r border-border bg-card/50 flex flex-col"
       >
-        {/* Yeni sohbet butonu */}
-        <div className="p-4 border-b border-border">
+        {/* Sağlayıcı seçimi + Yeni sohbet */}
+        <div className="p-4 border-b border-border space-y-2">
+          <div>
+            <label className="block text-xs mb-1 text-muted-foreground">Sağlayıcı / Provider</label>
+            <select
+              className="w-full h-9 rounded-md border border-input bg-background px-2 text-sm"
+              value={provider}
+              onChange={(e) => setProvider(e.target.value as any)}
+            >
+              {PROVIDERS.map(p => (
+                <option key={p.id} value={p.id}>{p.label}</option>
+              ))}
+            </select>
+          </div>
+          {/* Model seçimi (LM Studio için) */}
+          <div>
+            <label className="block text-xs mb-1 text-muted-foreground">Model</label>
+            <Combobox.Root
+              // Ark UI Combobox controlled value dizi bekler / expects string[]
+              // Tip uyuşmazlıklarını önlemek için minimal collection prop eklenmiştir.
+              // Provide a minimal collection to satisfy type requirements.
+              collection={{ items: LMSTUDIO_MODELS.map(m => ({ id: m.name, label: m.name })) } as any}
+              value={[modelName || '']}
+              onValueChange={({ value }) => setModelName(value[0] || '')}
+              positioning={{ sameWidth: true }}
+            >
+              <Combobox.Control className="w-full">
+                <Combobox.Input
+                  placeholder={(import.meta as any).env?.VITE_LMSTUDIO_MODEL || 'deepseek-coder-v2-lite-instruct'}
+                  className="w-full h-9 rounded-md border border-input bg-background px-2 text-sm"
+                />
+              </Combobox.Control>
+              {provider === 'lmstudio' && (
+                <Combobox.Positioner>
+                  <Combobox.Content className="z-50 bg-popover border border-border rounded-md shadow-md max-h-60 overflow-auto">
+                    <Combobox.ItemGroup id="lmstudio">
+                      <Combobox.ItemGroupLabel className="px-2 py-1 text-xs text-muted-foreground">Yüklü Modeller</Combobox.ItemGroupLabel>
+                      {LMSTUDIO_MODELS.map((m) => (
+                        <Combobox.Item key={m.name} item={m.name} className="px-3 py-2 text-sm hover:bg-muted">
+                          <div className="font-mono">{m.name}</div>
+                          <div className="text-xs text-muted-foreground">{m.note}</div>
+                        </Combobox.Item>
+                      ))}
+                    </Combobox.ItemGroup>
+                  </Combobox.Content>
+                </Combobox.Positioner>
+              )}
+            </Combobox.Root>
+          </div>
           <Button
             onClick={createNewChat}
             className="w-full justify-start"
@@ -244,7 +326,8 @@ export function Chat() {
             {/* Mesaj alanı */}
             <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
               <AnimatePresence>
-                {activeSession.messages.map((msg) => (
+                {/* Boş ekran hatasını önlemek için 'activeSession' ve 'messages' kontrol edildi. */}
+                {(activeSession?.messages ?? []).map((msg) => (
                   <MessageBubble
                     key={msg.id}
                     message={msg}
@@ -253,7 +336,7 @@ export function Chat() {
                 ))}
               </AnimatePresence>
 
-              {isLoading && (
+              {chatMutation.isPending && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -287,11 +370,11 @@ export function Chat() {
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                   className="flex-1"
-                  disabled={isLoading}
+                  disabled={chatMutation.isPending}
                 />
                 <Button 
                   onClick={sendMessage} 
-                  disabled={!message.trim() || isLoading}
+                  disabled={!message.trim() || chatMutation.isPending}
                   size="icon"
                 >
                   <Send className="w-4 h-4" />

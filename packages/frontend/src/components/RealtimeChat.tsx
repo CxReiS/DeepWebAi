@@ -25,7 +25,7 @@ interface ChatMessage {
 export const RealtimeChat: React.FC = () => {
   const [inputMessage, setInputMessage] = useState('');
   
-  const handleMessage = useCallback((message: any) => {
+  const handleMessage = useCallback((_message: any) => {
     // Handle incoming message
   }, []);
 

@@ -33,7 +33,9 @@ const server = spawn('npx', ['tsx', serverPath], {
   stdio: 'inherit',
   env: {
     ...process.env,
-    NODE_ENV: 'development'
+    NODE_ENV: 'development',
+    HOST: process.env.HOST || '0.0.0.0',
+    PORT: process.env.PORT || '8000'
   }
 });
 

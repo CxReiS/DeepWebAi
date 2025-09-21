@@ -15,7 +15,8 @@
 
 // Frontend analytics integration
 import { inject } from '@vercel/analytics';
-import { track } from '@vercel/analytics/react';
+import React from 'react';
+import { track as vercelTrack } from '@vercel/analytics/react';
 
 // Initialize Vercel Analytics
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
@@ -30,11 +31,11 @@ declare global {
 }
 
 // Initialize Plausible Analytics
-if (typeof window !== 'undefined' && import.meta.env.VITE_PLAUSIBLE_DOMAIN) {
+if (typeof window !== 'undefined' && (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN) {
   const script = document.createElement('script');
   script.defer = true;
-  script.src = `https://${import.meta.env.VITE_PLAUSIBLE_API_HOST || 'plausible.io'}/js/script.js`;
-  script.setAttribute('data-domain', import.meta.env.VITE_PLAUSIBLE_DOMAIN);
+  script.src = `https://${(import.meta as any).env?.VITE_PLAUSIBLE_API_HOST || 'plausible.io'}/js/script.js`;
+  script.setAttribute('data-domain', (import.meta as any).env?.VITE_PLAUSIBLE_DOMAIN);
   document.head.appendChild(script);
 }
 
@@ -215,11 +216,15 @@ class FrontendAnalyticsService {
       timestamp: new Date().toISOString()
     };
 
-    this.log('Event tracked', { eventType, properties: eventData });
+    // Tanımsız değerleri kaldırarak analitik kütüphanelerle uyumlu hale getir
+    // Clean undefined values to satisfy analytics SDK typing constraints
+    const cleaned = Object.fromEntries(Object.entries(eventData).filter(([, v]) => v !== undefined));
+
+    this.log('Event tracked', { eventType, properties: cleaned });
 
     // Send to Vercel Analytics
     if (typeof window !== 'undefined') {
-      track(eventType, eventData);
+      vercelTrack(eventType, cleaned as any);
     }
 
     // Send to Plausible Analytics

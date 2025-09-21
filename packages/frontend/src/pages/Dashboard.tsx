@@ -22,12 +22,10 @@ import {
   Bot, 
   TrendingUp, 
   Activity,
-  Users,
-  Clock,
-  BarChart3
+  Clock
 } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import { formatRelativeTime } from "@/lib/utils"
 
