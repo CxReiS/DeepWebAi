@@ -61,7 +61,7 @@ async function invalidateUserDbSessions(userId: string) {
 
 async function validateDbSession(sessionId: string) {
   const rows = await sql`
-    SELECT s.id as session_id, u.id, u.email, u.username, u.display_name, u.avatar_url, u.role, u.is_verified, u.preferences
+    SELECT s.id as session_id, s.expires_at, u.id, u.email, u.username, u.display_name, u.avatar_url, u.role, u.is_verified, u.preferences
     FROM auth_sessions s
     JOIN users u ON u.id = s.user_id
     WHERE s.id = ${sessionId} AND (s.expires_at IS NULL OR s.expires_at > NOW())
@@ -79,7 +79,7 @@ async function validateDbSession(sessionId: string) {
       isVerified: user.is_verified,
       preferences: user.preferences
     },
-    session: { id: rows[0].session_id }
+    session: { id: rows[0].session_id, expiresAt: rows[0].expires_at ? new Date(rows[0].expires_at) : undefined }
   };
 }
 
@@ -306,6 +306,7 @@ export class AuthService {
     avatarUrl?: string;
     bio?: string;
     preferences?: Record<string, any>;
+    role?: string;
   }): Promise<any> {
     const setClause: string[] = [];
     const values: any[] = [];
@@ -325,22 +326,28 @@ export class AuthService {
 
     setClause.push('updated_at = NOW()');
 
-    const result = await sql.unsafe(`
-      UPDATE users 
-      SET ${setClause.join(', ')}
-      WHERE id = $${values.length + 1}
+    // Türkçe Açıklama: sql.unsafe yerine tagged template ile güvenli güncelleme
+    const result = await sql`
+    UPDATE users 
+    SET 
+      display_name = COALESCE(${updates.displayName ?? null}, display_name),
+        avatar_url = COALESCE(${updates.avatarUrl ?? null}, avatar_url),
+        bio = COALESCE(${updates.bio ?? null}, bio),
+        preferences = COALESCE(${updates.preferences ? JSON.stringify(updates.preferences) : null}, preferences),
+      updated_at = NOW()
+      WHERE id = ${userId}
       RETURNING id, email, username, display_name, avatar_url, role, is_verified, preferences, updated_at
-    `, [...values, userId]);
+    `;
 
     if (result.length === 0) {
-      throw new Error("User not found");
+    throw new Error("User not found");
     }
 
     const user = result[0];
     return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
+    id: user.id,
+    email: user.email,
+    username: user.username,
       displayName: user.display_name,
       avatarUrl: user.avatar_url,
       role: user.role,
@@ -385,7 +392,7 @@ export const authMiddleware = new Elysia({ name: 'auth' })
 
 export const requireAuth = new Elysia({ name: 'require-auth' })
   .use(authMiddleware)
-  .derive(({ user, set }) => {
+  .derive(({ user, set }: any) => {
     if (!user) {
       set.status = 401;
       throw new Error("Authentication required");
@@ -396,7 +403,7 @@ export const requireAuth = new Elysia({ name: 'require-auth' })
 export const requireRole = (allowedRoles: string[]) => 
   new Elysia({ name: 'require-role' })
     .use(requireAuth)
-    .derive(({ user, set }) => {
+    .derive(({ user, set }: any) => {
       if (!allowedRoles.includes(user.role)) {
         set.status = 403;
         throw new Error("Insufficient permissions");

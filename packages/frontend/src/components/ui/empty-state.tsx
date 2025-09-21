@@ -17,7 +17,7 @@
 import * as React from "react"
 import { motion } from "framer-motion"
 import { Search, MessageSquare, FileX, Wifi } from "lucide-react"
-import { Button } from "./button"
+import { Button } from "./Button"
 import { cn } from "@/lib/utils"
 
 interface EmptyStateProps {

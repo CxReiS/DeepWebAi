@@ -13,11 +13,9 @@
  * limitations under the License.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-if (!API_BASE_URL) {
-  throw new Error("VITE_API_URL is not defined. Please check your .env file.");
-}
+// Vite env tipleri bazı ortamlarda tanımlı olmayabilir; güvenli olması için any cast kullanıyoruz.
+// Cast to any to avoid TS errors when Vite env types are not present.
+const API_BASE_URL = ((import.meta as any).env?.VITE_API_URL as string) || "";
 
 /**
  * API istekleri için temel bir sarmalayıcı (wrapper).

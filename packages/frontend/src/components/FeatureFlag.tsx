@@ -103,9 +103,10 @@ export function withFeatureFlag<P extends object>(
     });
 
     if (loading || !isEnabled) {
-      return fallbackComponent ? 
-        <fallbackComponent {...(componentProps as P)} /> : 
-        null;
+      // JSX'te bileşen ismi büyük harfle başlamalıdır; runtime'da değişkene atayıp kullanıyoruz.
+      // In JSX, component names must start with uppercase; assign to a variable first.
+      const Fallback = fallbackComponent;
+      return Fallback ? <Fallback {...(componentProps as P)} /> : null;
     }
 
     return <WrappedComponent {...(componentProps as P)} />;

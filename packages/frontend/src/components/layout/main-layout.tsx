@@ -17,7 +17,7 @@
 import * as React from "react"
 import { motion } from "framer-motion"
 import { Toaster } from "react-hot-toast"
-import { Sidebar } from "./sidebar"
+import { Sidebar } from "./Sidebar"
 import { Header } from "./header"
 import { cn } from "@/lib/utils"
 

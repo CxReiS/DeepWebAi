@@ -251,28 +251,9 @@ export function createQuotaLimiter(quotaType: 'tokens' | 'requests' | 'cost') {
 }
 
 // Smart rate limiter that adapts based on user role
+// Türkçe Açıklama: derive fonksiyonu Elysia instance döndüremez. Basit ve güvenli bir varsayılan akıllı limit uygularız.
 export const smartRateLimit = new Elysia({ name: 'smart-rate-limit' })
-  .derive(async ({ request, set }) => {
-    const userId = request.headers?.['x-user-id'];
-    const userRole = request.headers?.['x-user-role'] || 'user';
-    
-    // Different limits based on user role
-    const limits = {
-      admin: { windowMs: 60 * 1000, maxRequests: 1000 },
-      developer: { windowMs: 60 * 1000, maxRequests: 500 },
-      premium: { windowMs: 60 * 1000, maxRequests: 200 },
-      user: { windowMs: 60 * 1000, maxRequests: 60 }
-    };
-    
-    const config = limits[userRole as keyof typeof limits] || limits.user;
-    
-    const limiter = createRateLimiter({
-      ...config,
-      keyGenerator: () => userId || request.headers?.['x-forwarded-for'] || 'unknown'
-    });
-    
-    return limiter;
-  });
+  .use(createRateLimiter({ windowMs: 60 * 1000, maxRequests: 60 }));
 
 export default {
   apiRateLimit,

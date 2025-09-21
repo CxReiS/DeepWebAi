@@ -26,10 +26,10 @@ import {
   Search
 } from "lucide-react"
 import { useTheme } from "@/hooks/use-theme"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Input } from "@/components/ui/input"
-import { Tooltip } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/Button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar"
+import { Input } from "@/components/ui/Input"
+import { Tooltip } from "@/components/ui/Tooltip"
 import { cn } from "@/lib/utils"
 
 interface HeaderProps {
@@ -37,7 +37,7 @@ interface HeaderProps {
 }
 
 export function Header({ className }: HeaderProps) {
-  const { theme, setTheme, isDark } = useTheme()
+  const { setTheme, isDark } = useTheme()
   const [searchValue, setSearchValue] = React.useState("")
   const [showUserMenu, setShowUserMenu] = React.useState(false)
 

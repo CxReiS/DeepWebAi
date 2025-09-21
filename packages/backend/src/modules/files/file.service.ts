@@ -153,8 +153,11 @@ export class FileService {
 
       return processingJobId;
     } catch (error) {
-      throw error instanceof FileProcessingError 
-        ? error 
+      // Türkçe Açıklama: FileProcessingError bir Type olup sınıf değildir, bu yüzden instanceof kullanılamaz.
+      // Yerine tip koruyucu (type guard) ile şekil kontrolü yapılır.
+      const isFpe = (e: unknown): e is FileProcessingError => !!e && typeof e === 'object' && 'code' in (e as any) && 'message' in (e as any);
+      throw isFpe(error)
+        ? (error as FileProcessingError)
         : this.createServiceError('PROCESSING_ERROR', 'Failed to start file processing', error);
     }
   }
@@ -268,8 +271,9 @@ export class FileService {
       if (job) {
         job.status.status = 'failed';
         job.status.completedAt = new Date().toISOString();
-        job.error = error instanceof FileProcessingError 
-          ? error 
+        const isFpe = (e: unknown): e is FileProcessingError => !!e && typeof e === 'object' && 'code' in (e as any) && 'message' in (e as any);
+        job.error = isFpe(error)
+          ? (error as FileProcessingError)
           : this.createServiceError('PROCESSING_FAILED', 'File processing failed', error);
       }
 

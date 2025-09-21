@@ -25,8 +25,18 @@ packages/**/.turbo/
 .svelte-kit/
 
 # Ortam ve editör
-.env
-.env.*
+# .env ve varyantları için kurallar
+# .env ve çevrimler (development/test) repoda tutulur, secret içermez
+!.env
+!.env.development
+!.env.test
+!.env.example
+
+# Local secret dosyaları commitlenmez
+.env.local
+.env.production.local
+.ENV
+
 .DS_Store
 .idea/
 .vscode/

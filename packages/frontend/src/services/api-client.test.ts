@@ -41,7 +41,7 @@ Object.defineProperty(window, "localStorage", { value: localStorageMock });
 describe("apiClient", () => {
   beforeEach(() => {
     // Test için ortam değişkenini ayarlayalım
-    import.meta.env.VITE_API_URL = "http://api.test.local";
+    (import.meta as any).env = { ...(import.meta as any).env, VITE_API_URL: "http://api.test.local" };
     localStorage.clear();
   });
 

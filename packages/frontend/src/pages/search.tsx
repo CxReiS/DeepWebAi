@@ -26,13 +26,13 @@ import {
   Clock,
   Tag
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
 import { LoadingSpinner, LoadingGrid } from "@/components/ui/loading-spinner"
 import { SearchEmptyState } from "@/components/ui/empty-state"
-import { Tooltip } from "@/components/ui/tooltip"
-import { cn, formatRelativeTime, debounce } from "@/lib/utils"
+import { Tooltip } from "@/components/ui/Tooltip"
+import { formatRelativeTime, debounce } from "@/lib/utils"
 import toast from "react-hot-toast"
 
 interface SearchResult {

@@ -21,7 +21,8 @@ import { useDeepWebAIFlag, DeepWebAIFlagIndicator, WithDeepWebAIFlag } from '../
 
 export const DeepWebAIFlagDemo: React.FC = () => {
   const {
-    isEnabled,
+    // isEnabled kaldırıldı: kullanılmadığı için
+    // isEnabled removed: was unused
     isLoading,
     error,
     features,

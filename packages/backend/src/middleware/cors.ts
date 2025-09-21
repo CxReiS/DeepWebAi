@@ -18,7 +18,9 @@ import { cors } from "@elysiajs/cors";
 
 // CORS configuration based on environment
 const getCorsOrigins = () => {
-  const origins = process.env.CORS_ORIGIN || "http://localhost:3000";
+  // Production için IP adresi eklendi: 34.69.217.64
+  // Not: CORS_ORIGIN env değişkeni tanımlıysa o değer kullanılır; değilse aşağıdaki varsayılan liste geçerlidir.
+  const origins = process.env.CORS_ORIGIN || "http://localhost:3000,http://34.69.217.64:3000";
   
   if (origins === "*") {
     return true; // Allow all origins (development only)
@@ -53,29 +55,27 @@ export const corsMiddleware = new Elysia({ name: 'cors' })
       'X-Request-ID',
       'X-API-Version'
     ],
-    maxAge: parseInt(process.env.CORS_MAX_AGE || '86400'), // 24 hours
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    maxAge: parseInt(process.env.CORS_MAX_AGE || '86400') // 24 hours
+    // Türkçe Açıklama: @elysiajs/cors içinde Express'teki 'preflightContinue' ve 'optionsSuccessStatus' alanları yoktur.
   }))
-  .derive(({ request, set }) => {
-    const origin = request.headers.origin;
+  .derive(({ request, headers, set }) => {
+    // Türkçe Açıklama: Fetch Headers objesinde 'origin' doğrudan property değildir, Elysia context'teki 'headers' map kullanılmalıdır.
+    const origin = headers.origin || request.headers.get('origin') || '*';
     const method = request.method;
-    
-    // CORS validation in progress
-    
+
     // Handle preflight requests
     if (method === 'OPTIONS') {
       set.status = 204;
       set.headers = {
         ...set.headers,
-        'Access-Control-Allow-Origin': origin || '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, X-User-ID, X-User-Role',
-        'Access-Control-Max-Age': '86400'
+        'access-control-allow-origin': origin,
+        'access-control-allow-methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, X-User-ID, X-User-Role',
+        'access-control-max-age': '86400'
       } as any;
       return new Response(null, { status: 204 });
     }
-    
+
     return {};
   });
 

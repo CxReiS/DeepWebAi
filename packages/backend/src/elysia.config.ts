@@ -89,58 +89,63 @@ export function createBaseApp() {
 
   // Global error handler
   app.onError(({ error, set, request }) => {
+    // Türkçe Açıklama: Elysia'nın hata nesnesi her zaman Error instance'ı olmayabilir.
+    // Bu nedenle `instanceof Error` ile daraltma yapıp güvenli alanlardan erişiyoruz.
+    const err = error instanceof Error ? error : undefined;
     console.error('Global error handler:', error);
-    
-    // Log error details
+
+    // Log error details (sadece güvenli alanlardan okunur)
     const errorInfo = {
-      message: error.message,
-      stack: error.stack,
+      message: err?.message,
+      stack: err?.stack,
       url: request.url,
       method: request.method,
       headers: request.headers,
       timestamp: new Date().toISOString()
     };
-    
+
     console.error('Error details:', errorInfo);
-    
+
+    const msg = (err?.message || '').toLowerCase();
+
     // Set appropriate error response
-    if (error.message.includes('unauthorized') || error.message.includes('authentication')) {
+    if (msg.includes('unauthorized') || msg.includes('authentication')) {
       set.status = 401;
       return {
         error: 'Unauthorized',
         message: 'Authentication required'
       };
     }
-    
-    if (error.message.includes('forbidden') || error.message.includes('permission')) {
+
+    if (msg.includes('forbidden') || msg.includes('permission')) {
       set.status = 403;
       return {
         error: 'Forbidden',
         message: 'Insufficient permissions'
       };
     }
-    
-    if (error.message.includes('not found')) {
+
+    if (msg.includes('not found')) {
       set.status = 404;
       return {
         error: 'Not Found',
         message: 'Resource not found'
       };
     }
-    
-    if (error.message.includes('validation') || error.message.includes('invalid')) {
+
+    if (msg.includes('validation') || msg.includes('invalid')) {
       set.status = 400;
       return {
         error: 'Bad Request',
-        message: error.message
+        message: err?.message ?? 'Invalid request'
       };
     }
-    
+
     // Default server error
     set.status = 500;
     return {
       error: 'Internal Server Error',
-      message: config.env === 'development' ? error.message : 'Something went wrong'
+      message: config.env === 'development' ? err?.message ?? 'Unknown error' : 'Something went wrong'
     };
   });
 
@@ -158,7 +163,8 @@ export function createBaseApp() {
     .onRequest(({ request }) => {
       // Request logging handled by middleware
     })
-    .onResponse(({ request, set }) => {
+    // Türkçe Açıklama: Elysia v1.3.x ile 'onResponse' kaldırıldı. Yerine 'onAfterResponse' kullanılmalı.
+    .onAfterResponse(() => {
       // Response logging handled by middleware
     });
 

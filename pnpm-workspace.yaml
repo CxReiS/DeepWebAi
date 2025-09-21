@@ -1,3 +1,11 @@
 packages:
-  - "packages/*"
-  - "apps/*" # İleride başka uygulamalar olabilir
+  - packages/*
+  - apps/*
+
+onlyBuiltDependencies:
+  - "@sentry/profiling-node"
+  - bcrypt
+  - esbuild
+  - sharp
+  - tesseract.js
+  - vite

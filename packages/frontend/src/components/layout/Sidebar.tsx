@@ -14,7 +14,6 @@
  */
 
 // Yan menü bileşeni - Glass efektli responsive navigasyon menüsü
-import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   Home, 
@@ -29,8 +28,8 @@ import {
 } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Tooltip } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/Button"
+import { Tooltip } from "@/components/ui/Tooltip"
 
 interface SidebarProps {
   collapsed: boolean

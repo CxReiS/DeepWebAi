@@ -16,7 +16,7 @@
 // Dashboard bileşeni için test dosyası
 import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import { Dashboard } from '@/pages/dashboard'
+import { Dashboard } from '@/pages/Dashboard'
 import { describe, it, expect } from 'vitest'
 
 const DashboardWrapper = () => (

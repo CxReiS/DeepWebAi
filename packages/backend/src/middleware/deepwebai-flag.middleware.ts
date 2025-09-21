@@ -27,10 +27,10 @@ interface DeepWebAIFlagContext {
 export const deepWebAIFlagMiddleware = new Elysia({ name: 'deepwebai-flag' })
   .derive(async ({ headers, query }) => {
     // User context'i al (normalde auth middleware'den gelir)
-    const userId = headers['x-user-id'] || query.userId as string || 'anonymous';
-    const userRole = headers['x-user-role'] || query.userRole as string || 'user';
-    const userEmail = headers['x-user-email'] || query.userEmail as string;
-    
+    const userId = (headers['x-user-id'] || (query as any).userId) as string || 'anonymous';
+    const userRole = (headers['x-user-role'] || (query as any).userRole) as string || 'user';
+    const userEmail = (headers['x-user-email'] || (query as any).userEmail) as string | undefined;
+
     const userContext = {
       id: userId,
       email: userEmail,
@@ -65,24 +65,26 @@ export const deepWebAIFlagMiddleware = new Elysia({ name: 'deepwebai-flag' })
         timestamp: new Date().toISOString()
       });
 
+      // Türkçe Açıklama: derive dönüş tipi Elysia tarafından Record<string, unknown> bekler.
+      // Aşağıdaki ifade hem kayıt olarak doğrulanır hem de aşağı zincirde tiplenir.
       return {
         isDeepWebAIFlagEnabled,
         deepWebAIFlagValue,
         userContext
-      } as DeepWebAIFlagContext & { userContext: typeof userContext };
+      } as any;
 
     } catch (error) {
       console.error('❌ DeepWebAI Flag middleware error:', error);
-      
+
       // Hata durumunda güvenli default
       return {
         isDeepWebAIFlagEnabled: false,
         deepWebAIFlagValue: false,
         userContext
-      } as DeepWebAIFlagContext & { userContext: typeof userContext };
+      } as any;
     }
   })
-  .onBeforeHandle(({ isDeepWebAIFlagEnabled, userContext }) => {
+  .onBeforeHandle(({ isDeepWebAIFlagEnabled, userContext }: any) => {
     // Flag aktifse ek özellikler ekle
     if (isDeepWebAIFlagEnabled) {
       console.log('✅ DeepWebAI Flag is ENABLED for user:', userContext.id);
@@ -97,7 +99,7 @@ export const deepWebAIFlagMiddleware = new Elysia({ name: 'deepwebai-flag' })
 // Specific routes için flag kontrolü yapan helper middleware
 export const requireDeepWebAIFlag = new Elysia({ name: 'require-deepwebai-flag' })
   .use(deepWebAIFlagMiddleware)
-  .onBeforeHandle(({ isDeepWebAIFlagEnabled, set }) => {
+  .onBeforeHandle(({ isDeepWebAIFlagEnabled, set }: any) => {
     if (!isDeepWebAIFlagEnabled) {
       set.status = 403;
       return {

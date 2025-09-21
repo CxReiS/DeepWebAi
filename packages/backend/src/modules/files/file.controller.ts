@@ -27,14 +27,13 @@ export class FileController {
   /**
    * Upload file endpoint
    */
-  async uploadFile(context: Context): Promise<FileUploadResponse> {
+  async uploadFile(context: any): Promise<FileUploadResponse> {
     try {
       const { body } = context;
-      
-      // In Elysia, we would handle multipart form data
-      // This is a simplified version - you'd need proper file upload handling
-      const file = body as any; // Would be properly typed with Elysia file upload
-      
+
+      // Elysia'da multipart/form-data işlenir; burada basit bir mock uygulanmıştır.
+      const file = body as any; // Elysia file upload tipiyle değiştirilebilir
+
       if (!file) {
         context.set.status = 400;
         throw new Error('No file provided');
@@ -51,7 +50,7 @@ export class FileController {
       const userId = (context as any).user?.id;
 
       const result = await fileService.uploadFile(fileData, userId);
-      
+
       context.set.status = 201;
       return result;
     } catch (error) {
@@ -63,27 +62,30 @@ export class FileController {
   /**
    * Process file endpoint
    */
-  async processFile(context: Context): Promise<{ jobId: string; message: string }> {
+  async processFile(context: any): Promise<{ jobId: string; message: string }> {
     try {
       const { params, body } = context;
       const fileId = params.id as string;
-      
+
       if (!fileId) {
         context.set.status = 400;
         throw new Error('File ID is required');
       }
 
+      type ProcessFileBody = Partial<{ extractImages: boolean; ocrEnabled: boolean; language: string; cleanText: boolean; maxPages: number }>;
+      const b = (body || {}) as ProcessFileBody;
+
       const options: FileProcessingOptions = {
-        extractImages: body?.extractImages || false,
-        ocrEnabled: body?.ocrEnabled !== false,
-        language: body?.language || 'eng',
-        cleanText: body?.cleanText !== false,
-        maxPages: body?.maxPages || 500,
-        ...body
+        extractImages: b.extractImages ?? false,
+        ocrEnabled: b.ocrEnabled !== false,
+        language: b.language || 'eng',
+        cleanText: b.cleanText !== false,
+        maxPages: b.maxPages ?? 500,
+        ...(b as Record<string, any>)
       };
 
       const jobId = await fileService.processFile(fileId, options);
-      
+
       context.set.status = 202;
       return {
         jobId,
@@ -98,18 +100,18 @@ export class FileController {
   /**
    * Get file processing status
    */
-  async getProcessingStatus(context: Context): Promise<FileProcessingStatus | { error: string }> {
+  async getProcessingStatus(context: any): Promise<FileProcessingStatus | { error: string }> {
     try {
       const { params } = context;
       const fileId = params.id as string;
-      
+
       if (!fileId) {
         context.set.status = 400;
         return { error: 'File ID is required' };
       }
 
       const status = await fileService.getProcessingStatus(fileId);
-      
+
       if (!status) {
         context.set.status = 404;
         return { error: 'Processing status not found' };
@@ -125,18 +127,18 @@ export class FileController {
   /**
    * Get processed file content
    */
-  async getFileContent(context: Context): Promise<ProcessedFileContent | { error: string }> {
+  async getFileContent(context: any): Promise<ProcessedFileContent | { error: string }> {
     try {
       const { params } = context;
       const fileId = params.id as string;
-      
+
       if (!fileId) {
         context.set.status = 400;
         return { error: 'File ID is required' };
       }
 
       const content = await fileService.getProcessedContent(fileId);
-      
+
       if (!content) {
         context.set.status = 404;
         return { error: 'Processed content not found' };
@@ -152,18 +154,18 @@ export class FileController {
   /**
    * Download file
    */
-  async downloadFile(context: Context): Promise<Response> {
+  async downloadFile(context: any): Promise<Response> {
     try {
       const { params } = context;
       const fileId = params.id as string;
-      
+
       if (!fileId) {
         context.set.status = 400;
         throw new Error('File ID is required');
       }
 
       const result = await fileService.downloadFile(fileId);
-      
+
       if (!result) {
         context.set.status = 404;
         throw new Error('File not found');
@@ -173,15 +175,15 @@ export class FileController {
 
       // Set response headers
       context.set.headers = {
-        'Content-Type': metadata.mimeType,
-        'Content-Length': buffer.length.toString(),
-        'Content-Disposition': `attachment; filename="${metadata.originalName}"`,
-        'Cache-Control': 'no-cache'
-      };
+        'content-type': metadata.mimeType,
+        'content-length': buffer.length.toString(),
+        'content-disposition': `attachment; filename="${metadata.originalName}"`,
+        'cache-control': 'no-cache'
+      } as any;
 
       return new Response(buffer);
-    } catch (error) {
-      context.set.status = error.message === 'File not found' ? 404 : 500;
+    } catch (error: any) {
+      context.set.status = error?.message === 'File not found' ? 404 : 500;
       throw error;
     }
   }
@@ -189,13 +191,13 @@ export class FileController {
   /**
    * Process image with OCR
    */
-  async processImageOCR(context: Context): Promise<any> {
+  async processImageOCR(context: any): Promise<any> {
     try {
       const { body } = context;
-      
+
       // Handle image upload for OCR
       const image = body as any; // Would be properly typed with file upload
-      
+
       if (!image) {
         context.set.status = 400;
         throw new Error('No image provided');
@@ -203,13 +205,13 @@ export class FileController {
 
       const buffer = image.buffer || Buffer.from(image);
       const options = {
-        language: body?.language || 'eng',
-        confidence: body?.confidence || 60,
-        preprocessImage: body?.preprocessImage !== false
+        language: (body as any)?.language || 'eng',
+        confidence: (body as any)?.confidence || 60,
+        preprocessImage: (body as any)?.preprocessImage !== false
       };
 
       const result = await ocrProcessor.processImage(buffer, options);
-      
+
       return {
         text: result.text,
         confidence: result.confidence,
@@ -225,18 +227,18 @@ export class FileController {
   /**
    * Delete file
    */
-  async deleteFile(context: Context): Promise<{ success: boolean; message: string }> {
+  async deleteFile(context: any): Promise<{ success: boolean; message: string }> {
     try {
       const { params } = context;
       const fileId = params.id as string;
-      
+
       if (!fileId) {
         context.set.status = 400;
         return { success: false, message: 'File ID is required' };
       }
 
       const success = await fileService.deleteFile(fileId);
-      
+
       if (!success) {
         context.set.status = 404;
         return { success: false, message: 'File not found' };

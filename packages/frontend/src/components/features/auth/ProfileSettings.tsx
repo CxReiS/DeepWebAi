@@ -13,24 +13,35 @@
  * limitations under the License.
  */
 
-import { useImmerAtom } from "jotai-immer";
+import { useAtom } from "jotai";
 import { userProfileAtom } from "../../../store/atoms";
 
 export function ProfileSettings() {
-  const [userProfile, setUserProfile] = useImmerAtom(userProfileAtom);
+  const [userProfile, setUserProfile] = useAtom(userProfileAtom);
 
   const handleThemeChange = (theme: "light" | "dark") => {
-    // Immer sayesinde state'i böyle kolayca güncelleyebilirsiniz!
-    // Spreading yapmaya gerek yok (...userProfile, settings: { ...userProfile.settings, theme: newTheme })
-    setUserProfile((draft) => {
-      draft.settings.theme = theme;
-    });
+    // Immer yerine immutable update: mevcut state'i kopyalayarak güncelliyoruz
+    // Instead of Immer, use immutable update by copying current state
+    setUserProfile(prev => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        theme
+      }
+    }));
   };
 
   const toggleEmailNotifications = () => {
-    setUserProfile((draft) => {
-      draft.settings.notifications.email = !draft.settings.notifications.email;
-    });
+    setUserProfile(prev => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        notifications: {
+          ...prev.settings.notifications,
+          email: !prev.settings.notifications.email
+        }
+      }
+    }));
   };
 
   return (

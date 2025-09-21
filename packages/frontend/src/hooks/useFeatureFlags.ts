@@ -13,8 +13,12 @@
  * limitations under the License.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { atom, useAtom } from 'jotai';
+
+// Production ortamı için IP tabanlı API adresini destekle: VITE_API_URL
+const API_BASE = ((import.meta as any).env?.VITE_API_URL as string) || '';
+const withBase = (p: string) => `${API_BASE}${p}`;
 
 // Feature flags state
 const featureFlagsAtom = atom<Record<string, boolean>>({});
@@ -52,7 +56,7 @@ export const useFeatureFlags = (options: UseFeatureFlagsOptions = {}) => {
         ...userAttributes
       });
 
-      const response = await fetch(`/api/feature-flags?${params}`);
+      const response = await fetch(withBase(`/api/feature-flags?${params}`));
       
       if (!response.ok) {
         throw new Error(`Failed to fetch feature flags: ${response.statusText}`);
@@ -78,7 +82,7 @@ export const useFeatureFlags = (options: UseFeatureFlagsOptions = {}) => {
         ...userAttributes
       });
 
-      const response = await fetch(`/api/feature-flags/${flagName}?${params}`);
+      const response = await fetch(withBase(`/api/feature-flags/${flagName}?${params}`));
       
       if (!response.ok) {
         throw new Error(`Failed to check feature flag: ${response.statusText}`);
@@ -106,7 +110,7 @@ export const useFeatureFlags = (options: UseFeatureFlagsOptions = {}) => {
     if (!userId) return;
 
     try {
-      await fetch('/api/feature-flags/track', {
+      await fetch(withBase('/api/feature-flags/track'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -15,7 +15,8 @@
 
 import { Elysia, t } from 'elysia';
 import { analytics, AnalyticsEventType } from '../../../../observability/analytics/index.js';
-import { logger } from '../../../../libs/error-tracking/custom-logger.js';
+// Türkçe Açıklama: TS derleyicisinde .ts uzantısı doğrudan import edilemediği için uzantısız kullanıyoruz.
+import { logger } from '../../../../../libs/error-tracking/custom-logger';
 
 // Analytics router for backend tracking endpoints
 export const analyticsRouter = new Elysia({ prefix: '/analytics' })
@@ -56,7 +57,7 @@ export const analyticsRouter = new Elysia({ prefix: '/analytics' })
   .get('/health', () => {
     return { 
       status: 'healthy', 
-      enabled: analytics.config?.enabled || false,
+      enabled: process.env.ANALYTICS_ENABLED === 'true',
       providers: {
         vercel: !!process.env.VERCEL_ANALYTICS_ID,
         plausible: !!process.env.PLAUSIBLE_DOMAIN,

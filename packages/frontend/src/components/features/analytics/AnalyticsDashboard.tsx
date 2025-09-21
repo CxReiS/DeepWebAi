@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import React, { useState, useEffect } from 'react';
-import { useAnalytics } from '../../../utils/analytics.js';
+import { useState, useEffect } from 'react';
+import { useAnalytics } from '../../../utils/analytics';
 
 interface AnalyticsMetrics {
   totalPageViews: number;
@@ -210,7 +210,7 @@ export function AnalyticsDashboard() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .analytics-dashboard {
           padding: 24px;
           max-width: 1200px;

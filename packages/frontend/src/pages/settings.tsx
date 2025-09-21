@@ -28,15 +28,15 @@ import {
   Trash2,
   RefreshCw
 } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
 import { useTheme } from "@/hooks/use-theme"
-import { Tooltip } from "@/components/ui/tooltip"
+import { Tooltip } from "@/components/ui/Tooltip"
 import toast from "react-hot-toast"
 
 function Settings() {
-  const { theme, setTheme, isDark } = useTheme()
+  const { theme, setTheme } = useTheme()
   const [apiKey, setApiKey] = React.useState("")
   const [showApiKey, setShowApiKey] = React.useState(false)
 

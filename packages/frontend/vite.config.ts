@@ -19,20 +19,24 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
 export default defineConfig({
+  envPrefix: 'VITE_',
+  envDir: __dirname,
+
   plugins: [react()],
   
   // Development server configuration
   server: {
-    port: 3000,
-    host: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false
-      }
+  port: 3000,
+  host: true,
+  proxy: {
+  '/api': {
+  // Point dev API proxy to backend dev server
+  target: 'http://localhost:8000',
+  changeOrigin: true,
+    secure: false
     }
-  },
+    }
+   },
   
   // Build configuration
   build: {
@@ -81,7 +85,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['src/test/setup.ts'],
+    setupFiles: ['src/test/setup.tsx'],
     css: true,
     coverage: {
       provider: 'v8',

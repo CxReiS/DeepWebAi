@@ -14,6 +14,7 @@
  */
 
 import { atom } from "jotai";
+import type { UserProfile } from "./userProfileTypes";
 
 // Örnek bir veri tipi, bunu shared-types paketinden alabilirsiniz
 interface DashboardData {
@@ -26,3 +27,15 @@ interface DashboardData {
 export const dashboardDataAtom = atom<DashboardData | null>(null);
 export const dashboardLoadingAtom = atom<boolean>(true);
 export const dashboardErrorAtom = atom<string | null>(null);
+
+// Kullanıcı profili atomu: ProfileSettings bileşeninin beklediği şekil
+// User profile atom: matches the shape expected by ProfileSettings
+export const userProfileAtom = atom<UserProfile>({
+  name: "Kullanıcı",
+  settings: {
+    theme: "light",
+    notifications: {
+      email: true
+    }
+  }
+});
